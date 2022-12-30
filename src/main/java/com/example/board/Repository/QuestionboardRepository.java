@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.board.Entity.Question;
 
-
-
 public interface QuestionboardRepository extends JpaRepository<Question, Integer>{
 	
 	Page<Question> findAll(Pageable pageable);

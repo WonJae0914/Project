@@ -20,11 +20,11 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public SiteUser create(String username, String email, String password) {  
+	public SiteUser create(String username, String email, String password) { 
 		SiteUser user = new SiteUser();
 		user.setUsername(username);
 		user.setEmail(email);
-		user.setPassword(passwordEncoder.encode(password)); 
+		user.setPassword(passwordEncoder.encode(password)); 											
 		this.userRepository.save(user);
 		return user;
 		
@@ -36,7 +36,7 @@ public class UserService {
 			return siteUser.get();
 		}else {
 			
-			throw new DataNotFoundException("�����Ͱ� �����ϴ�");
+			throw new DataNotFoundException("그런 녀석은 없습니다.");
 		}
 	}
 

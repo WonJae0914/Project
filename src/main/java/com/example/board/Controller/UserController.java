@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 
 public class UserController {
-	private final UserService userService;
 	
+	private final UserService userService;
 	
 	@GetMapping("/signup")
 	public String signup(UserCreateForm userCreateForm) {
@@ -33,22 +33,22 @@ public class UserController {
 			return "sign_up";
 		}
 		if(!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-			bindingResult.rejectValue("password2","passwordIncorrerct", "�н����尡 ��ġ���� �ʽ��ϴ�");
+			bindingResult.rejectValue("password2","passwordIncorrerct", "2개 패스워드 일치 x");
 			return "sign_up";
 		}
 		try {
 		this.userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());	
 		} catch(DataIntegrityViolationException dive) {
 			dive.printStackTrace();
-			bindingResult.reject("ȸ������ ����", "�̹� ��ϵǾ��ִ� ������Դϴ�.");
+			bindingResult.reject("회원가입 실패", "이미 등록되어있는 사용자입니다.");
 			return "sign_up";
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			bindingResult.reject("ȸ������ ����", e.getMessage());
+			bindingResult.reject("회원가입 실패", e.getMessage());
 			return "sign_up";
 		}
-		return "redirect:/";
+		return "redirect:/home";
 	}
 		@GetMapping("/login")
 		public String login() {
