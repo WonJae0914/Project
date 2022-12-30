@@ -27,7 +27,6 @@ import com.example.board.Service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 @Controller
 public class AnswerController {

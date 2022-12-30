@@ -33,7 +33,6 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class QuestionController {
 	
-	@Autowired
 	private final QuestionService questionService; 
 	private final UserService userService;
 	
@@ -128,10 +127,6 @@ public class QuestionController {
 	//  review Controller End!!!
 	
 	//questionboard start
-
-		
-		
-		
 		
 		@GetMapping("/questionboard/list")
 		public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
@@ -215,6 +210,43 @@ public class QuestionController {
 		}
 		
 		//questionboard end
-	
+		
+		//InformationSharing start
+		@GetMapping("/sharing")
+		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
+					@RequestParam(value="kw", defaultValue="") String kw) { 
+				Page<Question> paging = this.questionService.getInfoList(page, kw);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kw", kw);
+				return "informationSharing"; 
+			}
+		
+		@RequestMapping(value="/Informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
+			Question question = this.questionService.getInfoDetail(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
+			model.addAttribute("Information", question);
+			return "sharing_detail";
+		}
+		
+		@GetMapping("/sharingform")
+		public String InforCreate(QuestionForm questionForm){
+			return "information_create";
+		}
+		
+		@PostMapping("/sharingform")
+		public String InforCreate(@Valid QuestionForm questionForm, 
+				BindingResult bindingResult, Principal principal){ // principal : 로그인한 사용자 정보 가지고 오는 것. 
+			if(bindingResult.hasErrors()) {
+				return "sharing_form";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			
+			this.questionService.getInforCreate(
+					questionForm.getSubject(), 
+					questionForm.getContent(), 
+					siteuser);
+			return "redirect:/sharing";
+		}
+		// information end
 
 }

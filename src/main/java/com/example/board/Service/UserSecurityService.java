@@ -19,8 +19,7 @@ import com.example.board.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Service // service���� �ݵ�� ������̼� �����ؾ� ��!
-
+@Service
 public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
