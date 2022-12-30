@@ -19,12 +19,8 @@ import com.example.board.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-<<<<<<< HEAD
-@Service 
-
-=======
 @Service
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
+
 public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
@@ -32,6 +28,7 @@ public class UserSecurityService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {  
 		Optional<SiteUser> _siteUser = this.userRepository.findByusername(username); 
 		
+
 			if(!_siteUser.isPresent()) { 
 				throw new UsernameNotFoundException("사용자를 찾을 수 없음");
 			}
