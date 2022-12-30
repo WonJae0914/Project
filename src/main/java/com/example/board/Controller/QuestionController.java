@@ -127,7 +127,7 @@ public class QuestionController {
 	//  review Controller End!!!
 	
 	//questionboard start
-		
+
 		@GetMapping("/questionboard/list")
 		public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
 			@RequestParam(value="kw", defaultValue="") String kw) {
@@ -201,6 +201,7 @@ public class QuestionController {
 			return "redirect:/questionboard/list";
 		}
 		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/questionboard/voter/{id}")
 		public String questionboard_voter(Principal principal,@PathVariable("id") Integer id ) {
 			Question question = this.questionService.questionboard_getQuestion(id);
 			SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -210,6 +211,7 @@ public class QuestionController {
 		}
 		
 		//questionboard end
+
 		
 		//InformationSharing start
 		@GetMapping("/sharing")
@@ -221,9 +223,10 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-		@RequestMapping(value="/Informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
-		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
-			Question question = this.questionService.getInfoDetail(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
+
+		@RequestMapping(value="/Informationdetail/{id}") 
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
+			Question question = this.questionService.getInfoDetail(id);  
 			model.addAttribute("Information", question);
 			return "sharing_detail";
 		}
@@ -235,7 +238,8 @@ public class QuestionController {
 		
 		@PostMapping("/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
-				BindingResult bindingResult, Principal principal){ // principal : 로그인한 사용자 정보 가지고 오는 것. 
+
+				BindingResult bindingResult, Principal principal){ 
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
@@ -247,8 +251,9 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/sharing";
 		}
-		// information end
+		//InformationSharing end
 		
+
 		// 221230 - add notice start - updated by kd
 		@GetMapping("/notice/list")
 		public String noticeList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
@@ -328,8 +333,89 @@ public class QuestionController {
 			SiteUser siteUser = this.userService.getUser(principal.getName());
 			this.questionService.voter(question, siteUser);
 			return String.format("redirect:/notice/detail/%s", id);
-		}
-		
+		}	
 		// 221230 - add notice end - updated by kd
+    
+		// qna start
+		@GetMapping("/qna/list")
+		public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+			Page<Question> qnapaging = this.questionService.qnaGetList(page);
+			model.addAttribute("qnapaging", qnapaging);
+			return "qna_list";
+		}
+				
+		@RequestMapping(value="/qna/detail/{id}") 
+		public String qna_Detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) throws Exception {
+			Question qnaquestion = this.questionService.qnaGetQuestion(id);
+			model.addAttribute("qnaquestion", qnaquestion);
+			return "qna_detail";
+		}
+				
+//		@PreAuthorize("isAuthenticated()")
+		@GetMapping(value="/qna/create")
+		public String qna_Create(QuestionForm questionForm) {
+			return "qna_create";
+		}
+			
+//		@PreAuthorize("isAuthenticated()")
+//		, Principal principal
+		@PostMapping(value="/qna/create")
+		public String qna_Create(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+			if(bindingResult.hasErrors()) {
+				return "qna_list";
+			}
+//			SiteUser siteuser = this.userService.getUser(principal.getName());
+			this.questionService.qnaCreate(questionForm.getSubject(), questionForm.getContent());
+//			, siteuser
+			return "redirect:/qna/list";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/modify/{id}")
+		public String qna_Modify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+			Question gunchim = this.questionService.qnaGetQuestion(id);
+			if(!gunchim.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			questionForm.setSubject(gunchim.getSubject());
+			questionForm.setContent(gunchim.getContent());
+			return "qna_modify";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@PostMapping("/qnamodify/{id}")
+		public String qna_Modify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, BindingResult bindingResult, Principal principal) {
+			if (bindingResult.hasErrors()) {
+				return "qna_form";
+			}
+			Question question = this.questionService.qnaGetQuestion(id);
+			if (!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			this.questionService.qnaModify(question, questionForm.getSubject(), questionForm.getContent());
+			return String.format("redirect:/qna/detail/%s", id);
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/delete/{id}")
+		public String qna_Delete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.qnaGetQuestion(id);
+			if (!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다");
+			}
+			this.questionService.qnaDelete(question);
+			return "redirect:/qna/list";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/voter/{id}")
+		public String qna_Voter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.qnaGetQuestion(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.qnaVoter(question, siteUser);
+			return String.format("redirect:/qna/detail/%s", id);
+		}
+				
+		// qna end
 
 }
