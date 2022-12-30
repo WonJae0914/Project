@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.codehaus.groovy.ast.stmt.TryCatchStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import com.example.board.Form.QuestionForm;
 import com.example.board.Service.QuestionService;
 import com.example.board.Service.UserService;
 
+import groovyjarjarasm.asm.commons.TryCatchBlockSorter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -212,7 +214,7 @@ public class QuestionController {
 		//questionboard end
 		
 		//InformationSharing start
-		@GetMapping("/sharing")
+		@GetMapping("/sharing/list")
 		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
 					@RequestParam(value="kw", defaultValue="") String kw) { 
 				Page<Question> paging = this.questionService.getInfoList(page, kw);
@@ -221,32 +223,81 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-		@RequestMapping(value="/Informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
-		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
-			Question question = this.questionService.getInfoDetail(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
-			model.addAttribute("Information", question);
-			return "sharing_detail";
+		@RequestMapping(value="/sharing/informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
+		public String InfoDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
+			Question question = this.questionService.getInformation(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
+			model.addAttribute("question", question);
+			return "information_detail";
 		}
 		
-		@GetMapping("/sharingform")
-		public String InforCreate(QuestionForm questionForm){
+		@GetMapping("/sharing/sharingform")
+		public String InfoCreate(QuestionForm questionForm){
 			return "information_create";
 		}
 		
-		@PostMapping("/sharingform")
-		public String InforCreate(@Valid QuestionForm questionForm, 
+		@PostMapping("/sharing/sharingform")
+		public String InfoCreate(@Valid QuestionForm questionForm, 
 				BindingResult bindingResult, Principal principal){ // principal : 로그인한 사용자 정보 가지고 오는 것. 
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
 			SiteUser siteuser = this.userService.getUser(principal.getName());
-			
+				
 			this.questionService.getInforCreate(
 					questionForm.getSubject(), 
 					questionForm.getContent(), 
 					siteuser);
-			return "redirect:/sharing";
+			return "redirect:/sharing/list";
+			}
+		
+		@GetMapping("/sharing/infomodify/{id}")
+		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			questionForm.setSubject(question.getSubject());
+			questionForm.setContent(question.getContent());
+			return "information_modify";
+		}
+			
+		@PostMapping("/sharing/infomodify/{id}")
+		public String InfoModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
+				BindingResult bindingResult, Principal principal){
+				
+			if(bindingResult.hasErrors()) {
+			return "question_form";
+			}
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+			}
+			this.questionService.getInfoModify(question, questionForm.getSubject(), questionForm.getContent());
+			
+			return String.format("redirect:/sharing/informationdetail/%s", id);
+		}
+			
+		@GetMapping("/sharing/infodelete/{id}")
+		public String InfoDelete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
+			}
+			this.questionService.getInfoDelete(question);
+			return "redirect:/sharing/list";
+		}
+			
+		@GetMapping("/sharing/infovoter/{id}")
+		public String InfoVoter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.getInforVoter(question, siteUser);
+			return String.format("redirect:/sharing/informationdetail/%s", id);
 		}
 		// information end
+		
+		}
+		
+		
 
-}
+

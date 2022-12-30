@@ -56,42 +56,80 @@ public class AnswerService {
 	
 	//questionboard answerservice start
 
-		private final Questionboard_AnswerRepository qsr;
+	private final Questionboard_AnswerRepository qsr;
 		
-		public Answer questionboard_create(Question question, String content, SiteUser author) { 
+	public Answer questionboard_create(Question question, String content, SiteUser author) { 
 
-			Answer answer = new Answer();
-			answer.setContent(content);
-			answer.setCreateDate(LocalDateTime.now());
-			answer.setQuestion(question); 
-			answer.setAuthor(author);
-			this.qsr.save(answer);
-			return answer;
+		Answer answer = new Answer();
+		answer.setContent(content);
+		answer.setCreateDate(LocalDateTime.now());
+		answer.setQuestion(question); 
+		answer.setAuthor(author);
+		this.qsr.save(answer);
+		return answer;
+	}
+	public Answer questionboard_getAnswer(Integer id) {
+		Optional<Answer> answer = this.qsr.findById(id);
+		if(answer.isPresent()) {
+			return answer.get();
 		}
-		public Answer questionboard_getAnswer(Integer id) {
-			Optional<Answer> answer = this.qsr.findById(id);
-			if(answer.isPresent()) {
-				return answer.get();
-			}
-			else {
-				throw new DataNotFoundException("그런거 없음 ㅇㅇ");
-			}
+		else {
+			throw new DataNotFoundException("그런거 없음 ㅇㅇ");
 		}
-		public void questionboard_modify(Answer answer, String content) {
-			answer.setContent(content);
-			answer.setModifyDate(LocalDateTime.now()); 
-			this.qsr.save(answer);
-		}
-		public void questionboard_delete(Answer answer) {
-			// TODO Auto-generated method stub
-			this.qsr.delete(answer);
-		}
-		public void questionboard_voter(Answer answer, SiteUser siteUser) {
-			// TODO Auto-generated method stub
-			answer.getVoter().add(siteUser);
-			this.qsr.save(answer);
-		}
+	}
+	public void questionboard_modify(Answer answer, String content) {
+		answer.setContent(content);
+		answer.setModifyDate(LocalDateTime.now()); 
+		this.qsr.save(answer);
+	}
+	public void questionboard_delete(Answer answer) {
+		this.qsr.delete(answer);
+	}
+	public void questionboard_voter(Answer answer, SiteUser siteUser) {
+		answer.getVoter().add(siteUser);
+		this.qsr.save(answer);
+	}
 	//questionboard answerservice end
+	
+	//information answer start
+	
+	public Answer InfoAnswerCreate(Question question, String content, SiteUser author) {
+		Answer answer = new Answer();
+		answer.setContent(content);
+		answer.setCreateDate(LocalDateTime.now());
+		answer.setQuestion(question);
+		answer.setAuthor(author);
+		this.answerRepository.save(answer);
+		return answer;
+	}
+	
+	public Answer InfoAnswer(Integer id) {
+		Optional<Answer> answer = this.answerRepository.findById(id);
+		if(answer.isPresent()) {
+			return answer.get();
+		}else {
+			throw new DataNotFoundException("데이터가 없습니다");
+		}
+	}
+	
+	public void InfoAnswerModify(Answer answer, String content) {
+		answer.setContent(content);
+		answer.setModifyDate(LocalDateTime.now());
+		this.answerRepository.save(answer);
+	}
+
+	public void InfoAnswerDelete(Answer answer) {
+		this.answerRepository.delete(answer);
+	}
+
+	public void InforAnswerVoter(Answer answer, SiteUser siteUser) {
+		answer.getVoter().add(siteUser);
+		this.answerRepository.save(answer);
+		
+	}
+
+	//information answer ent
+		
 	
 
 }

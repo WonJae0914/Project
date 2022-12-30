@@ -11,15 +11,14 @@ import lombok.Setter;
 @Setter
 public class UserCreateForm { 
 
-	//�޼��� (���� �޼���).
 	@Size(min = 4, max = 20) 
-	@NotEmpty(message="�����ID�� �ʼ��׸��Դϴ�")
+	@NotEmpty(message="사용자 ID는 필수항목입니다")
 	private String username;
-	@NotEmpty(message="��й�ȣ�� �ʼ��׸��Դϴ�")
+	@NotEmpty(message="비밀번호는 필수항목입니다")
 	private String password1;
-	@NotEmpty(message="��й�ȣ Ȯ���� �ʼ��׸��Դϴ�")
+	@NotEmpty(message="비밀번호 확인은 필수항목입니다")
 	private String password2;
-	@NotEmpty(message="�̸����� �ʼ��׸��Դϴ�")
+	@NotEmpty(message="이메일은 필수항목입니다")
 	@Email
 	private String email;
 	

@@ -160,6 +160,71 @@ public class AnswerController {
 			this.answerService.questionboard_voter(answer, siteUser);
 			
 			return String.format("redirect:/questionboard/detail/%s", answer.getQuestion().getId());
-		}//qustionboard_answer end
+		}
+	//qustionboard_answer end
+		
+		
+	//information answer start
+	@PostMapping("/answer/informationdetail/{id}") 
+	public String InfoAnswer(Model model, @PathVariable("id") Integer id, 
+			@RequestParam String content, @Valid AnswerForm answerForm,
+			BindingResult bindingResult, 
+			Principal principal) throws DataNotFoundException {
+		
+			Question question = this.questionService.getInformation(id); 
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			if(bindingResult.hasErrors()) {
+				model.addAttribute("question", question);
+				return "information_detail";
+			}
+			
+			this.answerService.InfoAnswerCreate(question, answerForm.getContent(), siteUser);
+		 
+		return String.format("redirect:/sharing/informationdetail/%s", id); 
+		
+	}
+	@GetMapping("/answer/infomodify/{id}") 
+	public String InfoAnswerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal) {
+		Answer answer = this.answerService.InfoAnswer(id);
+		if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+		}
+		answerForm.setContent(answer.getContent());
+		return "infomationanswer_form";
+	}
+	
+	@PostMapping("/answer/infomodify/{id}")
+	public String InfoAnswerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer id, BindingResult bindingResult, Principal principal) {
+		if(bindingResult.hasErrors()) {
+			return "infomationanswer_form";
+			}
+			Answer answer = this.answerService.InfoAnswer(id);
+			if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+			}
+			this.answerService.InfoAnswerModify(answer, answerForm.getContent());
+			
+			return String.format("redirect:/sharing/informationdetail/%s", answer.getQuestion().getId()); 
+	}
+	
+	@GetMapping("/answer/infodelete/{id}")
+	public String InfoAnswerDelete(@PathVariable("id") Integer id, Principal principal) {
+		Answer answer = this.answerService.InfoAnswer(id);
+		if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
+		}
+		this.answerService.InfoAnswerDelete(answer);
+		return String.format("redirect:/sharing/informationdetail/%s", answer.getQuestion().getId());
+	}
+	
+	@GetMapping("/answer/infovoter/{id}")
+	public String InfoAnswerVoter(@PathVariable("id") Integer id, Principal principal) {
+		Answer answer = this.answerService.InfoAnswer(id);
+		SiteUser siteUser = this.userService.getUser(principal.getName()); 
+		this.answerService.InforAnswerVoter(answer, siteUser);
+		return String.format("redirect:/sharing/informationdetail/%s", answer.getQuestion().getId());
+	}
+		//information answer end
+		
 	
 }
