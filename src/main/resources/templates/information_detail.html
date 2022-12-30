@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<title>Insert title here</title>
+<title>InformationSharing Detail</title>
 </head>
 <body>
 
@@ -31,19 +31,19 @@
             <div class="my-3">
             	<a href="javascript:void(0);" 
             	class="recommend btn btn-sm btn-outline-secondary" 
-            	th:data-uri="@{|/question/voter/${question.id}|}">
+            	th:data-uri="@{|/sharing/infovoter/${question.id}|}">
             	추천
             	<span class="badge rounded-pill bg-success" 
             	th:text="${#lists.size(question.voter)}"></span>
             	</a>
-            	<a th:href="@{|/question/modify/${question.id}|}" 
+            	<a th:href="@{|/sharing/infomodify/${question.id}|}" 
             	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
             	th:if="${question.author !=null 
             	and #authentication.getPrincipal().getUsername() == question.author.username}" 
             	th:text="수정">
             	</a>
             	<a href="javascript:void(0);" 
-            	th:data-uri="@{|/question/delete/${question.id}|}" 
+            	th:data-uri="@{|/sharing/infodelete/${question.id}|}" 
             	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
             	th:if="${question.author !=null 
             	and #authentication.getPrincipal().getUsername() == question.author.username}" 
@@ -75,19 +75,19 @@
                 <div class="my-3">
                 	<a href="javascript:void(0);" 
             		class="recommend btn btn-sm btn-outline-secondary" 
-            		th:data-uri="@{|/answer/voter/${answer.id}|}">
+            		th:data-uri="@{|/answer/infovoter/${answer.id}|}">
             		추천
             		<span class="badge rounded-pill bg-success" 
             		th:text="${#lists.size(answer.voter)}"></span>
             		</a>
                 	
-	            	<a th:href="@{|/answer/modify/${answer.id}|}" 
+	            	<a th:href="@{|/answer/infomodify/${answer.id}|}" 
 	            	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
 	            	th:if="${answer.author !=null and #authentication.getPrincipal().getUsername() == answer.author.username}" 
 	            	th:text="수정">
 	            	</a>
 		            <a href="javascript:void(0);" 
-	            	th:data-uri="@{|/answer/delete/${answer.id}|}" 
+	            	th:data-uri="@{|/answer/infodelete/${answer.id}|}" 
 	            	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
 	            	th:if="${answer.author !=null 
 	            	and #authentication.getPrincipal().getUsername() == answer.author.username}" 
@@ -97,7 +97,7 @@
             </div>
         </div>
     </div>
-	<form th:action="@{|/answer/create/${question.id}|}" 
+	<form th:action="@{|/answer/informationdetail/${question.id}|}" 
 			th:object="${answerForm}" method="post" class="my-3">
 		<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
 			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>

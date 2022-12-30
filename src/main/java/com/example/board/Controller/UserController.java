@@ -32,15 +32,18 @@ public class UserController {
 		if(bindingResult.hasErrors()) {
 			return "sign_up";
 		}
+
+	
 		if(!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-			bindingResult.rejectValue("password2","passwordIncorrerct", "2개 패스워드 일치 x");
+			bindingResult.rejectValue("password2","passwordIncorrerct", "패스워드가 일치하지 않습니다");
 			return "sign_up";
 		}
 		try {
 		this.userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());	
 		} catch(DataIntegrityViolationException dive) {
 			dive.printStackTrace();
-			bindingResult.reject("회원가입 실패", "이미 등록되어있는 사용자입니다.");
+			bindingResult.reject("회원가입 실패", "이미 등록되어 있는 사용자입니다.");
+
 			return "sign_up";
 		}
 		catch(Exception e) {
@@ -54,15 +57,6 @@ public class UserController {
 		public String login() {
 			return "login_form";
 			
-		}
-		
-		
-		
-
-		
-		
-		
-		
-		
+		}	
 
 }

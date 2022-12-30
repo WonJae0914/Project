@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.codehaus.groovy.ast.stmt.TryCatchStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import com.example.board.Form.QuestionForm;
 import com.example.board.Service.QuestionService;
 import com.example.board.Service.UserService;
 
+import groovyjarjarasm.asm.commons.TryCatchBlockSorter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -214,7 +216,7 @@ public class QuestionController {
 
 		
 		//InformationSharing start
-		@GetMapping("/sharing")
+		@GetMapping("/sharing/list")
 		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
 					@RequestParam(value="kw", defaultValue="") String kw) { 
 				Page<Question> paging = this.questionService.getInfoList(page, kw);
@@ -223,36 +225,80 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-
 		@RequestMapping(value="/Informationdetail/{id}") 
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
 			Question question = this.questionService.getInfoDetail(id);  
 			model.addAttribute("Information", question);
 			return "sharing_detail";
+
 		}
 		
-		@GetMapping("/sharingform")
-		public String InforCreate(QuestionForm questionForm){
+		@GetMapping("/sharing/sharingform")
+		public String InfoCreate(QuestionForm questionForm){
 			return "information_create";
 		}
-		
+	
 		@PostMapping("/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
-
 				BindingResult bindingResult, Principal principal){ 
+
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
 			SiteUser siteuser = this.userService.getUser(principal.getName());
-			
+				
 			this.questionService.getInforCreate(
 					questionForm.getSubject(), 
 					questionForm.getContent(), 
 					siteuser);
-			return "redirect:/sharing";
-		}
-		//InformationSharing end
+			return "redirect:/sharing/list";
+			}
 		
+		@GetMapping("/sharing/infomodify/{id}")
+		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			questionForm.setSubject(question.getSubject());
+			questionForm.setContent(question.getContent());
+			return "information_modify";
+		}
+			
+		@PostMapping("/sharing/infomodify/{id}")
+		public String InfoModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
+				BindingResult bindingResult, Principal principal){
+				
+			if(bindingResult.hasErrors()) {
+			return "question_form";
+			}
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+			}
+			this.questionService.getInfoModify(question, questionForm.getSubject(), questionForm.getContent());
+			
+			return String.format("redirect:/sharing/informationdetail/%s", id);
+		}
+			
+		@GetMapping("/sharing/infodelete/{id}")
+		public String InfoDelete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
+			}
+			this.questionService.getInfoDelete(question);
+			return "redirect:/sharing/list";
+		}
+			
+		@GetMapping("/sharing/infovoter/{id}")
+		public String InfoVoter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.getInforVoter(question, siteUser);
+			return String.format("redirect:/sharing/informationdetail/%s", id);
+		}
+		//InformationSharing end	
 
 		// 221230 - add notice start - updated by kd
 		@GetMapping("/notice/list")
@@ -415,7 +461,7 @@ public class QuestionController {
 			this.questionService.qnaVoter(question, siteUser);
 			return String.format("redirect:/qna/detail/%s", id);
 		}
-				
+			
 		// qna end
-
 }
+

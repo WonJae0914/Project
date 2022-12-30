@@ -89,10 +89,8 @@ public class QuestionService {
 		this.rq.save(question);
 	}
 	// review QuestionService end!!!
-	
 
 	//questionboard questionservice start
-
 		public Page<Question> questionboard_getList(int page, String kw){
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
@@ -100,15 +98,14 @@ public class QuestionService {
 		return this.qbr.findAllByKeyword(kw, pageable);
 		}
 
-		public Question questionboard_getQuestion(Integer id) throws DataNotFoundException {
-			Optional<Question> question = this.qbr.findById(id);
-			if(question.isPresent()) {
-				return question.get();
-			}else {
-				throw new DataNotFoundException("question not found");
-			}
+	public Question questionboard_getQuestion(Integer id) throws DataNotFoundException {
+		Optional<Question> question = this.qbr.findById(id);
+		if(question.isPresent()) {
+			return question.get();
+		}else {
+			throw new DataNotFoundException("question not found");
 		}
-
+	}
 		public void questionboard_create(String subject, String content, SiteUser user) {
 			Question q1 = new Question();
 			q1.setSubject(subject);
@@ -126,44 +123,64 @@ public class QuestionService {
 			
 		}
 
-		public void questionboard_delete(Question question) {
-			this.qbr.delete(question);
-		}
 
-		public void questionboard_voter(Question question, SiteUser siteUser) {
-			question.getVoter().add(siteUser);
-			this.qbr.save(question);
+	public void questionboard_delete(Question question) {
+		this.qbr.delete(question);
+	}
+
+	public void questionboard_voter(Question question, SiteUser siteUser) {
+		question.getVoter().add(siteUser);
+		this.qbr.save(question);
 			
-		}
-
+	}
 	//questionboard questionservice end
 		
-		//fassion inpomation start
-		public Page<Question> getInfoList(int page, String kw) {
-			List<Sort.Order> sorts = new ArrayList<>();
-			sorts.add(Sort.Order.desc("createDate"));
-			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-			
-			return this.informationRepository.findAllByKeyword(kw, pageable);	
+	//information sharing start
+	public Page<Question> getInfoList(int page, String kw) {
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));		
+		return this.informationRepository.findAllByKeyword(kw, pageable);	
 		}
-		public void getInforCreate(String subject, String content, SiteUser user) {
-			Question question = new Question();
-			question.setSubject(subject);
-			question.setContent(content);
-			question.setCreateDate(LocalDateTime.now());
-			question.setAuthor(user);
-			this.informationRepository.save(question);
-		}
+	
+	public void getInforCreate(String subject, String content, SiteUser user) {
+		Question question = new Question();
+		question.setSubject(subject);
+		question.setContent(content);
+		question.setCreateDate(LocalDateTime.now());
+		question.setAuthor(user);
+		this.informationRepository.save(question);
+	}
 		
-		public Question getInfoDetail(Integer id) throws DataNotFoundException {
-			Optional<Question> question = this.informationRepository.findById(id);
-			if(question.isPresent()) {
-				return question.get();
-			}else {
-				throw new DataNotFoundException("질문이 없습니다");
-			}
+	public Question getInformation(Integer id) throws DataNotFoundException {
+		Optional<Question> question = this.informationRepository.findById(id);
+		if(question.isPresent()) {
+			return question.get();
+		}else {
+			throw new DataNotFoundException("질문이 없습니다");
 		}
-		//fassion inpomation end	
+	}
+		
+	public void getInfoModify(Question question, String subject, String content) {
+		question.setSubject(subject);
+		question.setContent(content);
+		question.setModifyDate(LocalDateTime.now());			
+		this.q.save(question);
+	}
+
+	public void getInfoDelete(Question question) {
+		this.q.delete(question); 
+	}
+
+	public void getInforVoter(Question question, SiteUser siteUser) {
+		question.getVoter().add(siteUser);
+		this.q.save(question);
+	}
+	//informationSharing end
+	
+			
+}
+			
 		
 		// qna start
 		
@@ -250,6 +267,7 @@ public class QuestionService {
 		}
 		
 		// 221230 - add notice end - updated by kd
-		
-		
 }
+		
+	
+

@@ -1,5 +1,9 @@
 package com.example.board.Repository;
 
-public interface InformationAnswerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.board.Entity.Answer;
+
+public interface InformationAnswerRepository extends JpaRepository<Answer, Integer> {
 
 }
