@@ -1,0 +1,394 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    width: 100vw;
+    color: #FFF;
+}
+
+.container{
+    width: 100%;
+    height: auto;
+    background-color: #333333;
+}
+
+/* header 작업 */
+/* 07.20 header 구성 및 디자인 수정자 박효근 */
+/* 07.21 header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 */
+/* 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근 */
+.header{
+    width: 100%;
+    height: auto;
+}
+.navbar {
+    width: 100%;
+    height: 10%;
+    background-color: #333333;
+}
+.navbar_logo {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+.navbar_logo>a>h1{
+    margin: 10px;
+    color: #FFF;
+}
+.navbar_logo>a>h1>span{
+    display: inline-block;
+    width: 73px;
+    height: 50%;
+    background-color: orange;
+    color: black;
+}
+
+.navbar_menu {
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+.menu1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    line-height: 60px;
+    position: relative;
+}
+.menu1 > li:hover,
+#menu_li_a:hover {
+    color: #B388FF;
+}
+#menu_li_a{
+    text-decoration: none;
+    color: #FFF;
+}
+.menu1 > li:hover ~ .navbar_menu_drop,
+.navbar_menu_drop:hover{
+    height: 500px;
+}
+.navbar_menu .menu1>li {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: text-top;
+    list-style-type: none;
+    transition: 0.3s;
+}
+.navbar_menu_drop{
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 0;
+    position: absolute;
+    top: 63px;
+    transition: 0.5s;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.drop_menu{
+    color: #333333;
+    cursor: pointer;
+    list-style-type: none;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drop_menu>li{
+    transition: 0.5s;
+}
+.drop_menu>li:hover {
+    color: #B388FF;
+}
+.navbar_Icons {
+    width: 15%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+}
+.navbar_Icons_a{
+    margin: 0 6px;
+    width: 24%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+}
+.navbar_Icons_a:hover >i,
+.navbar_Icons_a:hover >p{
+    color: #B388FF;
+}
+.navbar_Icons_box:hover > i,
+.navbar_Icons_box:hover > p{
+    color: #B388FF;
+}
+.navbar_Icons_a > p{
+    color: #FFF;
+    font-size: 0.7rem;
+    transition: 0.3s;
+}
+.navbar_Icons_a >.uil {
+    font-size: 1.7rem;
+    margin-top: 3px;
+    cursor: pointer;
+}
+.header_img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+.header_img_box {
+    width: 90%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    background-color: #333333;
+    margin: 20px 0;
+}
+.header_img>.header_img_box> img {
+    width: 100%;
+    height: 100%;
+}
+/* header 작업 */
+
+.main{
+    width: 100%;
+    height: 1000px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_box{
+    width: 25%;
+    height: 600px;
+    border-radius: 5px;
+    padding: 30px;
+    border: 1px solid gainsboro;
+}
+.login_box_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+.login_box_content>h1{
+    font-size: 2rem;
+    color: black;
+}
+.login_box_content_info{
+    width: 100%;
+}
+input[type=text]{
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+input:focus{
+    outline: none;
+}
+input[type=text]::placeholder{
+    color: lightgray;
+}
+input[type=password]{
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+}
+input[type=password]::placeholder{
+    color: lightgray;
+}
+.alert{
+    color: red;
+    margin-top: 10px;
+    display: block;
+}
+.remember{
+    color: black;
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+}
+#keep{
+    cursor: pointer;
+}
+.remember_find{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+.btn_box{
+    text-align: center;
+    width: 100%;
+}
+#login_btn:nth-child(1){
+    width: 100%;
+    height: 45px;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+#kakao_btn{
+    width: 100%;
+    height: 45px;
+    line-height: 30px;
+    border: none;
+    background-color: rgb(248, 223, 0);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+}
+#naver_btn{
+    width: 100%;
+    height: 45px;
+    line-height: 30px;
+    border: none;
+    background-color: rgb(43, 198, 34);
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 10px 0 20px 0;
+    position: relative;
+}
+.btn_box_logo{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+}
+#login_btn:hover{
+    opacity: 0.8;
+}
+.btn_box span{
+    color: gray;
+    margin-right: 5px;
+}
+.btn_box a{
+    color: black;
+}
+
+@media screen and (max-width:1500px){
+    .login_box{
+        width: 400px;
+    }
+}
+
+/* footer 0719 19:57 수정자:김형준 */
+.footer{
+    width: 100%;
+    height: 240px;
+    color: #E0E0E0;
+    border-top: #E0E0E0 2px solid;
+}
+
+.footer_info{
+    width: 100%;
+    height: 80%;
+}
+
+.footer_info_nav{
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_info_nav_list{
+    width: 50%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer_info_nav_list>li{
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.footer_info_nav_list>li:hover{
+    color:#B388FF;
+}
+
+.footer_info_intro{
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_info_intro_detail{
+    width: 70%;
+    height: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer_info_intro_detail>p{
+    margin:8px 0;
+}
+
+.footer_info_intro_sns{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.9rem;
+}
+
+.footer_info_intro_sns>i{
+    margin:11px 0;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.footer_info_intro_sns>i:hover{
+    color: #B388FF;
+}
+
+.footer_copy{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
