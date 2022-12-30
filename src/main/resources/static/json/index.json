@@ -1,0 +1,35 @@
+Page1_w=[
+    {"img":"img/여자/1/나이키 브라탑  검정.png", "img_hover":"img/여자/1/나이키 브라탑 보라색.png", "name":"스우시 스포츠 브라","price":"39,000원"},
+    {"img":"img/여자/2/나이키 스포츠 웨어 블화.png", "img_hover":"img/여자/2/나이키 스포츠웨어 그레이.png", "name":"아이콘 슬래쉬","price":"139,000원"},
+    {"img":"img/여자/3/아디다스 립 바이커 쇼츠 블랙.png", "img_hover":"img/여자/3/아디다스 립 바이커 쇼츠 핑크.png", "name":"립바이커 쇼츠","price":"55,000원"},
+    {"img":"img/여자/4/black.png", "img_hover":"img/여자/4/blue.png", "name":"3S 조거펜츠","price":"94,400원"},
+    {"img":"img/여자/5/검정색.jpg", "img_hover":"img/여자/5/흰색.jpg", "name":"배색 플레이어 스커트","price":"100,000원"},
+    {"img":"img/여자/6/가방 각도.png", "img_hover":"img/여자/6/사람.png", "name":"짐클럽백AOP","price":"59,000원"}
+    ]
+
+Page1_m=[
+    {"img":"img/남자/1/파란색.png", "img_hover":"img/남자/1/흰색.png", "name":"블랙 인앤아웃 카라 티셔츠","price":"96,000원"},
+    {"img":"img/남자/2/검정.png", "img_hover":"img/남자/2/파랑.png", "name":"UNI 베이직 레쉬가드","price":"79,900원"},
+    {"img":"img/남자/3/검정.png", "img_hover":"img/남자/3/흰색.png", "name":"오운더런 컬러블록 재킷","price":"109,900원"},
+    {"img":"img/남자/4/남색.png", "img_hover":"img/남자/4/보라색.png", "name":"에센셜 트리코트 조거 펜츠","price":"99,900원"},
+    {"img":"img/남자/5/노랑.png", "img_hover":"img/남자/5/회색.png", "name":"리사이클 피쉬 캠프캡","price":"49,900원"},
+    {"img":"img/남자/6/각도.png", "img_hover":"img/남자/6/사람.png", "name":"헤리티지 HBR 코어","price":"45,000원"}
+    ]
+
+Page2_w=[
+    {"img":"img/여자/7/black.png", "img_hover":"img/여자/7/white.png", "name":"매치업 피케 반팔 티셔츠","price":"75,000원"},
+    {"img":"img/여자/8/black.png", "img_hover":"img/여자/8/white.png", "name":"임파서블리 라이트","price":"103,200원"},
+    {"img":"img/여자/9/dress_black_front.png", "img_hover":"img/여자/9/dress_gray_front.png", "name":"여성 골지 드레스","price":"75,000원"},
+    {"img":"img/여자/10/circa_black_front.png", "img_hover":"img/여자/10/circa_pink_front.png", "name":"하이라이즈 CIRCA","price":"69,000원"},
+    {"img":"img/여자/11/sunv_front.jpg", "img_hover":"img/여자/11/sunv_front2.jpg", "name":"SIGN 패턴 선바이저","price":"74,100원"},
+    {"img":"img/여자/12/bag_black_back.jpg", "img_hover":"img/여자/12/bag_blue_front.jpg", "name":"테니스 퍼포먼스 숄더백","price":"75,050원"}
+    ]
+
+Page2_m=[
+    {"img":"img/남자/7/black.png", "img_hover":"img/남자/7/white.png", "name":"레전드 2.0 반팔 티셔츠","price":"29,000원"},
+    {"img":"img/남자/8/blue.png", "img_hover":"img/남자/8/yellow.png", "name":"위시드 플리스 풀오버 후디","price":"119,000원"},
+    {"img":"img/남자/9/wooven_balck_front.png", "img_hover":"img/남자/9/wooven_greeen_front.png", "name":"우븐 웜업 자켓","price":"159,000원"},
+    {"img":"img/남자/10/black_front.png", "img_hover":"img/남자/10/brown_front.png", "name":"요가 트레이닝 펜츠","price":"71,200원"},
+    {"img":"img/남자/11/black.png", "img_hover":"img/남자/11/blue.png", "name":"티로 21 3/4 팬트","price":"55,000원"},
+    {"img":"img/남자/12/gloove_blue_front.jpg", "img_hover":"img/남자/12/gloove_front.jpg", "name":"남성 스트라이프 라이크라 합피 한손장갑","price":"36,100원"}
+    ]
