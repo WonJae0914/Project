@@ -1,5 +1,9 @@
 package com.example.board.Repository;
 
-public interface QnaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.board.Entity.Question;
+
+public interface QnaRepository extends JpaRepository<Question, Integer> {
 
 }
