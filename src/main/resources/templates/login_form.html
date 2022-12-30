@@ -17,7 +17,7 @@
         <div class="header">
             <div class="navbar">
                 <div class="navbar_logo">
-                    <a href="index.html"><h1>SPORTS <span>HUB</span></h1></a>
+                    <a th:href="@{/home}"><h1>SPORTS <span>HUB</span></h1></a>
                 </div>
                 <div class="navbar_menu">
                     <ul class="menu1">
@@ -33,6 +33,9 @@
                         <li class="menu_li">
                             SUPPLIES
                         </li>
+                        <li class="menu_li">
+	                    BOARD
+	                	</li>
                         
                         <div class="navbar_menu_drop">
                             <ul class="drop_menu">
@@ -70,16 +73,23 @@
                                 <li>가방</li>
                                 <li>모자</li>
                             </ul>
+                            <ul class="drop_menu">
+		                        <li th:action="@{/MainController/notice}">공지사항</li>
+		                        <li>QnA</li>
+		                        <li><a th:href="@{/questionboard/list}">문의게시판</a></li>
+		                        <li ><a th:href="@{/review/list}" >의류후기</a></li>
+		                        <li>의류정보공유</li>
+	                    	</ul>
                         </div>
                     </ul>
                 </div>
             <div class="navbar_Icons">
-                <a href="login.html" class="navbar_Icons_a">
+                <a th:href="@{/user/login}" class="navbar_Icons_a">
                     <i class="uil uil-user-check"></i>
                     <p>LOGIN</p>
                 </a>
                 
-                <a href="Signup.html" class="navbar_Icons_a">
+                <a th:href="@{/user/signup}" class="navbar_Icons_a">
                     <i class="uil uil-user-plus"></i>
                     <p>SIGN UP</p>
                 </a>

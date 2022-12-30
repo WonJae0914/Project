@@ -19,96 +19,94 @@
 <!-- 25 menu1 -> navbar_menu_ul 수정   수정자 박효근  -->
 <!-- 27 popup 경로 변경 및 그림자 효과 추가 글자색상 변경 로고 링크연결   수정자 박효근  -->
 <!-- 27 popup3 경로 및 popup5 이미지 경로 수정 수정자 박효근  -->
-<div class="header">
-    <div class="navbar">
-        <div class="navbar_logo">
-            <a href="index.html"><h1>SPORTS <span>HUB</span></h1></a>
-        </div>
-        <div class="navbar_menu">
-            <ul class="navbar_menu_ul">
-                <li class="menu_li">
-                    NEW
-                </li>
-                <li class="menu_li">
-                    MEN
-                </li>
-                <li class="menu_li">
-                    WOMAN 
-                </li>
-                <li class="menu_li">
-                    SUPPLIES
-                </li>
-
-                <li class="menu_li">
-                    BOARD
-                </li>
-
-                
-                <div class="navbar_menu_drop">
-                    <ul class="drop_menu">
-                        <li>의류</li>
-                        <li>신발</li>
-                        <li>용품</li>
-                        <li>전체보기</li>
-                    </ul>
-                    <ul class="drop_menu">
-                        <li>아우터</li>
-                        <li>티셔츠</li>
-                        <li>후드</li>
-                        <li>바지</li>
-                        <li>반바지</li>
-                        <li>타이즈</li>
-                        <li>신발</li>
-                        <li>양말</li>
-                    </ul>
-                    <ul class="drop_menu">
-                        <li>아우터</li>
-                        <li>티셔츠</li>
-                        <li>후드</li>
-                        <li>바지</li>
-                        <li>반바지</li>
-                        <li>타이즈</li>
-                        <li>신발</li>
-                        <li>양말</li>
-                    </ul>
-                    <ul class="drop_menu">
-                        <li>축구</li>
-                        <li>러닝</li>
-                        <li>농구</li>
-                        <li>테니스</li>
-                        <li>트레이닝&짐</li>
-                        <li>가방</li>
-                        <li>모자</li>
-					</ul>
-                    <ul class="drop_menu">
-                        <li th:action="@{/MainController/notice}">공지사항</li>
-                        <li>QnA</li>
-                        <li>문의게시판</li>
-                        <li ><a th:href="@{/review/list}" >의류후기</a></li>
-                        
-                        <li>의류정보공유</li>
-                    </ul>
-
-                </div>
-            </ul>
-        </div>
-        <div class="navbar_Icons">
-            <a href="login.html"  class="navbar_Icons_a">
-                <i class="uil uil-user-check"></i>
-                <p>LOGIN</p>
-            </a>
-            
-            <a  th:href="@{/user/signup}" class="navbar_Icons_a">
-                <i class="uil uil-user-plus"></i>
-                <p>SIGN UP</p>
-            </a>
-            
-            <a href="#" class="navbar_Icons_a">
-                <i class="uil uil-shopping-bag"></i>
-                <p>SHOPPING BASKET</p>
-            </a>
-        </div>
-    </div>
+	<div class="header">
+	    <div class="navbar">
+	        <div class="navbar_logo" >
+	            <a th:href="@{/home}"><h1>SPORTS <span>HUB</span></h1></a>
+	        </div>
+	        <div class="navbar_menu">
+	            <ul class="navbar_menu_ul">
+	                <li class="menu_li">
+	                    NEW
+	                </li>
+	                <li class="menu_li">
+	                    MEN
+	                </li>
+	                <li class="menu_li">
+	                    WOMAN 
+	                </li>
+	                <li class="menu_li">
+	                    SUPPLIES
+	                </li>
+	
+	                <li class="menu_li">
+	                    BOARD
+	                </li>
+	
+	                
+	                <div class="navbar_menu_drop">
+	                    <ul class="drop_menu">
+	                        <li>의류</li>
+	                        <li>신발</li>
+	                        <li>용품</li>
+	                        <li>전체보기</li>
+	                    </ul>
+	                    <ul class="drop_menu">
+	                        <li>아우터</li>
+	                        <li>티셔츠</li>
+	                        <li>후드</li>
+	                        <li>바지</li>
+	                        <li>반바지</li>
+	                        <li>타이즈</li>
+	                        <li>신발</li>
+	                        <li>양말</li>
+	                    </ul>
+	                    <ul class="drop_menu">
+	                        <li>아우터</li>
+	                        <li>티셔츠</li>
+	                        <li>후드</li>
+	                        <li>바지</li>
+	                        <li>반바지</li>
+	                        <li>타이즈</li>
+	                        <li>신발</li>
+	                        <li>양말</li>
+	                    </ul>
+	                    <ul class="drop_menu">
+	                        <li>축구</li>
+	                        <li>러닝</li>
+	                        <li>농구</li>
+	                        <li>테니스</li>
+	                        <li>트레이닝&짐</li>
+	                        <li>가방</li>
+	                        <li>모자</li>
+						</ul>
+	                    <ul class="drop_menu">
+	                        <li th:action="@{/MainController/notice}">공지사항</li>
+	                        <li>QnA</li>
+	                        <li><a th:href="@{/questionboard/list}">문의게시판</a></li>
+	                        <li ><a th:href="@{/review/list}" >의류후기</a></li>
+	                        <li>의류정보공유</li>
+	                    </ul>
+	                </div>
+	            </ul>
+	        </div>
+	        <div class="navbar_Icons">
+	            <a th:href="@{/user/login}"  class="navbar_Icons_a">
+	                <i class="uil uil-user-check"></i>
+	                <p>LOGIN</p>
+	            </a>
+	            
+	            <a  th:href="@{/user/signup}" class="navbar_Icons_a">
+	                <i class="uil uil-user-plus"></i>
+	                <p>SIGN UP</p>
+	            </a>
+	            
+	            <a href="#" class="navbar_Icons_a">
+	                <i class="uil uil-shopping-bag"></i>
+	                <p>SHOPPING BASKET</p>
+	            </a>
+	        </div>
+	    </div>
     <div class="header_img">
         <div class="header_img_box">
                 <img src="img/headerImg/1.jpg" class="img1">

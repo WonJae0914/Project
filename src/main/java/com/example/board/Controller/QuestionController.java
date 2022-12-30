@@ -202,6 +202,7 @@ public class QuestionController {
 			return "redirect:/questionboard/list";
 		}
 		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/questionboard/voter/{id}")
 		public String questionboard_voter(Principal principal,@PathVariable("id") Integer id ) {
 			Question question = this.questionService.questionboard_getQuestion(id);
 			SiteUser siteUser = this.userService.getUser(principal.getName());
