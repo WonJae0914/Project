@@ -21,25 +21,25 @@ public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//�������� ���� ��û�� ����� �� ����� �޼ҵ� // ; �� ������� ����
+
 		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-		//db ���� ����  : h2-�ܼ��� ������ū �������� �����ϰڴٴ� �ǹ� 
+
 		.and().csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
 		.and().headers().addHeaderWriter(
 				new XFrameOptionsHeaderWriter(
-						XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
-		.and()
-			.formLogin()
-			.loginPage("/user/login")
-			.defaultSuccessUrl("/question/list")
-		.and()
-			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-			.logoutSuccessUrl("/question/list").invalidateHttpSession(true);
+						XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
+//		.and()
+//			.formLogin()
+//			.loginPage("/user/login")
+//			.defaultSuccessUrl("/question/list")
+//		.and()
+//			.logout()
+//			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+//			.logoutSuccessUrl("/question/list").invalidateHttpSession(true);
 		return http.build();
 	}
 
-	@Bean // �����޼ҵ��� ����
+	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
