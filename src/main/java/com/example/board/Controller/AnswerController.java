@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class AnswerController {
 
 	private final QuestionService questionService;
-	private final AnswerService answerService;// @RequiredArgsConstructor�� ���� ������ ���� ����. 
+	private final AnswerService answerService;
 	private final UserService userService;
 	
 	// review answerController Start!!!

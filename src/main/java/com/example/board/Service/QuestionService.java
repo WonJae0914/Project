@@ -37,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-
 public class QuestionService {
 	
 	private final QuestionRepository q; 
