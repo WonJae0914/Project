@@ -1,6 +1,5 @@
 package com.example.board.Security;
 
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +20,8 @@ public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//�������� ���� ��û�� ����� �� ����� �޼ҵ� // ; �� ������� ����
+		
 		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-		//db ���� ����  : h2-�ܼ��� ������ū �������� �����ϰڴٴ� �ǹ� 
 		.and().csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
 		.and().headers().addHeaderWriter(
 				new XFrameOptionsHeaderWriter(
@@ -31,15 +29,15 @@ public class SecurityConfig {
 		.and()
 			.formLogin()
 			.loginPage("/user/login")
-			.defaultSuccessUrl("/question/list")
+			.defaultSuccessUrl("/home")
 		.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-			.logoutSuccessUrl("/question/list").invalidateHttpSession(true);
+			.logoutSuccessUrl("/home").invalidateHttpSession(true);
 		return http.build();
 	}
 
-	@Bean // �����޼ҵ��� ����
+	@Bean 
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

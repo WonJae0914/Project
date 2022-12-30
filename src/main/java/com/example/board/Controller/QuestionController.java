@@ -129,10 +129,6 @@ public class QuestionController {
 	
 	//questionboard start
 
-		
-		
-		
-		
 		@GetMapping("/questionboard/list")
 		public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
 			@RequestParam(value="kw", defaultValue="") String kw) {
@@ -216,5 +212,44 @@ public class QuestionController {
 		
 		//questionboard end
 	
-
+		// InformationSharing start
+		@GetMapping("/sharing")
+		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
+					@RequestParam(value="kw", defaultValue="") String kw) { 
+				Page<Question> paging = this.questionService.getInfoList(page, kw);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kw", kw);
+				return "informationSharing"; 
+			}
+		
+		@RequestMapping(value="/Informationdetail/{id}") 
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
+			Question question = this.questionService.getInfoDetail(id);  
+			model.addAttribute("Information", question);
+			return "sharing_detail";
+		}
+		
+		@GetMapping("/sharingform")
+		public String InforCreate(QuestionForm questionForm){
+			return "information_create";
+		}
+		
+		@PostMapping("/sharingform")
+		public String InforCreate(@Valid QuestionForm questionForm, 
+				BindingResult bindingResult, Principal principal){  
+			if(bindingResult.hasErrors()) {
+				return "sharing_form";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			
+			this.questionService.getInforCreate(
+					questionForm.getSubject(), 
+					questionForm.getContent(), 
+					siteuser);
+			return "redirect:/sharing";
+		}
+		
+		
+	
+		//InformationSharing end
 }

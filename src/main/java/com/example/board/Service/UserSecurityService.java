@@ -19,21 +19,21 @@ import com.example.board.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Service // service���� �ݵ�� ������̼� �����ؾ� ��!
+@Service 
 
 public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // �α��� ó�� : ����ó�� ó�� ��. ȸ����ƼƼ�� �ٲ㼭 ����ϴ� ��찡 ����. 
-		Optional<SiteUser> _siteUser = this.userRepository.findByusername(username); // �ش� ���������� �ִ� ��ȸ
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {  
+		Optional<SiteUser> _siteUser = this.userRepository.findByusername(username); 
 		
-			if(!_siteUser.isPresent()) { // �α��� ó��. �ش� ����ڰ� �ִ��������� ����. ����ڰ� ������ ���⼭ �ɸ�. 
-				throw new UsernameNotFoundException("����ڸ� ã�� �� �����ϴ�");
+			if(!_siteUser.isPresent()) { 
+				throw new UsernameNotFoundException("사용자를 찾을 수 없음");
 			}
 			SiteUser siteUser = _siteUser.get();
 			List<GrantedAuthority> auth = new ArrayList<>();
-			if("admin".equals(username)) { //  �α���ó��. �ش� ����ڰ� ������. ���⼭���� ó��. 
+			if("admin".equals(username)) { 
 				auth.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
 			}else {
 				auth.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
