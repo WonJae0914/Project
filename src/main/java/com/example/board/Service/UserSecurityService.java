@@ -19,8 +19,12 @@ import com.example.board.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+<<<<<<< HEAD
 @Service 
 
+=======
+@Service
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
