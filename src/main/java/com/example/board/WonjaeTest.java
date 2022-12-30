@@ -10,6 +10,7 @@ public class WonjaeTest {
 		String yj;
     
 		System.out.println("hello woirld");
+		System.out.println("장민실test");
 
 		System.out.println("hello fxxxing github");
 		
