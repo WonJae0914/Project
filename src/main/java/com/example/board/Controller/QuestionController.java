@@ -127,11 +127,7 @@ public class QuestionController {
 	//  review Controller End!!!
 	
 	//questionboard start
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		@GetMapping("/questionboard/list")
 		public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
 			@RequestParam(value="kw", defaultValue="") String kw) {
@@ -215,13 +211,9 @@ public class QuestionController {
 		}
 		
 		//questionboard end
-<<<<<<< HEAD
-	
-		// InformationSharing start
-=======
+
 		
 		//InformationSharing start
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		@GetMapping("/sharing")
 		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
 					@RequestParam(value="kw", defaultValue="") String kw) { 
@@ -231,15 +223,10 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-<<<<<<< HEAD
+
 		@RequestMapping(value="/Informationdetail/{id}") 
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
 			Question question = this.questionService.getInfoDetail(id);  
-=======
-		@RequestMapping(value="/Informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
-		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
-			Question question = this.questionService.getInfoDetail(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 			model.addAttribute("Information", question);
 			return "sharing_detail";
 		}
@@ -251,11 +238,8 @@ public class QuestionController {
 		
 		@PostMapping("/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
-<<<<<<< HEAD
-				BindingResult bindingResult, Principal principal){  
-=======
-				BindingResult bindingResult, Principal principal){ // principal : 로그인한 사용자 정보 가지고 오는 것. 
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
+
+				BindingResult bindingResult, Principal principal){ 
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
@@ -267,16 +251,92 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/sharing";
 		}
-<<<<<<< HEAD
-		
-		
-	
 		//InformationSharing end
-=======
-		// information end
 		
+
+		// 221230 - add notice start - updated by kd
+		@GetMapping("/notice/list")
+		public String noticeList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
+			 @RequestParam(value="kw", defaultValue="") String kw) {
+			Page<Question> paging = this.questionService.getList(page, kw);
+			
+			model.addAttribute("paging", paging);
+			model.addAttribute("kw", kw);
+			return "notice_list";
+		}
+		@RequestMapping(value="/notice/detail/{id}")
+		public String noticeDetail(Model model, @PathVariable("id") Integer id) throws Exception {
+			Question question = this.questionService.getQuestion(id);
+			model.addAttribute("question", question);
+			return "notice_detail";
+		}
+//		@PreAuthorize("isAuthenticated()")
+//		@GetMapping("/notice/create")
+//		public String noticeCreate(QuestionForm questionForm) {
+//			return "notice_create";
+//		}
+		@PreAuthorize("isAuthenticated()")
+		@PostMapping("/notice/create")
+		public String noticeCreate(@Valid QuestionForm questionForm, 
+				BindingResult bindingResult, Principal principal) {
+			if(bindingResult.hasErrors()) {
+				return "question_form";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			this.questionService.create(
+					questionForm.getSubject(), 
+					questionForm.getContent(),
+					siteuser);
+			return "redirect:/notice/list";
+		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/notice/modify/{id}")
+		public String noticeModify(QuestionForm questionForm, 
+				@PathVariable("id") Integer id, Principal principal) {
+			Question q = this.questionService.getQuestion(id);
+			if(!q.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+			}
+			questionForm.setSubject(q.getSubject());
+			questionForm.setContent(q.getContent());
+			return "notice_modify";
+		}
+		@PreAuthorize("isAuthenticated()")
+		@PostMapping("/notice/modify/{id}")
+		public String noticeModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
+				BindingResult bindingResult, Principal principal) {
+			if(bindingResult.hasErrors()) {
+				return "question_form";
+			}
+			Question question = this.questionService.getQuestion(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())){
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+			}
+			this.questionService.modify(question, 
+					questionForm.getSubject(), questionForm.getContent());
+			return String.format("redirect:/notice/detail/%s", id);
+		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/notice/delete/{id}")
+		public String noticeDelete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getQuestion(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())){
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+			}
+			this.questionService.delete(question);
+			return "redirect:/notice/list";
+		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/notice/voter/{id}")
+		public String noticeVoter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getQuestion(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.voter(question, siteUser);
+			return String.format("redirect:/notice/detail/%s", id);
+		}	
+		// 221230 - add notice end - updated by kd
+    
 		// qna start
-		
 		@GetMapping("/qna/list")
 		public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page) {
 			Page<Question> qnapaging = this.questionService.qnaGetList(page);
@@ -358,5 +418,4 @@ public class QuestionController {
 				
 		// qna end
 
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 }

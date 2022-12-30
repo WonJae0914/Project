@@ -27,7 +27,9 @@ import com.example.board.Entity.Question;
 import com.example.board.Entity.SiteUser;
 import com.example.board.Form.AnswerForm;
 import com.example.board.Form.QuestionForm;
+
 import com.example.board.Repository.InformationQuestionRepository;
+import com.example.board.Repository.NoticeRepository;
 import com.example.board.Repository.QnaRepository;
 import com.example.board.Repository.QuestionRepository;
 import com.example.board.Repository.QuestionboardRepository;
@@ -44,10 +46,8 @@ public class QuestionService {
 	private final ReviewQuestionRepository rq;
 	private final QuestionboardRepository qbr; 
 	private final InformationQuestionRepository informationRepository;
-<<<<<<< HEAD
-//	private final QuestionService questionService;
-=======
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
+
+	private final NoticeRepository nr;
 	private final UserService userService;
 	private final QnaRepository qnaRepository;
 										
@@ -92,11 +92,7 @@ public class QuestionService {
 	
 
 	//questionboard questionservice start
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		public Page<Question> questionboard_getList(int page, String kw){
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
@@ -169,16 +165,6 @@ public class QuestionService {
 		}
 		//fassion inpomation end	
 		
-<<<<<<< HEAD
-
-=======
-		
-		
-		
-	
-		//InformationSharing end
->>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
-		
 		// qna start
 		
 		public Page<Question> qnaGetList(int page) {
@@ -224,6 +210,46 @@ public class QuestionService {
 		}
 				
 		// qna end	
+		
+		// 221230 - add notice start - updated by kd
+		
+		public Page<Question> getList(int page, String kw){
+			List<Sort.Order> sorts = new ArrayList<>();
+			sorts.add(Sort.Order.desc("createDate"));
+			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+			return this.nr.findAllByKeyword(kw, pageable);
+		}
+		public Question getQuestion(Integer id) throws DataNotFoundException {
+			Optional<Question> question = this.nr.findById(id);
+			if(question.isPresent()) {
+				return question.get();
+			}else {
+				throw new DataNotFoundException("그런거 없음");
+			}
+		}
+		public void create(String subject, String content, SiteUser user) {
+			Question q1 = new Question();
+			q1.setSubject(subject);
+			q1.setContent(content);
+			q1.setCreateDate(LocalDateTime.now());
+			q1.setAuthor(user);
+			this.nr.save(q1);		
+		}
+		public void modify(Question question, String subject, String content) {
+			question.setSubject(subject);
+			question.setContent(content);
+			question.setModifyDate(LocalDateTime.now());
+			this.nr.save(question);
+		}
+		public void delete(Question question) {
+			this.nr.delete(question);
+		}
+		public void voter(Question question, SiteUser siteUser) {
+			question.getVoter().add(siteUser);
+			this.nr.save(question);
+		}
+		
+		// 221230 - add notice end - updated by kd
 		
 		
 }
