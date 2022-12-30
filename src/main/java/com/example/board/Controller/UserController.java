@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 
 public class UserController {
+
 	private final UserService userService;
-	
 	
 	@GetMapping("/signup")
 	public String signup(UserCreateForm userCreateForm) {
@@ -43,13 +43,12 @@ public class UserController {
 			bindingResult.reject("회원가입 실패", "이미 등록되어있는 사용자입니다.");
 			return "sign_up";
 		}
-		
 		catch(Exception e) {
 			e.printStackTrace();
 			bindingResult.reject("회원가입 실패", e.getMessage());
 			return "sign_up";
 		}
-		return "redirect:/";
+		return "redirect:/home";
 	}
 		@GetMapping("/login")
 		public String login() {

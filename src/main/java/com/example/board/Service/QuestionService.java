@@ -44,6 +44,10 @@ public class QuestionService {
 	private final ReviewQuestionRepository rq;
 	private final QuestionboardRepository qbr; 
 	private final InformationQuestionRepository informationRepository;
+<<<<<<< HEAD
+//	private final QuestionService questionService;
+=======
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 	private final UserService userService;
 	private final QnaRepository qnaRepository;
 										
@@ -88,7 +92,11 @@ public class QuestionService {
 	
 
 	//questionboard questionservice start
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		public Page<Question> questionboard_getList(int page, String kw){
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
@@ -115,7 +123,6 @@ public class QuestionService {
 			
 		}
 		public void questionboard_modify(Question question, String subject, String content) {
-			// 파라미터 3개의 이유
 			question.setSubject(subject);
 			question.setContent(content);
 			question.setModifyDate(LocalDateTime.now());
@@ -162,11 +169,15 @@ public class QuestionService {
 		}
 		//fassion inpomation end	
 		
+<<<<<<< HEAD
+
+=======
 		
 		
 		
 	
 		//InformationSharing end
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		
 		// qna start
 		

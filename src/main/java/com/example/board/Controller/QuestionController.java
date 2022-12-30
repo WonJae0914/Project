@@ -127,7 +127,11 @@ public class QuestionController {
 	//  review Controller End!!!
 	
 	//questionboard start
+<<<<<<< HEAD
+
+=======
 		
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		@GetMapping("/questionboard/list")
 		public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
 			@RequestParam(value="kw", defaultValue="") String kw) {
@@ -201,6 +205,7 @@ public class QuestionController {
 			return "redirect:/questionboard/list";
 		}
 		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/questionboard/voter/{id}")
 		public String questionboard_voter(Principal principal,@PathVariable("id") Integer id ) {
 			Question question = this.questionService.questionboard_getQuestion(id);
 			SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -210,8 +215,13 @@ public class QuestionController {
 		}
 		
 		//questionboard end
+<<<<<<< HEAD
+	
+		// InformationSharing start
+=======
 		
 		//InformationSharing start
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		@GetMapping("/sharing")
 		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
 					@RequestParam(value="kw", defaultValue="") String kw) { 
@@ -221,9 +231,15 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
+<<<<<<< HEAD
+		@RequestMapping(value="/Informationdetail/{id}") 
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
+			Question question = this.questionService.getInfoDetail(id);  
+=======
 		@RequestMapping(value="/Informationdetail/{id}") // value 를 적은 이유 : id를 파라미터로 받기 위해  
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { // id : 게시글 분류 기준. 게시글을 분류하기 위해 id값 부여한 것
 			Question question = this.questionService.getInfoDetail(id);  // model 클래스 : 뷰에다가 요청한 내용을 던져주기 위해 사용한 클래스 
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 			model.addAttribute("Information", question);
 			return "sharing_detail";
 		}
@@ -235,7 +251,11 @@ public class QuestionController {
 		
 		@PostMapping("/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
+<<<<<<< HEAD
+				BindingResult bindingResult, Principal principal){  
+=======
 				BindingResult bindingResult, Principal principal){ // principal : 로그인한 사용자 정보 가지고 오는 것. 
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
@@ -247,6 +267,12 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/sharing";
 		}
+<<<<<<< HEAD
+		
+		
+	
+		//InformationSharing end
+=======
 		// information end
 		
 		// qna start
@@ -332,4 +358,5 @@ public class QuestionController {
 				
 		// qna end
 
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 }
