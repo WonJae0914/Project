@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 	
-	// �ٰ� ����Ʈ : ������ �ϴ� ����Ʈ�� �����ؾ� �ϱ� ����. �ϴ� �����ϱ� ���� get // ������ �޾� db�� �����ϱ� ���� post
 	
 	@GetMapping("/signup")
 	public String signup(UserCreateForm userCreateForm) {
@@ -33,9 +32,7 @@ public class UserController {
 		if(bindingResult.hasErrors()) {
 			return "sign_up";
 		}
-		//�н����尡 ��ġ���� ���� �� ó���ϴ� ���
 		if(!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-			//rejectValue �ڵ带 �̿��� ������ �߻���Ŵ.
 			bindingResult.rejectValue("password2","passwordIncorrerct", "�н����尡 ��ġ���� �ʽ��ϴ�");
 			return "sign_up";
 		}
@@ -46,7 +43,6 @@ public class UserController {
 			bindingResult.reject("ȸ������ ����", "�̹� ��ϵǾ��ִ� ������Դϴ�.");
 			return "sign_up";
 		}
-		
 		catch(Exception e) {
 			e.printStackTrace();
 			bindingResult.reject("ȸ������ ����", e.getMessage());
