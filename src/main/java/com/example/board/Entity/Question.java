@@ -19,13 +19,12 @@ import org.springframework.data.domain.Sort.Order;
 import lombok.Getter;
 import lombok.Setter;
 
-// �������ÿ�ƼƼ(TABLE)
 @Getter
 @Setter
 @Entity
 public class Question {
 	
-	@Id // Ű ���� �ο�. 1���� ���� 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; 
 	
@@ -38,12 +37,12 @@ public class Question {
 	private LocalDateTime createDate;
 	
 	@OneToMany(mappedBy="question", cascade = CascadeType.REMOVE)
-	private List<Answer> answerList; // �÷����� ���� : �����迭�̱� ���� . ������ �ν��Ͻ��� ������ŭ �ҷ��� �� �ֵ��� �ϱ� ���� 
+	private List<Answer> answerList;
 	
 	@ManyToOne
 	private SiteUser author; 
 	
-	private LocalDateTime modifyDate; // �ۼ��� �� ���� �� �����ð� �Է�. ó�� ���� �η� �ؾ� ��. �ۼ����� �����ð��� ����ϸ� �ȵǱ� ����
+	private LocalDateTime modifyDate;
 	
 	@ManyToMany
 	Set<SiteUser> voter;

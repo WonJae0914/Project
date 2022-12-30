@@ -28,6 +28,7 @@ import com.example.board.Entity.SiteUser;
 import com.example.board.Form.AnswerForm;
 import com.example.board.Form.QuestionForm;
 import com.example.board.Repository.InformationQuestionRepository;
+import com.example.board.Repository.QnaRepository;
 import com.example.board.Repository.QuestionRepository;
 import com.example.board.Repository.QuestionboardRepository;
 import com.example.board.Repository.ReviewQuestionRepository;
@@ -40,12 +41,13 @@ import lombok.RequiredArgsConstructor;
 public class QuestionService {
 	
 	private final QuestionRepository q; 
-										
-	// review QuestionService Start	!!!
 	private final ReviewQuestionRepository rq;
 	private final QuestionboardRepository qbr; 
 	private final InformationQuestionRepository informationRepository;
 	private final UserService userService;
+	private final QnaRepository qnaRepository;
+										
+	// review QuestionService Start	!!!
 	
 	public Page<Question> reviewGetList(int page, String kw){
 		List<Sort.Order> sorts = new ArrayList<>();
@@ -165,6 +167,52 @@ public class QuestionService {
 		
 	
 		//InformationSharing end
+		
+		// qna start
+		
+		public Page<Question> qnaGetList(int page) {
+			List<Sort.Order> sorts = new ArrayList<>();
+			sorts.add(Sort.Order.desc("createDate"));
+			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+			return this.qnaRepository.findAll(pageable);
+		}
+				
+		public Question qnaGetQuestion(Integer id) throws DataNotFoundException {
+			Optional<Question> question = this.qnaRepository.findById(id);
+			if(question.isPresent()) {
+				return question.get();
+			} else {
+				throw new DataNotFoundException("자주묻는질문이 없습니다");
+			}
+		}
+
+		public void qnaCreate(String subject, String content) {
+//		, SiteUser user{
+			Question question = new Question();
+			question.setSubject(subject);
+			question.setContent(content);
+			question.setCreateDate(LocalDateTime.now());
+//			question.setAuthor(user);
+			this.qnaRepository.save(question);
+		}
+				
+		public void qnaModify(Question question, String subject, String content) {
+			question.setSubject(subject);
+			question.setContent(content);
+			question.setModifyDate(LocalDateTime.now());
+			this.qnaRepository.save(question);
+		}
+
+		public void qnaDelete(Question question) {
+			this.qnaRepository.delete(question);
+		}
+
+		public void qnaVoter(Question question, SiteUser siteUser) {
+			question.getVoter().add(siteUser);
+			this.qnaRepository.save(question);
+		}
+				
+		// qna end	
 		
 		
 }
