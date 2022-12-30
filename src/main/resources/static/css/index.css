@@ -1,0 +1,1313 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    width: 100vw;
+    color: #FFF;
+}
+
+.container{
+    width: 100%;
+    height: auto;
+    background-color: #333333;
+}
+
+/* header 작업 */
+/* 07.20 header 구성 및 디자인 수정자 박효근 */
+/* 07.21 header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 */
+/* 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근 */
+/* 07.25 menu1 -> navbar_menu_ul 수정 수정자 박효근 */
+/* 07.26 popup 추가 수정자 박효근 */
+/* 07.27 popup 경로 변경 및 그림자 효과 추가 글자색상 변경 로고 링크연결  수정자 박효근 */
+/* 07.27 .popup_text>p 폰트사이즈 수정  수정자 박효근 */
+.header{
+    width: 100%;
+    height: auto;
+}
+.navbar {
+    width: 100%;
+    height: 10%;
+    background-color: #333333;
+}
+.navbar_logo {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+.navbar_logo>a>h1{
+    margin: 10px;
+    color: #FFF;
+}
+.navbar_logo>a>h1>span{
+    display: inline-block;
+    width: 73px;
+    height: 50%;
+    background-color: orange;
+    color: black;
+}
+
+.navbar_menu {
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+.navbar_menu_ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    line-height: 60px;
+    position: relative;
+}
+.navbar_menu_ul > li:hover,
+#menu_li:hover {
+    color: #B388FF;
+}
+#menu_li{
+    text-decoration: none;
+    color: #FFF;
+}
+.navbar_menu_ul > li:hover ~ .navbar_menu_drop,
+.navbar_menu_drop:hover{
+    height: 500px;
+}
+.navbar_menu .navbar_menu_ul>li {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: text-top;
+    list-style-type: none;
+    transition: 0.3s;
+}
+.navbar_menu_drop{
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 0;
+    position: absolute;
+    top: 63px;
+    transition: 0.5s;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.drop_menu{
+    color: #333333;
+    cursor: pointer;
+    list-style-type: none;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drop_menu>li{
+    transition: 0.5s;
+}
+.drop_menu>li:hover {
+    color: #B388FF;
+}
+.navbar_Icons {
+    width: 15%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+}
+.navbar_Icons_a{
+    margin: 0 6px;
+    width: 24%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+}
+.navbar_Icons_a:hover >i,
+.navbar_Icons_a:hover >p{
+    color: #B388FF;
+}
+.navbar_Icons_box:hover > i,
+.navbar_Icons_box:hover > p{
+    color: #B388FF;
+}
+.navbar_Icons_a > p{
+    color: #FFF;
+    font-size: 0.7rem;
+    transition: 0.3s;
+}
+.navbar_Icons_a >.uil {
+    font-size: 1.7rem;
+    margin-top: 3px;
+    cursor: pointer;
+}
+.header_img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+.header_img_box {
+    width: 90%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    background-color: #333333;
+    margin: 20px 0;
+}
+.header_img>.header_img_box> img {
+    width: 100%;
+    height: 100%;
+}
+.popup1,.popup2,.popup3,.popup4 {
+    position: fixed;       
+    bottom: 23%;      
+    width: 300px; 
+    height: 150px;   
+    border-radius: 10px;    
+    background-color: #fff;
+    z-index: 100;
+    color: #333333;   
+    transform: translateX(-200%);
+    transition-duration: 2s;
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.popup5,.popup6,.popup7,.popup8 {
+    position: fixed;       
+    bottom: 3%;      
+    width: 300px; 
+    height: 150px;   
+    border-radius: 10px;    
+    background-color: #fff;
+    z-index: 100;
+    color: #333333;
+    transform: translateX(-200%);
+    transition-duration: 2s;  
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.popup_header{
+    width: 300px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.popup_header> p{
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+.popup_header>.uil{
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.popup_img{
+    width: 150px;
+    height: 120px;
+    float: left;
+}
+.popup_img>img{
+    width: 130px;
+    height: 100px;
+    margin: 10px 10px;
+}
+.popup_text{
+    width: 150px;
+    height: 120px;
+    float: left;
+}
+.popup_text>p{
+    margin: 10px;
+    font-size: 0.7rem;
+}
+/* header 작업 */
+
+/* side menu 작업 7월 24일 김현구*/
+/* height auto로 수정*/
+/* 7월 26일 border blur */
+/* 7월 27일 2:40 김현구 side_menu에 position, top 속성 추가 */
+.side_menu{
+    width: 90%;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0 0 5px;
+    border-radius: 20px;
+    position: sticky;
+    top: 10%;
+    padding: 20px;
+    margin-left: 20px;
+    color: #333333;
+    font-size: 0.7rem;
+}
+.side_menu_top{
+    border-top: 3px solid #333333;
+    margin: 30px 10px;
+
+}
+.side_menu_top > h1{
+    text-align: center;
+}
+.side_menu_top > h1 > span{
+    display: inline-block;
+    background-color: orange;
+    color: black;
+    height: 30px;
+    width: 50px;
+    margin-top: 20px;
+}
+.side_menu_middle{
+    border-top: 2px solid #E0E0E0;
+    margin: 30px 10px;
+    text-align: center;
+}
+.side_menu_middle > h1:nth-child(1){
+    margin: 20px 0;
+    text-align: center;
+}
+.side_menu_middle > h1:nth-child(3){
+    margin: 20px 0;
+    text-align: center;
+}
+#male , #female{
+    display: none;
+}
+/* 0727 18:41 성별 버튼 클릭시 배경 효과 추가 수정자 : 김형준 */
+#male:checked ~ .side_menu_gender_male{
+    background-color: #bbb;
+}
+#female:checked ~ .side_menu_gender_female{
+    background-color: #bbb;
+}
+/* 성별 벼튼 클릭시 배경 효과 */
+.side_menu_gender_male , .side_menu_gender_female{
+    display: inline-block;
+    font-size: 1.3rem;
+    margin-top: 20px;
+    width: 40%;
+    text-align: center;
+    border: 1px solid #E0E0E0;
+}
+.side_menu_bottom div{
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+
+    /* 7월 25일 추가 김현구*/
+    /* dropdown 메뉴 구현 */
+}
+.side_menu_bottom div:not(.side_menu_dropdown){
+border-top: 1px solid #E0E0E0;
+}
+.side_menu_bottom label h2{
+    display: inline-block;
+    width: 80%;
+    cursor: pointer;
+}
+.side_menu_bottom label i{
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 20%;
+}
+.side_menu_Add{
+    list-style-type: none;
+    font-size: 1rem; 
+    display: none;
+    line-height: 30px;
+}
+.side_menu_dropdown input[type=checkbox]{
+    float: right;
+    margin-right: 8.5%;
+}
+.side_menu_dropdown_classList{
+    display: block;
+}
+
+/* 7월 20일 23:38 정인경 */
+
+.main{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.side{
+    width: 15%;
+    height: auto;
+    background-color: white;
+}
+
+/* 정인경 : sectin1 -top */
+/* 7월 20일 23:38 정인경 */
+/* 7월 24일 정인경 수정
+1. 모달을 새로 추가함
+2. 사진간의 간격 및 아이콘 위치를 변경함 
+*/
+/* 0726 19:15 section1에 border-top 삭제 수정자:김형준 */
+/* 0726 19:26 section1,2 각각 section_pageBtn 추가 수정자 : 김형준 */
+.section{
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.section1{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    flex-wrap: wrap;
+    padding-bottom: 36.5px;
+    position: relative;
+}
+.section1>h1{
+    padding-left: 100px;
+    padding-top: 30px;
+    color: black;
+    font-size: 2.5rem;
+}
+.section1-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+    height: auto;
+    flex-wrap: wrap;
+}
+.section1-top-imgbox{
+    width: 400px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;  
+    box-shadow: 1px 1px 1px 1px rgb(185, 184, 184);
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 20px; 
+}
+.section1-top-imgbox-box{
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.section1-top-imgbox-box{
+    position: relative;
+}
+.section1-top-imgbox-box>img{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 0px;
+}
+.section1-top-imgbox-box:hover .section1-top-imgbox-img{ /*호버를 이미지에 주어서 넘어가도록 설정 앞에 있는 이미지는 호버 효과시 없어짐*/
+    display: none;
+}
+.section1-top-imgbox_font{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.0rem;
+    margin-top: 5px;
+    position: relative;
+}
+.section1-top-imgbox_font_box{
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.497);
+    width: 395px;
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+    visibility: hidden;
+    color: black;
+}
+.section1-top-imgbox:hover .section1-top-imgbox_font_box{ /*호버를 주어 마우스를 올리면 상품명이 올라오도록 설정*/
+    visibility: visible;
+    height: 60px;  
+}
+.section1-top-imgbox_font_box>span:nth-child(1){
+    font-size: 1.3rem;
+    color: black;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section1-top-imgbox_font_money{  
+    color: black;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section1-top-imgbox-hover{
+    display: flex;
+    flex-direction: column;
+}
+.section1-top-imgbox-hover_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section1-top-imgbox_icon_heart{
+    color: black;
+    font-size: 2.5rem;
+}
+.shopping-bag{
+    margin-bottom: 2px;
+}
+.xi-zoom-in{
+    margin-top: 10px;
+}
+.modal-man, .modal-woman{
+    justify-content:center; 
+    align-items:center;    
+    position:absolute;        
+    left:170px;
+    top: 220px;    
+    display:none; 
+    padding:15px; 
+    z-index: 20;
+    width: 1050px; /*0728 10:54 요소 길이가 길어서 버튼이 안눌리던 현상 수정 수정자 : 김형준*/
+}
+.modal{
+    width: 1000px;
+    max-width:1000px;
+    height: 600px;
+    background-color:#ffffff;
+    border-radius:10px;
+    overflow:hidden;
+    background-color:#333333;
+    box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #333333;
+}
+.modal-body{
+    width:100%;
+    background-color:#ffffff;
+    height: 560px;
+    display: flex;
+    flex-direction: row;
+}
+.modal-body_photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.modal-body_photo>img:nth-child(1){
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+}
+.modal-body_photo_bottom{
+    display: flex;
+    flex-direction: row;
+}
+.modal-body_photo_bottom>img:nth-child(1){
+    width: 150px;
+    height: 100px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.modal-body_font{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E0E0E0;
+    width: 900px;
+    font-size: 1.3rem;
+}
+.modal-body_font_h1{
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+    align-items: center;
+    font-weight: lighter;
+}
+.modal-body_font_h1>h5{
+    color: #B388FF;
+}
+.modal-body-font_bottom h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 2.0rem;
+}
+.modal-body-font_size{
+    display: flex;
+    flex-direction: row;
+    margin-top: 90px;
+    margin-bottom: 40px;
+}
+.modal-body-font_size>span{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.modal-body-font_size>div:nth-child(n){
+    margin-right: 10px;
+    margin-left: 15px;
+    border: 1px solid #dad6d6;
+    width: 60px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-body-font_size>div:nth-child(n):hover{ /*사이즈에 마우스를 올렸을때 테두리가 나오도록 호버효과를 적용*/
+    border: 1px solid #333333;
+}
+.modal-body-font_total{
+    display: flex;
+    flex-direction: row;
+}
+.total_span{
+    padding-bottom: 50px;
+    margin-left: 20px;
+}
+.total_button{
+    margin-left: 20px;
+    position: relative;
+    
+}
+.count{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    left: 60px;
+}
+.minus,.plus{
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem;
+    border-radius: 10px;
+    border: none;
+    margin-right: 70px;
+}
+/* 7월 27일 수량 남자 추가 -정인경*/
+/* 카운트 남자 */
+.modal-body-font_total_m{
+    display: flex;
+    flex-direction: row;
+}
+.total_span_m{
+    padding-bottom: 50px;
+    margin-left: 20px;
+}
+.total_button_m{
+    margin-left: 20px;
+    position: relative;
+}
+.count_m{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    left: 60px;
+}
+.minus_m,.plus_m{
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem;
+    border-radius: 10px;
+    border: none;
+    margin-right: 70px;
+}
+/* 수정 끝 - 정인경*/
+.modal-foot{
+    width:100%;
+    height:40px;
+    border-radius: 10px;
+}
+.pop-btn{
+    display:inline-flex;
+    width:50%;
+    height:100%;
+    float:left;
+    justify-content:center;
+    align-items:center;
+    color:#ffffff;
+    cursor:pointer;
+}
+.pop-btn.confirm{
+    border-right:1px solid #E0E0E0;
+}
+/* 정인경 : section1 bottom 시작 */
+.section1-bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+    height: auto;
+    flex-wrap: wrap;
+}
+.section1-bottom-imgbox{
+    width: 400px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;  
+    box-shadow: 1px 1px 1px 1px rgb(185, 184, 184);
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.section1-bottom-imgbox-box{
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.section1-bottom-imgbox-box{
+    position: relative;
+}
+.section1-bottom-imgbox-box>img{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 0px;
+}
+.section1-bottom-imgbox-box:hover .section1-bottom-imgbox-img{ /*호버를 이미지에 주어서 넘어가도록 설정 앞에 있는 이미지는 호버 효과시 없어짐*/
+    display: none;
+}
+.section1-bottom-imgbox_font{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.0rem;
+    margin-top: 5px;
+    position: relative;
+}
+.section1-bottom-imgbox_font_box{
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.497);
+    width: 395px;
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+    visibility: hidden;
+    color: black;
+}
+.section1-bottom-imgbox:hover .section1-bottom-imgbox_font_box{ /*호버를 주어 마우스를 올리면 상품명이 올라오도록 설정*/
+    visibility: visible;
+    height: 60px;
+}
+.section1-bottom-imgbox_font_box>span:nth-child(1){
+    font-size: 1.3rem;
+    color: black;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section1-bottom-imgbox_font_money{  
+    color: black;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section1-bottom-imgbox-hover{
+    display: flex;
+    flex-direction: column;
+}
+.section1-bottom-imgbox-hover_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section1-bottom-imgbox_icon_heart{
+    color: black;
+    font-size: 2.5rem;
+}
+
+.section1_pageBtn{
+    color: #333333;
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.section1_pageBtn>h1{
+    cursor: pointer;
+    margin: 0 30px;
+}
+
+.shopping-bag{
+    margin-bottom: 2px;
+}
+.xi-zoom-in{
+    margin-top: 10px;
+}
+/* 정인경 : section2 시작 */
+.section2{
+    width: 100%;
+    background-color: white;
+    height: auto;
+    flex-wrap: wrap;
+    padding-bottom: 36.5px;
+    position: relative;
+}
+.section2>h1{
+    padding-left: 100px;
+    padding-top: 30px;
+    color: black;
+    font-size: 2.5rem;
+}
+.section2-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+    height: auto;
+    flex-wrap: wrap;
+}
+.section2-top-imgbox{
+    width: 400px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;  
+    box-shadow: 1px 1px 1px 1px rgb(185, 184, 184);
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.section2-top-imgbox-box{
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.section2-top-imgbox-box{
+    position: relative;
+}
+.section2-top-imgbox-box>img{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 0px;
+}
+.section2-top-imgbox-box:hover .section2-top-imgbox-img{ /*호버를 이미지에 주어서 넘어가도록 설정 앞에 있는 이미지는 호버 효과시 없어짐*/
+    display: none;
+}
+.section2-top-imgbox_font{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.0rem;
+    margin-top: 5px;
+    position: relative;
+}
+.section2-top-imgbox_font_box{
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.497);
+    width: 395px;
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+    visibility: hidden;
+    color: black;
+}
+.section2-top-imgbox:hover .section2-top-imgbox_font_box{ /*호버를 주어 마우스를 올리면 상품명이 올라오도록 설정*/
+    visibility: visible;
+    height: 60px;
+}
+.section2-top-imgbox_font_box>span:nth-child(1){
+    font-size: 1.3rem;
+    color: black;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+/* 머니의 플로트를 삭제 7/20 */
+.section2-top-imgbox_font_money{  
+    color: black;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section2-top-imgbox-hover{
+    display: flex;
+    flex-direction: column;
+}
+.section2-top-imgbox-hover_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section2-top-imgbox_icon_heart{
+    color: black;
+    font-size: 2.5rem;
+}
+.shopping-bag{
+    margin-bottom: 2px;
+}
+.xi-zoom-in{
+    margin-top: 10px;
+}
+/*  정인경: sectin2-bottom 시작 */
+.section2-bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+    height: auto;
+    flex-wrap: wrap;
+}
+.section2-bottom-imgbox{
+    width: 400px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;  
+    box-shadow: 1px 1px 1px 1px rgb(185, 184, 184);
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.section2-bottom-imgbox-box{
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 1px rgb(185, 184, 184);
+}
+.section2-bottom-imgbox-box{
+    position: relative;
+}
+.section2-bottom-imgbox-box>img{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 0px;
+}
+.section2-bottom-imgbox-box:hover .section2-bottom-imgbox-img{ /*호버를 이미지에 주어서 넘어가도록 설정 앞에 있는 이미지는 호버 효과시 없어짐*/
+    display: none; 
+}
+.section2-bottom-imgbox_font{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.0rem;
+    margin-top: 5px;
+    position: relative;
+}
+.section2-bottom-imgbox_font_box{
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.497);
+    width: 395px;
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+    visibility: hidden;
+    color: black;
+}
+.section2-bottom-imgbox:hover .section2-bottom-imgbox_font_box{ /*호버를 주어 마우스를 올리면 상품명이 올라오도록 설정*/
+    visibility: visible;
+    height: 60px; 
+}
+.section2-bottom-imgbox_font_box>span:nth-child(1){
+    font-size: 1.3rem;
+    color: black;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section2-bottom-imgbox_font_money{  
+    color: black;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    text-shadow:1px 1px 3px  rgb(132, 131, 131) ;
+    margin-left: 10px;
+}
+.section2-bottom-imgbox-hover{
+    display: flex;
+    flex-direction: column;
+}
+.section2-bottom-imgbox-hover_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section2-bottom-imgbox_icon_heart{
+    color: black;
+    font-size: 2.5rem;
+}
+
+.section2_pageBtn{
+    color: #333333;
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.section2_pageBtn>h1{
+    cursor: pointer;
+    margin: 0 30px;
+}
+
+.shopping-bag{
+    margin-bottom: 2px;
+}
+.xi-zoom-in{
+    margin-top: 10px;
+}
+
+/* /content-area */
+/* 0721 content_area img 추가 및 효과 추가 수정자 : 김형준*/
+.content_area1{
+    clear: both;
+    width: 100%;
+    height: auto;
+    background-color: #FFF;
+}
+
+.content_area1_header{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    color: #333333;
+}
+
+.content_area1_hashtag{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #E0E0E0;
+    margin-bottom: 8px;
+}
+
+.content_area1_hashtag>p{
+    margin: 50px 20px;
+}
+
+.content_area1_imgBox{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+}
+
+.content_area1_imgBox_img{
+    width: 400px;
+    height: 400px;
+    margin: 5px;
+    transition: all 0.3s;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: #E0E0E0 0 0 5px 2px;
+    border-radius: 2px;
+}
+
+.content_area1_imgBox_img>img{
+    width: 400px;
+    height: 400px;
+    transition: all 0.3s;
+}
+
+.content_area1_imgBox_img>h1{
+    position: absolute;
+    right: 10px;
+    bottom : -35px;
+    transition: all 0.3s;
+}
+
+.content_area1_imgBox_img:hover > img{
+    transform: scale(1.1);
+}
+.content_area1_imgBox_img:hover > h1{
+    bottom : 10px;
+}
+
+.content_area1_imgBox>img:hover{
+    opacity: 0.5;
+}
+
+
+/* 7월 20일 20:00 김현구*/
+/* 클래스명 변경, 삭제 */
+/* 콘텐츠 에어리어 백그라운드 컬러 변경 #FFF*/
+/* 7월22일 */
+.content_area2{
+    width: 100%;
+    height: 750px;
+    background-color: #FFF;
+}
+.content_area2_video{
+    width: 100%;
+    height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content_area2_video > video{
+    width: 90%;
+    height: 500px;
+    object-fit: fill;
+}
+/* 7월22일 */
+.content_area3{
+    width: 100%;
+    height: auto;
+    background-color: #FFF;
+}
+/* 7월 21일 보더 탑 삭제 폰트 컬러 변경 폰트 웨이트 변경 김현구*/
+/* content_area3 img hover 효과 부여 김현구*/
+/* content_area3 height:auto 변경*/
+/* img hover 시 opacity 삭제*/
+
+/* 0727 19:02 content_area3_header 텍스트 색 변경 수정자:김형준*/
+.content_area3_header{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    color: #333333;
+}
+/* 0727 19:02 content_area3_header 텍스트 색 변경 수정자:김형준*/
+/* 0727 19:33 content_area3_imgBox_cap 생성 후 텍스트 위치 조정 수정자 : 김형준 */
+.content_area3_imgBox{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.content_area3_img{
+    width: 550px;
+    height: 550px;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+.content_area3_imgBox_cap{
+    color: #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_area3_img>img{
+    width: 500px;
+    height: 500px;
+    transition: all 0.3s;
+    position: absolute;
+}
+.content_area3_img:hover .content_area3_imgHover{
+    display: none;
+}
+
+.content_area3_img>p{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin :35px 0;
+}
+/* 7월 23일 오후 15:12 content_area3_img 모달 넣기  최성원 */
+.area3_modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.modal-content{
+    margin: auto;
+    display: block;
+    width: 80%;
+    height: 700px;
+    max-width: 700px;
+}
+.modal-bottom-preview{
+    margin-top: 10px;
+    text-align: center;
+    height: 200px;
+    overflow: hidden;
+}
+.modal-bottom-preview-img{
+    width: 12%;
+    height: 230px;
+    cursor: pointer;
+}
+#caption{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.modal-content, #caption{
+    animation: zoom .3s;
+}
+
+@keyframes zoom {
+    from{transform: scale(0);}
+    to{transform: scale(1);}
+}
+/* 모달 버튼 */
+.area3_close{
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transform: .3s;
+}
+
+.area3_close:hover,
+.area3_close:focus{
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 700px){
+    .modal-content{
+        width: 100%;
+    }
+}
+
+/* footer 0719 19:57 수정자:김형준 */
+.footer{
+    width: 100%;
+    height: 240px;
+    color: #E0E0E0;
+    border-top: #E0E0E0 2px solid;
+}
+
+.footer_info{
+    width: 100%;
+    height: 80%;
+}
+
+.footer_info_nav{
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_info_nav_list{
+    width: 50%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer_info_nav_list>li{
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.footer_info_nav_list>li:hover{
+    color:#B388FF;
+}
+
+.footer_info_intro{
+    width: 50%;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_info_intro_detail{
+    width: 70%;
+    height: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer_info_intro_detail>p{
+    margin:8px 0;
+}
+
+.footer_info_intro_sns{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.9rem;
+}
+
+.footer_info_intro_sns>i{
+    margin:11px 0;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.footer_info_intro_sns>i:hover{
+    color: #B388FF;
+}
+
+.footer_copy{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+
+

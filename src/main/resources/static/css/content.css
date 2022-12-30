@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#969494;
+    font-family: 'Do Hyeon',serif;
+}
+
+.container{
+    width: 1500px;
+    height: 1000px;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0px 0px 3px 1px #ccc9c9;
+    border-radius: 10px;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top:0;
+    left: 0;
+    transition: all 1s;
+    transition-delay: 0.3s;
+}
+
+.page{
+    width: 1500px;
+    height: 1000px;
+}
+.row>.page:nth-child(1){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;   
+}
+.row>.page:nth-child(1)>h1{
+    color:black;
+    font-size: 10.0rem;
+    margin-bottom: 140px;
+    text-shadow:yellow 1px 0 5px;
+}
+.row>.page:nth-child(1)>h1>span{
+    background-color: orange;
+}
+.row>.page:nth-child(1)>h2{
+    font-size: 5.0rem; 
+}
+.row>.page:nth-child(2)>h1{
+    font-size: 7.0rem;
+    margin: 80px;
+    margin-bottom: 90px; 
+    color: maroon;
+}
+.row>.page:nth-child(2)>h2{
+    font-size: 4.0rem;
+    margin-top: 50px;
+    margin-left: 30px;
+}
+.row>.page:nth-child(3)>h1{
+    font-size: 6.0rem;
+    margin: 40px;
+    margin-bottom: 90px; 
+    color: maroon;
+}
+.row>.page:nth-child(3)>h2>span{
+    background-color: yellow;
+}
+.row>.page:nth-child(3)>h2{
+    font-size: 3.0rem;
+    margin-top: 50px;
+    margin-left: 30px;
+}
+.row>.page:nth-child(4)>h1{
+    font-size: 6.0rem;
+    margin: 40px;
+    margin-bottom: 90px; 
+    color: maroon;
+}
+.row>.page:nth-child(4)>h2{
+    font-size: 3.0rem;
+    margin-top: 20px;
+    margin-left: 30px;
+    color: black
+}
+.row>.page:nth-child(5){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.row>.page:nth-child(5)>a>img{
+    width: 800px;
+    height: 200px;
+}
+input{
+    display: none;
+}
+.a{
+    position: absolute;
+    bottom: 20px;
+    left: 370px;
+    display: flex;
+    flex-direction: row;
+}
+.box{
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px 2px rgb(185, 184, 184);
+}
+/* 버튼 */
+.box{
+    background: none;
+    
+}
+.box:hover{
+    box-shadow: 0 0 10px white;
+    border : 3px solid white;
+}
+
+/* radio 체크 시 사진 이동 */
+#box1:checked ~ .row{
+    left : 0;
+}
+#box2:checked ~ .row{
+    left : -1500px;
+}
+#box3:checked ~ .row{
+    left : -3000px;
+}
+#box4:checked ~ .row{
+    left : -4500px;
+}
+#box5:checked ~ .row{
+    left : -6000px;
+}
+
