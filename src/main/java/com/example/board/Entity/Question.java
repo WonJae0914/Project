@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Question {
-	
+
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; 
@@ -38,15 +38,14 @@ public class Question {
 	
 	@OneToMany(mappedBy="question", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList; 
-	
+
 	@ManyToOne
 	private SiteUser author; 
-	
+
 	private LocalDateTime modifyDate; 
 	
 	@ManyToMany
 	Set<SiteUser> voter;
-
 
 
 }

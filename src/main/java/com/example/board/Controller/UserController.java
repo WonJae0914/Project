@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 
 public class UserController {
-	
+
 	private final UserService userService;
 	
 	@GetMapping("/signup")
