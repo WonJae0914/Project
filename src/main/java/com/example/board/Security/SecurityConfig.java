@@ -27,10 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityConfig{
 
 	@Bean
+<<<<<<< HEAD
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		
+		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+=======
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests().requestMatchers(
 				new AntPathRequestMatcher("/**")).permitAll()
 
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 		.and().csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
 		.and().headers().addHeaderWriter(
 				new XFrameOptionsHeaderWriter(
@@ -45,9 +51,13 @@ public class SecurityConfig{
 			.logoutSuccessUrl("/home").invalidateHttpSession(true);
 		return http.build();
 
+<<<<<<< HEAD
+	@Bean 
+=======
 	}
 	
 	@Bean
+>>>>>>> bd4ca7aca794e19e897fa4ecb2c1ac9bead8d805
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

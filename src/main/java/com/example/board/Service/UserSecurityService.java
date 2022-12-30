@@ -20,15 +20,18 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+
 public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
 	@Override
+
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<SiteUser> _siteUser = this.userRepository.findByusername(username); 
 		
 			if(!_siteUser.isPresent()) { 
 				throw new UsernameNotFoundException("사용자를 찾을 수 없습니다");
+
 			}
 			SiteUser siteUser = _siteUser.get();
 			List<GrantedAuthority> auth = new ArrayList<>();

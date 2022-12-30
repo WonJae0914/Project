@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 
 public class UserController {
+
 	private final UserService userService;
 	
 	@GetMapping("/signup")
@@ -31,9 +32,9 @@ public class UserController {
 		if(bindingResult.hasErrors()) {
 			return "sign_up";
 		}
+
 	
 		if(!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-			
 			bindingResult.rejectValue("password2","passwordIncorrerct", "패스워드가 일치하지 않습니다");
 			return "sign_up";
 		}
@@ -42,29 +43,20 @@ public class UserController {
 		} catch(DataIntegrityViolationException dive) {
 			dive.printStackTrace();
 			bindingResult.reject("회원가입 실패", "이미 등록되어 있는 사용자입니다.");
+
 			return "sign_up";
 		}
-		
 		catch(Exception e) {
 			e.printStackTrace();
 			bindingResult.reject("회원가입 실패", e.getMessage());
 			return "sign_up";
 		}
-		return "redirect:/";
+		return "redirect:/home";
 	}
 		@GetMapping("/login")
 		public String login() {
 			return "login_form";
 			
-		}
-		
-		
-		
-
-		
-		
-		
-		
-		
+		}	
 
 }

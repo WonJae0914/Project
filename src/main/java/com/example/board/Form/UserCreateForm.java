@@ -20,6 +20,5 @@ public class UserCreateForm {
 	private String password2;
 	@NotEmpty(message="이메일은 필수항목입니다")
 	@Email
-	private String email;
-	
+	private String email;	
 }

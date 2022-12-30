@@ -10,98 +10,18 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
-    <form class="container">
+    <form th:action="@{/user/login}" method="post" class="container">
 <!-- header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 -->
 <!-- 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근  -->
 <!-- 07.22 header 반응형 관련 크기 조절 수정자:김형준 -->
-        <div class="header">
-            <div class="navbar">
-                <div class="navbar_logo">
-                    <a href="index.html"><h1>SPORTS <span>HUB</span></h1></a>
-                </div>
-                <div class="navbar_menu">
-                    <ul class="menu1">
-                        <li class="menu_li">
-                            NEW
-                        </li>
-                        <li class="menu_li">
-                            MEN
-                        </li>
-                        <li class="menu_li">
-                            WOMAN 
-                        </li>
-                        <li class="menu_li">
-                            SUPPLIES
-                        </li>
-                        
-                        <div class="navbar_menu_drop">
-                            <ul class="drop_menu">
-                                <li>의류</li>
-                                <li>신발</li>
-                                <li>용품</li>
-                                <li>전체보기</li>
-                            </ul>
-                            <ul class="drop_menu">
-                                <li>아우터</li>
-                                <li>티셔츠</li>
-                                <li>후드</li>
-                                <li>바지</li>
-                                <li>반바지</li>
-                                <li>타이즈</li>
-                                <li>신발</li>
-                                <li>양말</li>
-                            </ul>
-                            <ul class="drop_menu">
-                                <li>아우터</li>
-                                <li>티셔츠</li>
-                                <li>후드</li>
-                                <li>바지</li>
-                                <li>반바지</li>
-                                <li>타이즈</li>
-                                <li>신발</li>
-                                <li>양말</li>
-                            </ul>
-                            <ul class="drop_menu">
-                                <li>축구</li>
-                                <li>러닝</li>
-                                <li>농구</li>
-                                <li>테니스</li>
-                                <li>트레이닝&짐</li>
-                                <li>가방</li>
-                                <li>모자</li>
-                            </ul>
-                        </div>
-                    </ul>
-                </div>
-            <div class="navbar_Icons">
-                <a href="login.html" class="navbar_Icons_a">
-                    <i class="uil uil-user-check"></i>
-                    <p>LOGIN</p>
-                </a>
-                
-                <a href="Signup.html" class="navbar_Icons_a">
-                    <i class="uil uil-user-plus"></i>
-                    <p>SIGN UP</p>
-                </a>
-                
-                <a href="#" class="navbar_Icons_a">
-                    <i class="uil uil-shopping-bag"></i>
-                    <p>SHOPPING BASKET</p>
-                </a>
-            </div>
-        </div>
-    
-        </div>
-        <!-- header 영역 종료 -->
-
         <div class="main">
             <div class="login_box">
                 <div class="login_box_content">
                     <h1>로그인</h1>
                     <div class="login_box_content_info">
-                        <input type="text" id="id" placeholder="아이디">
+                        <input type="text" name="username" id="id" placeholder="아이디">
                         <span id="id_alert" class="alert"></span>
-                        <input type="password" id="pw" placeholder="비밀번호">
+                        <input type="password" name="password" id="pw" placeholder="비밀번호">
                         <span id="pw_alert" class="alert"></span>
                         <div class="remember">
                             <input type="checkbox" id="keep">
@@ -111,7 +31,7 @@
                     </div>
 
                     <div class="btn_box">
-                        <button id="login_btn" type="button">로그인</button>
+                        <button id="login_btn" type="submit">로그인</button>
                         <a href="https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fchannel_public_id%3D_Lxbxjxgz%252C_IGQcxd%26response_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fwww.nbkorea.com%252Fcustomer%252FkakaoLogin.action%26state%3D%26client_id%3D24cb3edf2226b0f70a63be8dbb0a7f14">
                             <button id="kakao_btn" type="button">
                                 <img src="/img/카카오톡로고.jpg" class="btn_box_logo"> 카카오계정 로그인
@@ -122,7 +42,7 @@
                                 <img src="/img/네이버로고.jpg" class="btn_box_logo"> 네이버계정 로그인
                             </button>
                         </a>
-                        <span>회원이 아니신가요?</span><a href="Signup.html">회원가입</a>
+                        <span>회원이 아니신가요?</span><a th:href="@{/user/signup}">회원가입</a>
                     </div>
                 </div>
             </div>

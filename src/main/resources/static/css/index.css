@@ -345,6 +345,21 @@ border-top: 1px solid #E0E0E0;
     flex-direction: row;
 }
 
+.row{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.table{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+
 .side{
     width: 15%;
     height: auto;

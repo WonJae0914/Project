@@ -10,11 +10,8 @@ import org.springframework.data.repository.query.Param;
 import com.example.board.Entity.Question;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer>{ 
-//	Jpa�������丮 = �ڹ��ڵ�� ��� �� �ֵ��� �߰� ������ ����. 
-	
-	//Pageable ��ü�� �Է� �޾� Page<Question> Ÿ�� ��ü�� �����ϴ� findAll �޼ҵ� ����.
+
 	Page<Question> findAll(Pageable pageable);
-//	Page<Question> findAll(Specification<Question> spec, Pageable pageable);
 	
     @Query("select "
             + "distinct q "

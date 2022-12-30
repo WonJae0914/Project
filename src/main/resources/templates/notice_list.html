@@ -2,9 +2,8 @@
 <div layout:fragment="content" class="container my-3">
 	<div class="row my-3">
 		 <div class="col-6">
-	    	<a th:href="@{/review/create}" class="btn btn-primary">질문 등록하기</a>
+	    	<a th:href="@{/notice/create}" class="btn btn-primary">질문 등록하기</a>
 		 </div>
-
 		<div class="col-6">
 			<div class="input-group">
 				<input type="text" id="search_kw" class="form-control" th:value="${kw}">
@@ -14,25 +13,22 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
     <table class="table">
-        <thead class="table-active">
+        <thead class="table-dark">
             <tr class="text-center">
-                <th>NO</th>
+                <th>번호</th>
                 <th style="width:50%">제목</th>
                 <th>글쓴이</th>
                 <th>작성일시</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="question, loop : ${paging}"  class="text-center">
+            <tr th:each="question, loop : ${paging}">
                	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
-                <td class = "text-start">
-                    <a th:href="@{|/review/detail/${question.id}|}" th:text="${question.subject}"></a>
+                <td>
+                    <a th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
                 </td>
-                <td><span th:if="${question.author !=null}" th:text="${question.author.username}"  ></span>
+                <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
@@ -61,7 +57,7 @@
     		</li>
     	</ul>
     </div>
-    <form th:action="@{/review/list}" method="get" id="searchForm">
+    <form th:action="@{/notice/list}" method="get" id="searchForm">
     	<input type="hidden" id="kw" name="kw" th:value="${kw}">
     	<input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
