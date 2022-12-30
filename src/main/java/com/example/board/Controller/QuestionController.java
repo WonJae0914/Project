@@ -227,7 +227,7 @@ public class QuestionController {
 		
 		@RequestMapping(value="/Informationdetail/{id}") 
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
-			Question question = this.questionService.getInfoDetail(id);  
+			Question question = this.questionService.getInformation(id);  
 			model.addAttribute("Information", question);
 			return "sharing_detail";
 
