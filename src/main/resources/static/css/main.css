@@ -1,0 +1,28 @@
+.text-center {
+	margin-top: 40px;
+	margin-bottom: 40px; 
+}
+
+.input-group {
+	margin-bottom : 20px;
+	position : relative;
+	z-index: -9999;
+}
+
+.btn {
+    color: #FFF;
+	background-color : #333333;
+}
+
+.row > .col-8 > .input-group > .btn {
+	margin-left: 20px;
+} 
+
+.table > thead > tr{
+	color : #FFF;
+	background-color : #333333;
+}
+
+.table > tbody {
+	text-align: center;
+}
