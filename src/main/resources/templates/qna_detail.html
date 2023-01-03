@@ -27,19 +27,19 @@
             	<span class="badge rounded-pill bg-success" 
             	th:text="${#lists.size(qnaquestion.voter)}"></span>
             	</a>
-            	<a th:href="@{|/qna/modify/${qnaquestion.id}|}" 
-            	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-            	th:if="${question.author !=null 
-            	and #authentication.getPrincipal().getUsername() == question.author.username}" 
-            	th:text="수정">
-            	</a>
-            	<a href="javascript:void(0);" 
-            	th:data-uri="@{|/qna/delete/${question.id}|}" 
-            	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-            	th:if="${question.author !=null 
-            	and #authentication.getPrincipal().getUsername() == question.author.username}" 
-            	th:text="삭제">
-            	</a>
+<!--             	<a th:href="@{|/qna/modify/${qnaquestion.id}|}"  -->
+<!--             	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!--             	th:if="${qnaquestion.author !=null  -->
+<!--             	and #authentication.getPrincipal().getUsername() == question.author.username}"  -->
+<!--             	th:text="수정"> -->
+<!--             	</a> -->
+<!--             	<a href="javascript:void(0);"  -->
+<!--             	th:data-uri="@{|/qna/delete/${question.id}|}"  -->
+<!--             	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!--             	th:if="${question.author !=null  -->
+<!--             	and #authentication.getPrincipal().getUsername() == question.author.username}"  -->
+<!--             	th:text="삭제"> -->
+<!--             	</a> -->
             </div>
         </div>
     </div>

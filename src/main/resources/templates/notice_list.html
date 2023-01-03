@@ -1,18 +1,22 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+	<div class="text-center">
+		<h2>공지사항</h2>
+	</div>
 	<div class="row my-3">
-		 <div class="col-6">
-	    	<a th:href="@{/notice/create}" class="btn btn-primary">질문 등록하기</a>
-		 </div>
 		<div class="col-6">
+			<a th:href="@{/questionboard/create}" class="btn btn-primary">1:1 문의하기</a>
+		</div>
+		<div class="col-5">
 			<div class="input-group">
 				<input type="text" id="search_kw" class="form-control" th:value="${kw}">
 				<button class="btn btn-outline-secondary" type="button" id="btn_search">
-				검색하기.
+					검색하기
 				</button>
 			</div>
 		</div>
 	</div>
+	
     <table class="table">
         <thead class="table-dark">
             <tr class="text-center">
@@ -22,9 +26,9 @@
                 <th>작성일시</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="list">
             <tr th:each="question, loop : ${paging}">
-               	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
+                <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>
                 <td>
                     <a th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
                 </td>
@@ -34,21 +38,19 @@
             </tr>
         </tbody>
     </table>
-    <!-- 페이징 영역 -->
     <div th:if="${!paging.isEmpty()}">
     	<ul class="pagination justify-content-center">
     		<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-    			<a class="page-link" href="javascript:void(0);" 
-				th:data-page="${paging.number-1}">	
-    				<span>이전</span> 
+    			<a class="page-link" href="javascript:void(0);" th:data-page="${paging.number-1}">
+    				<span>이전</span>
     			</a>
     		</li>
     		<li th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}"
     			th:if="${page>=paging.number-2 and page <=paging.number+2}"
     			th:classappend="${page == paging.number} ? 'active'"
     			class="page-item">
-    			<a th:text="${page}" class="page-link" href="javascript:void(0);"
-    			th:data-page="${page}"></a>
+    			<a th:text="${page}" class="page-link" 
+    			href="javascript:void(0);" th:data-page="${page}"></a>
     		</li>
     		<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
     			<a class="page-link" href="javascript:void(0);" th:data-page="${paging.number+1}">
@@ -61,6 +63,7 @@
     	<input type="hidden" id="kw" name="kw" th:value="${kw}">
     	<input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
+    
     <script layout:fragment="script" type='text/javascript'>
 const page_elements = document.getElementsByClassName("page-link");
 Array.from(page_elements).forEach(function(element) {
@@ -70,12 +73,11 @@ Array.from(page_elements).forEach(function(element) {
     });
 });
 const btn_search = document.getElementById("btn_search");
-btn_search.addEventListener('click', function() { 
+btn_search.addEventListener('click', function() {
     document.getElementById('kw').value = document.getElementById('search_kw').value;
-    document.getElementById('page').value = 0;  
+    document.getElementById('page').value = 0; 
     document.getElementById('searchForm').submit();
 });
-</script>
+</script>    
 </div>
-
 </html>

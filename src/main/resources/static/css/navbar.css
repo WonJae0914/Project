@@ -57,6 +57,11 @@
     color: #FFF;
 }
 
+.navbar_menu_drop {
+	position: relative;
+	z-index: 999;
+}
+
 .navbar_menu_ul > li:hover ~ .navbar_menu_drop,
 .navbar_menu_drop:hover{
     height: 500px;

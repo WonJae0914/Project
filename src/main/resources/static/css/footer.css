@@ -2,7 +2,8 @@ footer {
     width: 100%;
     height: auto;
     background-color: #333333;
-    position: absolute;
+    position: relative;
+    margin-top : 30%;
     bottom: 0;
     left: 0;    
 }
@@ -46,6 +47,10 @@ footer {
 
 .footer_info_nav_list>li:hover{
     color:#B388FF;
+}
+
+.footer_info_nav_list>li > a{
+	color: #FFF;
 }
 
 .footer_info_intro{
