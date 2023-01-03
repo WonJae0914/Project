@@ -225,9 +225,9 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-		@RequestMapping(value="/Informationdetail/{id}") 
+		@RequestMapping(value="/sharing/Informationdetail/{id}") 
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
-			Question question = this.questionService.getInfoDetail(id);  
+			Question question = this.questionService.getInformation(id);  
 			model.addAttribute("Information", question);
 			return "sharing_detail";
 
@@ -238,7 +238,7 @@ public class QuestionController {
 			return "information_create";
 		}
 	
-		@PostMapping("/sharingform")
+		@PostMapping("/sharing/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
 				BindingResult bindingResult, Principal principal){ 
 
