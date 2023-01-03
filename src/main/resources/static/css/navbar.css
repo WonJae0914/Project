@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+header {
+    width: 100%;
+    height: 65px;
+    background-color: #333333;
+}
+
+.navbar_logo {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.navbar_logo>a>h1{
+    margin: 10px;
+    color: #FFF;
+}
+
+.navbar_logo>a>h1>span{
+    display: inline-block;
+    width: 73px;
+    height: 50%;
+    background-color: orange;
+    color: black;
+}
+
+.navbar_menu {
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+
+.navbar_menu_ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    line-height: 60px;
+    position: relative;
+}
+
+.navbar_menu_ul > li:hover,
+#menu_li:hover {
+    color: #B388FF;
+}
+
+.menu_li{
+    text-decoration: none;
+    color: #FFF;
+}
+
+.navbar_menu_ul > li:hover ~ .navbar_menu_drop,
+.navbar_menu_drop:hover{
+    height: 500px;
+}
+
+.navbar_menu .navbar_menu_ul>li {
+    display: inline-block;
+    width: 25%;
+    height: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: text-top;
+    list-style-type: none;
+    transition: 0.3s;
+}
+
+.navbar_menu_drop{
+    background-color: #E0E0E0;
+    width: 100%;
+    height: 0;
+    position: absolute;
+    top: 63px;
+    transition: 0.5s;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.drop_menu{
+    color: #333333;
+    cursor: pointer;
+    list-style-type: none;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drop_menu>li{
+    transition: 0.5s;
+}
+
+.drop_menu>li:hover {
+    color: #B388FF;
+}
+
+.navbar_Icons {
+    width: 15%;
+    height: 95%;
+    float: left;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar_Icons_a{
+    margin: 0 6px;
+    width: 24%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+}
+
+.navbar_Icons_a:hover >i,
+.navbar_Icons_a:hover >p{
+    color: #B388FF;
+}
+
+.navbar_Icons_box:hover > i,
+.navbar_Icons_box:hover > p{
+    color: #B388FF;
+}
+
+.navbar_Icons_a > p{
+    color: #FFF;
+    font-size: 0.7rem;
+    transition: 0.3s;
+}
+
+.navbar_Icons_a >.uil {
+    font-size: 1.7rem;
+    margin-top: 3px;
+    cursor: pointer;
+}

@@ -1,23 +1,124 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://thymeleaf.org/extras/spring-security4">
-<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">지식의 장</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+<nav th:fragment="navbarFragment">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link href="//cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Document</title>
+</head>
+
+<header>
+    <div class="navbar">
+
+<!-- navbar logo start -->
+
+        <div class="navbar_logo">
+            <a th:href="@{/home}"><h1>SPORTS <span>HUB</span></h1></a>
+        </div>
+
+<!-- navbar logo end -->
+
+<!-- navbar text end -->
+
+        <div class="navbar_menu">
+            <ul class="navbar_menu_ul">
+                <li class="menu_li">
+                    NEW
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
+                <li class="menu_li">
+                    MEN
                 </li>
+                <li class="menu_li">
+                    WOMAN 
+                </li>
+                <li class="menu_li">
+                    SUPPLIES
+                </li>
+                <li class="menu_li">
+                    BOARD
+                </li>
+                
+                <div class="navbar_menu_drop">
+                    <ul class="drop_menu">
+                        <li>의류</li>
+                        <li>신발</li>
+                        <li>용품</li>
+                        <li>전체보기</li>
+                    </ul>
+                    <ul class="drop_menu">
+                        <li>아우터</li>
+                        <li>티셔츠</li>
+                        <li>후드</li>
+                        <li>바지</li>
+                        <li>반바지</li>
+                        <li>타이즈</li>
+                        <li>신발</li>
+                        <li>양말</li>
+                    </ul>
+                    <ul class="drop_menu">
+                        <li>아우터</li>
+                        <li>티셔츠</li>
+                        <li>후드</li>
+                        <li>바지</li>
+                        <li>반바지</li>
+                        <li>타이즈</li>
+                        <li>신발</li>
+                        <li>양말</li>
+                    </ul>
+                    <ul class="drop_menu">
+                        <li>축구</li>
+                        <li>러닝</li>
+                        <li>농구</li>
+                        <li>테니스</li>
+                        <li>트레이닝&짐</li>
+                        <li>가방</li>
+                        <li>모자</li>
+                    </ul>
+                    <ul class="drop_menu">
+                        <li>공지사항</li>
+                        <li>QnA</li>
+                        <li>문의게시판</li>
+                        <li>의류후기</li>
+                        <li>의류정보공유</li>
+                    </ul>
+                </div>
             </ul>
         </div>
+
+<!-- navbar text end -->
+
+<!-- navbar icon start -->
+
+        <div class="navbar_Icons">
+            <a th:href="@{/user/login}" class="navbar_Icons_a">
+                <i class="uil uil-user-check"></i>
+                <p>LOGIN</p>
+            </a>
+            
+            <a  sec:authorize="isAuthenticated()" class="navbar_Icons_a" th:href="@{/user/logout}">
+             <i class="uil uil-user-check"></i>
+                <p>LOGOUT</p>
+            </a>
+            
+            
+            <a th:href="@{/user/Signup}" class="navbar_Icons_a">
+                <i class="uil uil-user-plus"></i>
+                <p>SIGN UP</p>
+            </a>
+            
+            <a href="@{/home}" class="navbar_Icons_a">
+                <i class="uil uil-shopping-bag"></i>
+                <p>SHOPPING BASKET</p>
+            </a>
+        </div>
+
+<!-- navbar icon end -->
+
     </div>
+</header>
 </nav>
-</html>
