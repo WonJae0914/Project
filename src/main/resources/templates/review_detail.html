@@ -27,6 +27,11 @@
             	<span class="badge rounded-pill bg-success" 
             	th:text="${#lists.size(question.voter)}"></span>
             	</a>
+            	<a href="javascript:void(0);" class="Deprecated btn btn-sm btn-outline-danger" 
+            	th:data-uri="@{|/review/unvoter/${question.id}|}">
+            	비추천
+            	<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.unvoter)}"></span>
+            	</a>            	
             	<a th:href="@{|/review/modify/${question.id}|}" 
             	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
             	th:if="${question.author !=null 
@@ -64,13 +69,6 @@
                     </div>
                 </div>
                 <div class="my-3">
-                	<a href="javascript:void(0);" class="recommend btn btn-sm
-	            	btn-outline-secondary" 
-	            	th:data-uri="@{|/reviewanswer/voter/${answer.id}|}">
-	            	추천
-	            	<span class="badge rounded-pill bg-success" 
-	            	th:text="${#lists.size(answer.voter)}"></span>
-	            	</a>
 	            	<a th:href="@{|/reviewanswer/modify/${answer.id}|}" 
 	            	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
 	            	th:if="${answer.author !=null and #authentication.getPrincipal().getUsername() == answer.author.username}" 
@@ -115,6 +113,16 @@ Array.from(recommend_elements).forEach(function(element) {
         };
     });
 });
+
+const Deprecated_elements = document.getElementsByClassName("Deprecated");
+Array.from(Deprecated_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 비추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
 </script>
 
 </html>
