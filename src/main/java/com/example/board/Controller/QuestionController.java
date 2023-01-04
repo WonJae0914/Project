@@ -236,24 +236,22 @@ public class QuestionController {
       
       //questionboard end
 
-      
-      //InformationSharing start
-      @GetMapping("/sharing/list")
-      public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
-               @RequestParam(value="kw", defaultValue="") String kw) { 
-            Page<Question> paging = this.questionService.getInfoList(page, kw);
-            model.addAttribute("paging", paging);
-            model.addAttribute("kw", kw);
-            
-            
-            return "informationSharing"; 
-         }
-      
-      @RequestMapping(value="/sharing/informationdetail/{id}") 
-      public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform, Principal principal) throws Exception { 
-         Question question = this.questionService.getInformation(id);  
-         model.addAttribute("question", question);
-         return "information_detail";
+		//InformationSharing start
+		@GetMapping("/sharing/list")
+		public String InfoList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
+					@RequestParam(value="kw", defaultValue="") String kw) { 
+				Page<Question> paging = this.questionService.getInfoList(page, kw);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kw", kw);
+				return "informationSharing"; 
+			}
+		
+		@RequestMapping(value="/sharing/informationdetail/{id}") 
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception { 
+			Question question = this.questionService.getInformation(id);
+			this.questionService.updateView(id);
+			model.addAttribute("question", question);
+			return "information_detail";
 
       }
       @PreAuthorize("isAuthenticated()")
@@ -323,88 +321,148 @@ public class QuestionController {
       }
       //InformationSharing end   
 
-      // 221230 - add notice start - updated by kd
-      @GetMapping("/notice/list")
-      public String noticeList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
-          @RequestParam(value="kw", defaultValue="") String kw) {
-         Page<Question> paging = this.questionService.getList(page, kw);
-         
-         model.addAttribute("paging", paging);
-         model.addAttribute("kw", kw);
-         return "notice_list";
-      }
-      @RequestMapping(value="/notice/detail/{id}")
-      public String noticeDetail(Model model, @PathVariable("id") Integer id) throws Exception {
-         Question question = this.questionService.getQuestion(id);
-         model.addAttribute("question", question);
-         return "notice_detail";
-      }
-//      @PreAuthorize("isAuthenticated()")
-//      @GetMapping("/notice/create")
-//      public String noticeCreate(QuestionForm questionForm) {
-//         return "notice_create";
-//      }
-      @PreAuthorize("isAuthenticated()")
-      @PostMapping("/notice/create")
-      public String noticeCreate(@Valid QuestionForm questionForm, 
-            BindingResult bindingResult, Principal principal) {
-         if(bindingResult.hasErrors()) {
-            return "question_form";
-         }
-         SiteUser siteuser = this.userService.getUser(principal.getName());
-         this.questionService.create(
-               questionForm.getSubject(), 
-               questionForm.getContent(),
-               siteuser);
-         return "redirect:/notice/list";
-      }
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/notice/modify/{id}")
-      public String noticeModify(QuestionForm questionForm, 
-            @PathVariable("id") Integer id, Principal principal) {
-         Question q = this.questionService.getQuestion(id);
-         if(!q.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
-         }
-         questionForm.setSubject(q.getSubject());
-         questionForm.setContent(q.getContent());
-         return "notice_modify";
-      }
-      @PreAuthorize("isAuthenticated()")
-      @PostMapping("/notice/modify/{id}")
-      public String noticeModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
-            BindingResult bindingResult, Principal principal) {
-         if(bindingResult.hasErrors()) {
-            return "question_form";
-         }
-         Question question = this.questionService.getQuestion(id);
-         if(!question.getAuthor().getUsername().equals(principal.getName())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
-         }
-         this.questionService.modify(question, 
-               questionForm.getSubject(), questionForm.getContent());
-         return String.format("redirect:/notice/detail/%s", id);
-      }
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/notice/delete/{id}")
-      public String noticeDelete(@PathVariable("id") Integer id, Principal principal) {
-         Question question = this.questionService.getQuestion(id);
-         if(!question.getAuthor().getUsername().equals(principal.getName())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
-         }
-         this.questionService.delete(question);
-         return "redirect:/notice/list";
-      }
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/notice/voter/{id}")
-      public String noticeVoter(@PathVariable("id") Integer id, Principal principal) {
-         Question question = this.questionService.getQuestion(id);
-         SiteUser siteUser = this.userService.getUser(principal.getName());
-         this.questionService.voter(question, siteUser);
-         return String.format("redirect:/notice/detail/%s", id);
-      }   
-      // 221230 - add notice end - updated by kd
-    
+
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/sharing/infomodify/{id}")
+		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			questionForm.setSubject(question.getSubject());
+			questionForm.setContent(question.getContent());
+			return "information_modify";
+		}
+		@PreAuthorize("isAuthenticated()")
+		@PostMapping("/sharing/infomodify/{id}")
+		public String InfoModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
+				BindingResult bindingResult, Principal principal){
+				
+			if(bindingResult.hasErrors()) {
+			return "question_form";
+			}
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+			}
+			this.questionService.getInfoModify(question, questionForm.getSubject(), questionForm.getContent());
+			
+			return String.format("redirect:/sharing/informationdetail/%s", id);
+		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/sharing/infodelete/{id}")
+		public String InfoDelete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
+			}
+			this.questionService.getInfoDelete(question);
+			return "redirect:/sharing/list";
+		}
+		@PreAuthorize("isAuthenticated()")	
+		@GetMapping("/sharing/infovoter/{id}")
+		public String InfoVoter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getInformation(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.getInforVoter(question, siteUser);
+			return String.format("redirect:/sharing/informationdetail/%s", id);
+		} 
+		//InformationSharing end	
+
+		// 221230 - add notice start - updated by kd
+		@GetMapping("/notice/list")
+		public String noticeList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
+			 @RequestParam(value="kw", defaultValue="") String kw) {
+			Page<Question> paging = this.questionService.getList(page, kw);
+			
+			model.addAttribute("paging", paging);
+			model.addAttribute("kw", kw);
+			return "notice_list";
+		}
+		// 비로그인 조회 o 중복 o
+		@RequestMapping(value="/notice/detail/{id}")
+		public String noticeDetail(Model model, @PathVariable("id") Integer id, Principal principal) throws Exception {
+			Question question = this.questionService.getQuestion(id);
+//			this.questionService.getQuestion(id);
+			model.addAttribute("question", question);
+			return "notice_detail";
+		}
+		// 로그인 한 사람만, 중복 x
+//		@RequestMapping(value="/notice/detail/{id}")
+//		public String noticeDetail(Model model, @PathVariable("id") Integer id, Principal principal) throws Exception {
+//			Question question = this.questionService.getQuestion(id);
+//			SiteUser siteUser = this.userService.getUser(principal.getName());
+//			this.questionService.numOfView(question, siteUser);
+//			model.addAttribute("question", question);
+//			return "notice_detail";
+//		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping("/notice/create")
+		public String noticeCreate(QuestionForm questionForm) {
+			return "notice_create";
+		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@PostMapping("/notice/create")
+		public String noticeCreate(@Valid QuestionForm questionForm, 
+				BindingResult bindingResult, Principal principal) {
+			if(bindingResult.hasErrors()) {
+				return "notice_form";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			this.questionService.create(
+					questionForm.getSubject(), 
+					questionForm.getContent(),
+					siteuser);
+			return "redirect:/notice/list";
+		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping("/notice/modify/{id}")
+		public String noticeModify(QuestionForm questionForm, 
+				@PathVariable("id") Integer id, Principal principal) {
+			Question q = this.questionService.getQuestion(id);
+			if(!q.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+			}
+			questionForm.setSubject(q.getSubject());
+			questionForm.setContent(q.getContent());
+			return "notice_modify";
+		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@PostMapping("/notice/modify/{id}")
+		public String noticeModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
+				BindingResult bindingResult, Principal principal) {
+			if(bindingResult.hasErrors()) {
+				return "notice_form";
+			}
+			Question question = this.questionService.getQuestion(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())){
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+			}
+			this.questionService.modify(question, 
+					questionForm.getSubject(), questionForm.getContent());
+			return String.format("redirect:/notice/detail/%s", id);
+		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping("/notice/delete/{id}")
+		public String noticeDelete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getQuestion(id);
+			if(!question.getAuthor().getUsername().equals(principal.getName())){
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+			}
+			this.questionService.delete(question);
+			return "redirect:/notice/list";
+		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/notice/voter/{id}")
+		public String noticeVoter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.getQuestion(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.voter(question, siteUser);
+			return String.format("redirect:/notice/detail/%s", id);
+		}	
+		// 221230 - add notice end - updated by kd
+
+
       // qna start
       @GetMapping("/qna/list")
       public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page) {

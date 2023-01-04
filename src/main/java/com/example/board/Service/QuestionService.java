@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -184,10 +185,17 @@ public class QuestionService {
 	}
 	
 	@Transactional // @Transactional은 클래스나 메서드에 붙여줄 경우, 해당 범위 내 메서드가 트랜잭션이 되도록 보장해준다
-	public void updateView(Question question, SiteUser siteUser) {
-		question.getView().add(siteUser);
-		this.informationRepository.save(question);
-	}
+	public Question updateView(Integer id) {
+		Optional<Question> question = this.informationRepository.findById(id);
+	      if(question.isPresent()) {
+	         Question question1 = question.get();
+	         question1.setView(question1.getView()+1);
+	         this.informationRepository.save(question1);
+	         return question1;
+	      }else {
+	         throw new DataNotFoundException("값을 찾을 수 없습니다");
+	      }
+	   }
 //		Optional<Question> question = this.informationRepository.findById(id);
 //		
 //		if(question.isPresent()) {
@@ -259,7 +267,10 @@ public class QuestionService {
 		public Question getQuestion(Integer id) throws DataNotFoundException {
 			Optional<Question> question = this.nr.findById(id);
 			if(question.isPresent()) {
-				return question.get();
+				Question question1 = question.get();
+				question1.setView(question1.getView()+1);
+				this.nr.save(question1);
+				return question1;
 			}else {
 				throw new DataNotFoundException("그런거 없음");
 			}
@@ -286,10 +297,6 @@ public class QuestionService {
 			this.nr.save(question);
 		}
 		
-		public void numOfView(Question question, SiteUser siteUser) {
-			question.getNumOfView().add(siteUser);
-			this.nr.save(question);
-		}
 		
 		
 		// 221230 - add notice end - updated by kd
