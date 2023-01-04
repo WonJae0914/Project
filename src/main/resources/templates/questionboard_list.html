@@ -27,7 +27,7 @@
                 <th>답변여부</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="list">
             <tr th:each="questionboard, loop : ${paging}">
             	
                 <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>

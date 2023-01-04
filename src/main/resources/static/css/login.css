@@ -19,6 +19,10 @@ body{
 /* 07.21 header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 */
 /* 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근 */
 
+.navbar_logo>a>h1>span{
+	padding-bottom: 43px;
+}
+
 .navbar_menu .menu1>li {
     display: inline-block;
     width: 25%;
