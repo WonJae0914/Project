@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://thymeleaf.org/extras/spring-security4">
-<nav th:fragment="navbarFragment">
-
+<th:block th:fragment="headerFragment">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,9 +10,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <title>Document</title>
 </head>
-
-<header>
-    <div class="navbar">
+<div class="navbar">
 
 <!-- navbar logo start -->
 
@@ -80,11 +77,11 @@
                         <li>모자</li>
                     </ul>
                     <ul class="drop_menu">
-                        <li>공지사항</li>
-                        <li>QnA</li>
-                        <li>문의게시판</li>
-                        <li>의류후기</li>
-                        <li>의류정보공유</li>
+                        <li><a th:href="@{/notice/list}">공지사항</a></li>
+                        <li><a th:href="@{/qna/list}">QnA</a></li>
+                        <li><a th:href="@{/questionboard/list}">문의게시판</a></li>
+                        <li><a th:href="@{/review/list}">의류후기</a></li>
+                        <li><a th:href="@{/sharing/list}">의류정보공유</a></li>
                     </ul>
                 </div>
             </ul>
@@ -104,14 +101,14 @@
              <i class="uil uil-user-check"></i>
                 <p>LOGOUT</p>
             </a>
+                     
+            <a th:href="@{/user/signup}" class="navbar_Icons_a">
             
-            
-            <a th:href="@{/user/Signup}" class="navbar_Icons_a">
                 <i class="uil uil-user-plus"></i>
                 <p>SIGN UP</p>
             </a>
             
-            <a href="@{/home}" class="navbar_Icons_a">
+            <a href="#" class="navbar_Icons_a">
                 <i class="uil uil-shopping-bag"></i>
                 <p>SHOPPING BASKET</p>
             </a>
@@ -120,5 +117,5 @@
 <!-- navbar icon end -->
 
     </div>
-</header>
-</nav>
+</th:block>
+</html>

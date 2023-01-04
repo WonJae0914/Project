@@ -179,8 +179,8 @@ SignIn_Btn.addEventListener('click',function(){
         alert("약관 및 개인정보 동의해주세요");
     }
     else{
+    	document.signup1.submit();
         alert("회원가입 완료.");
-        location.href = 'login.html'; // 로그인 페이지로 이동
     } 
 })
 

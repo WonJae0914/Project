@@ -39,7 +39,8 @@ public class UserController {
 			return "sign_up";
 		}
 		try {
-		this.userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1());	
+		this.userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getName(),
+				userCreateForm.getPhone(),userCreateForm.getBirth());	
 		} catch(DataIntegrityViolationException dive) {
 			dive.printStackTrace();
 			bindingResult.reject("회원가입 실패", "이미 등록되어 있는 사용자입니다.");

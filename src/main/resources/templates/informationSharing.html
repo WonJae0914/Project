@@ -1,11 +1,12 @@
 <html layout:decorate="~{layout}">
 	<div layout:fragment="content" class="container my-3">
+  <div class="text-center"> 
 	<div class="row my-3">
-	<p>정보공유 게시판</p>
+	<h2>의류정보공유</h2>
 		<div class="col-6">
 			<a th:href="@{/sharing/sharingform}" class="btn btn-primary">글 작성</a>
 		</div>
-		<div class="col-6">
+		<div class="col-5">
 			<div class="input-group">
 				<input type="text" id="search_kw" class="form-control" th:value="${kw}">
 				<button class="btn btn-outline-secondary" type="button" id="btn_search">
@@ -15,6 +16,7 @@
 			
 		</div>
 	</div>
+	
     <table class="table">
         <thead class="table-dark">
             <tr class="text-center">
@@ -25,8 +27,10 @@
                 <th>조회수</th>
             </tr>
         </thead>
-        <tbody>
-            <tr th:each="question, loop : ${paging}" class="text-center">
+        
+        <tbody class="list">
+            <tr th:each="question, loop : ${paging}">
+
                	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
                 <td>
                     <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}" class="views"></a>
@@ -41,7 +45,6 @@
             </tr>
         </tbody>
     </table>
-    <!-- 페이징 영역 시작 -->
     <div th:if="${!paging.isEmpty()}">
     	<ul class="pagination justify-content-center">
     		<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
@@ -63,14 +66,13 @@
     		</li>
     	</ul>
     </div>
-    <!-- 페이징 영역 끝-->
     <form th:action="@{/sharing/list}" method="get" id="searchForm">
     	<input type ="hidden" id="kw" name="kw" th:value="${kw}">
-    	<input type ="hidden" id="page" name="page" th:value="${paging.number}">
-    
+    	<input type ="hidden" id="page" name="page" th:value="${paging.number}">    
     </form>
     
     <script layout:fragment="script" type='text/javascript'>
+
 	const page_elements = document.getElementsByClassName("page-link");
 	Array.from(page_elements).forEach(function(element) {
     	element.addEventListener('click', function() {
@@ -95,8 +97,5 @@
 	    });
 	});
 </script>
-    
- 
 </div>
-</body>
-</html> 
+</html>

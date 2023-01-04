@@ -263,6 +263,7 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/sharing/list";
 			}
+
 		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/sharing/infomodify/{id}")
 		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
@@ -322,22 +323,24 @@ public class QuestionController {
 			return "notice_list";
 		}
 		@RequestMapping(value="/notice/detail/{id}")
-		public String noticeDetail(Model model, @PathVariable("id") Integer id) throws Exception {
+		public String noticeDetail(Model model, @PathVariable("id") Integer id, Principal principal) throws Exception {
 			Question question = this.questionService.getQuestion(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.numOfView(question, siteUser);
 			model.addAttribute("question", question);
 			return "notice_detail";
 		}
-//		@PreAuthorize("isAuthenticated()")
-//		@GetMapping("/notice/create")
-//		public String noticeCreate(QuestionForm questionForm) {
-//			return "notice_create";
-//		}
-		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping("/notice/create")
+		public String noticeCreate(QuestionForm questionForm) {
+			return "notice_create";
+		}
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@PostMapping("/notice/create")
 		public String noticeCreate(@Valid QuestionForm questionForm, 
 				BindingResult bindingResult, Principal principal) {
 			if(bindingResult.hasErrors()) {
-				return "question_form";
+				return "notice_form";
 			}
 			SiteUser siteuser = this.userService.getUser(principal.getName());
 			this.questionService.create(
@@ -346,7 +349,7 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/notice/list";
 		}
-		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@GetMapping("/notice/modify/{id}")
 		public String noticeModify(QuestionForm questionForm, 
 				@PathVariable("id") Integer id, Principal principal) {
@@ -358,12 +361,12 @@ public class QuestionController {
 			questionForm.setContent(q.getContent());
 			return "notice_modify";
 		}
-		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@PostMapping("/notice/modify/{id}")
 		public String noticeModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
 				BindingResult bindingResult, Principal principal) {
 			if(bindingResult.hasErrors()) {
-				return "question_form";
+				return "notice_form";
 			}
 			Question question = this.questionService.getQuestion(id);
 			if(!question.getAuthor().getUsername().equals(principal.getName())){
@@ -373,7 +376,7 @@ public class QuestionController {
 					questionForm.getSubject(), questionForm.getContent());
 			return String.format("redirect:/notice/detail/%s", id);
 		}
-		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@GetMapping("/notice/delete/{id}")
 		public String noticeDelete(@PathVariable("id") Integer id, Principal principal) {
 			Question question = this.questionService.getQuestion(id);
@@ -391,6 +394,7 @@ public class QuestionController {
 			this.questionService.voter(question, siteUser);
 			return String.format("redirect:/notice/detail/%s", id);
 		}	
+		
 		// 221230 - add notice end - updated by kd
     
 		// qna start
