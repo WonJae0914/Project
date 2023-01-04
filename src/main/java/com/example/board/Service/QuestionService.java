@@ -179,20 +179,17 @@ public class QuestionService {
 	}
 	
 	@Transactional // @Transactional은 클래스나 메서드에 붙여줄 경우, 해당 범위 내 메서드가 트랜잭션이 되도록 보장해준다
-	public void updateView(Question question, SiteUser siteUser) {
-		question.getView().add(siteUser);
-		this.informationRepository.save(question);
+	public Question updateView(Integer id) {
+		Optional<Question> question = this.informationRepository.findById(id);
+		if(question.isPresent()) {
+			Question question1 = question.get();
+			question1.setView(question1.getView()+1);
+			this.informationRepository.save(question1);
+			return question1;
+		}else {
+			throw new DataNotFoundException("값을 찾을 수 없습니다");
+		}
 	}
-//		Optional<Question> question = this.informationRepository.findById(id);
-//		
-//		if(question.isPresent()) {
-//			Question question2 = question.get();
-//			question2.setView(question2.getView()+1);
-//			this.informationRepository.save(question2);
-//			return question2;
-//		}else {
-//			throw new DataNotFoundException("값을 찾을 수 없습니다");
-//		}	
 	//informationSharing end
 	
 		

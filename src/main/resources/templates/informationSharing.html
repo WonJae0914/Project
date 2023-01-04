@@ -33,15 +33,12 @@
 
                	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
                 <td>
-                    <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}" class="views"></a>
+                    <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}"></a>
                 </td>
                 <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-                <td href="javascript:void(0);" th:text="${#lists.size(question.view)}" 
-                	th:data-uri="@{|/sharing/informationdetail/${question.id}|}">
-                
-                </td>       
+                <td  th:text="${question.view}"></td>       
             </tr>
         </tbody>
     </table>
@@ -80,7 +77,6 @@
         	document.getElementById('searchForm').submit();
     	});
 	});
-	
 	<!-- 검색 시작 -->
 	const btn_search = document.getElementById("btn_search");
 	btn_search.addEventListener('click', function() {
@@ -89,13 +85,7 @@
   	 document.getElementById('searchForm').submit();
 	});
 	<!-- 검색 끝 -->
-	const views_elements = document.getElementsByClassName("views");
-	Array.from(views_elements).forEach(function(element) {
-	    element.addEventListener('click', function() {
-	            location.href = this.dataset.uri;
-	        };
-	    });
-	});
+
 </script>
 </div>
 </html>
