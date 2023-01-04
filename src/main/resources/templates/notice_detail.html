@@ -1,6 +1,15 @@
-<html layout:decorate="~{layout}">
-
-<div layout:fragment="content" class="container my-3">
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <title>Notice</title>
+</head>
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<th:block layout:fragment="content"></th:block>
+	<th:block layout:fragment="script"></th:block>
+<div class="container my-3">
     <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
     <div class="card my-3"> 
         <div class="card-body">
@@ -22,20 +31,20 @@
             <div class="my-3">
             	<a href="javascript:void(0);" class="recommend btn btn-sm
             	btn-outline-secondary" 
-            	th:data-uri="@{|/notice/voter/${question.id}|}">
+            	th:data-uri="@{|/notice/voter/${question.id}|}" sec:authorize="isAuthenticated()">
             	추천
             	<span class="badge rounded-pill bg-success" 
             	th:text="${#lists.size(question.voter)}"></span>
             	</a>
             	<a th:href="@{|/notice/modify/${question.id}|}" 
-            	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+            	class="btn btn-sm btn-outline-secondary" sec:authorize="hasRole('ROLE_ADMIN')"
             	th:if="${question.author !=null 
             	and #authentication.getPrincipal().getUsername() == question.author.username}" 
             	th:text="수정">
             	</a>
             	<a href="javascript:void(0);" 
             	th:data-uri="@{|/notice/delete/${question.id}|}" 
-            	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+            	class="delete btn btn-sm btn-outline-secondary" sec:authorize="hasRole('ROLE_ADMIN')"
             	th:if="${question.author !=null 
             	and #authentication.getPrincipal().getUsername() == question.author.username}" 
             	th:text="삭제">
@@ -43,7 +52,7 @@
             </div>
         </div>
     </div>
-    <h5 class="border-bottom my-3 py-2" 
+     <!-- <h5 class="border-bottom my-3 py-2" 
         th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
     <div th:each="answer : ${question.answerList}">
         <div class="card my-3">
@@ -63,7 +72,7 @@
                         
                     </div>
                 </div>
-                <!-- <div class="my-3">
+                <div class="my-3">
                 	<a href="javascript:void(0);" class="recommend btn btn-sm
 	            	btn-outline-secondary" 
 	            	th:data-uri="@{|/noticeanswer/voter/${answer.id}|}">
@@ -83,11 +92,11 @@
 	            	and #authentication.getPrincipal().getUsername() == answer.author.username}" 
 	            	th:text="삭제">
 	            	</a>
-            	</div> -->
+            	</div>
             </div>
         </div>
     </div>
-	<!-- <form th:action="@{|/noticeanswer/create/${question.id}|}" 
+	 <form th:action="@{|/noticeanswer/create/${question.id}|}" 
 			th:object="${answerForm}" method="post" class="my-3">
 		<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
 			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>

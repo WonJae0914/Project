@@ -4,8 +4,9 @@
 		<h2>공지사항</h2>
 	</div>
 	<div class="row my-3">
+
 		<div class="col-6">
-			<a th:href="@{/questionboard/create}" class="btn btn-primary">1:1 문의하기</a>
+			<a th:href="@{/notice/create}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">공지사항 등록하기</a>
 		</div>
 		<div class="col-5">
 			<div class="input-group">
@@ -19,22 +20,25 @@
 	
     <table class="table">
         <thead class="table-dark">
-            <tr class="text-center">
+            <tr>
                 <th>번호</th>
                 <th style="width:50%">제목</th>
                 <th>글쓴이</th>
                 <th>작성일시</th>
+                <th>조회수</th>
             </tr>
         </thead>
         <tbody class="list">
             <tr th:each="question, loop : ${paging}">
                 <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>
                 <td>
-                    <a th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
+                    <a class="views" th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
                 </td>
                 <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td href="javascript:void(0);" th:text="${#lists.size(question.numOfView)}" 
+                	th:data-uri="@{|/notice/detail/${question.id}|}"></td>
             </tr>
         </tbody>
     </table>
@@ -72,12 +76,20 @@ Array.from(page_elements).forEach(function(element) {
         document.getElementById('searchForm').submit();
     });
 });
+
 const btn_search = document.getElementById("btn_search");
 btn_search.addEventListener('click', function() {
     document.getElementById('kw').value = document.getElementById('search_kw').value;
     document.getElementById('page').value = 0; 
     document.getElementById('searchForm').submit();
 });
-</script>    
+
+const views_elements = document.getElementsByClassName("views");
+Array.from(views_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+            location.href = this.dataset.uri;
+    });
+});
+</script>
 </div>
 </html>

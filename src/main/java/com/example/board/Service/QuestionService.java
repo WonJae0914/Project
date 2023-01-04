@@ -266,6 +266,11 @@ public class QuestionService {
 			this.nr.save(question);
 		}
 		
+		public void numOfView(Question question, SiteUser siteUser) {
+			question.getNumOfView().add(siteUser);
+			this.nr.save(question);
+		}
+		
 		// 221230 - add notice end - updated by kd
 }
 		
