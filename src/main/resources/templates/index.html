@@ -85,7 +85,7 @@
                     <ul class="drop_menu">     
                         <li><a th:href="@{/notice/list}">공지사항</a></li>
                         <li><a th:href="@{/qna/list}">QnA</a></li>
-                        <li><a th:href="@{/questionboard/list}">문의게시판</a></li>
+                        <li><a th:href="@{/questionboard/list}" sec:authorize="isAuthenticated()">문의게시판</a></li>
                         <li><a th:href="@{/review/list}">의류후기</a></li>
                         <li><a th:href="@{/sharing/list}">의류정보공유</a></li>
                     </ul>
@@ -944,5 +944,6 @@
     <!--0726 19:03 json파일 링크 추가 수정자:김형준-->
     <script src="json/index.json" type="text/javascript"></script>
     <script src="js/index.js"></script>
+
 </body>
 </html>

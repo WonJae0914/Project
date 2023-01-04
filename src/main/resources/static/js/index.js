@@ -59,6 +59,8 @@ let span = document.getElementsByClassName("area3_close")[0]; // 모달창 close
 let caption = document.getElementById('caption'); // 모달창 밑에 카테고리 이름 
 let side_menu_add = document.querySelectorAll('.side_menu_label')
 
+
+
 // 사이드바
 for(let i=0; i<shopping_icon_woman.length; i++){
     shopping_icon_woman[i].addEventListener('click',function(){
