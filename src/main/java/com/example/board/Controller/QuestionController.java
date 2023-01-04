@@ -319,55 +319,7 @@ public class QuestionController {
          this.questionService.getInforVoter(question, siteUser);
          return String.format("redirect:/sharing/informationdetail/%s", id);
       }
-      //InformationSharing end   
-
-
-		@PreAuthorize("isAuthenticated()")
-		@GetMapping("/sharing/infomodify/{id}")
-		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
-			Question question = this.questionService.getInformation(id);
-			if(!question.getAuthor().getUsername().equals(principal.getName())) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
-			}
-			questionForm.setSubject(question.getSubject());
-			questionForm.setContent(question.getContent());
-			return "information_modify";
-		}
-		@PreAuthorize("isAuthenticated()")
-		@PostMapping("/sharing/infomodify/{id}")
-		public String InfoModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
-				BindingResult bindingResult, Principal principal){
-				
-			if(bindingResult.hasErrors()) {
-			return "question_form";
-			}
-			Question question = this.questionService.getInformation(id);
-			if(!question.getAuthor().getUsername().equals(principal.getName())) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
-			}
-			this.questionService.getInfoModify(question, questionForm.getSubject(), questionForm.getContent());
-			
-			return String.format("redirect:/sharing/informationdetail/%s", id);
-		}
-		@PreAuthorize("isAuthenticated()")
-		@GetMapping("/sharing/infodelete/{id}")
-		public String InfoDelete(@PathVariable("id") Integer id, Principal principal) {
-			Question question = this.questionService.getInformation(id);
-			if(!question.getAuthor().getUsername().equals(principal.getName())) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
-			}
-			this.questionService.getInfoDelete(question);
-			return "redirect:/sharing/list";
-		}
-		@PreAuthorize("isAuthenticated()")	
-		@GetMapping("/sharing/infovoter/{id}")
-		public String InfoVoter(@PathVariable("id") Integer id, Principal principal) {
-			Question question = this.questionService.getInformation(id);
-			SiteUser siteUser = this.userService.getUser(principal.getName());
-			this.questionService.getInforVoter(question, siteUser);
-			return String.format("redirect:/sharing/informationdetail/%s", id);
-		} 
-		//InformationSharing end	
+      //InformationSharing end   	
 
 		// 221230 - add notice start - updated by kd
 		@GetMapping("/notice/list")
