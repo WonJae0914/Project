@@ -30,5 +30,6 @@ public class SiteUser {
 	private String phone;
 	
 	private String birth;
+	
 
 }
