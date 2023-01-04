@@ -5,9 +5,9 @@
     text-decoration: none;
 }
 
-header {
+.navbar {
     width: 100%;
-    height: 65px;
+    height: 63px;
     background-color: #333333;
 }
 
@@ -55,6 +55,11 @@ header {
 .menu_li{
     text-decoration: none;
     color: #FFF;
+}
+
+.navbar_menu_drop {
+	position: relative;
+	z-index: 999;
 }
 
 .navbar_menu_ul > li:hover ~ .navbar_menu_drop,
@@ -105,6 +110,16 @@ header {
     color: #B388FF;
 }
 
+.drop_menu>li>a{
+	color: #333333;
+	text-decoration: none;
+	transition: 0.5s;
+}
+
+.drop_menu>li>a:hover {
+    color: #B388FF;
+}
+
 .navbar_Icons {
     width: 15%;
     height: 95%;
@@ -121,6 +136,7 @@ header {
     display: flex;
     flex-direction: column;
     color: #FFF;
+    text-decoration: none;
 }
 
 .navbar_Icons_a:hover >i,
@@ -137,6 +153,7 @@ header {
     color: #FFF;
     font-size: 0.7rem;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .navbar_Icons_a >.uil {
