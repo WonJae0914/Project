@@ -24,10 +24,8 @@ public class UserService {
 		SiteUser user = new SiteUser();
 		user.setUsername(username);
 		user.setEmail(email);
-
 		user.setPassword(passwordEncoder.encode(password)); 
 																												
-
 		this.userRepository.save(user);
 		return user;
 		

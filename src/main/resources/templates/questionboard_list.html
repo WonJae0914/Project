@@ -19,22 +19,30 @@
 	
     <table class="table">
         <thead class="table-dark">
-            <tr class="text-center">
+            <tr>
                 <th>번호</th>
                 <th style="width:50%">제목</th>
                 <th>글쓴이</th>
                 <th>작성일시</th>
+                <th>답변여부</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="questionboard, loop : ${paging}">
+            	
                 <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>
                 <td>
-                    <a th:href="@{|/questionboard/detail/${questionboard.id}|}" th:text="${questionboard.subject}"></a>
+                    <a th:href="@{|/questionboard/detail/${questionboard.id}|}" th:text="${questionboard.subject}"
+                    th:classappend="${questionboard.author !=null and #authentication.getPrincipal().getUsername() != questionboard.author.username and #authentication.getPrincipal().getUsername() !='admin'} ? 'page-secret'"
+                    ></a>
                 </td>
                 <td><span th:if="${questionboard.author !=null}" th:text="${questionboard.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(questionboard.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td>
+				<span th:if="${questionboard.answerList.size()==0}" th:text="답변대기"></span>
+                <span th:if="${questionboard.answerList.size()!=0}" th:text="답변완료"></span>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -70,6 +78,15 @@ Array.from(page_elements).forEach(function(element) {
     element.addEventListener('click', function() {
         document.getElementById('page').value = this.dataset.page;
         document.getElementById('searchForm').submit();
+    });
+});
+const page_secret = document.getElementsByClassName("page-secret");
+Array.from(page_secret).forEach(function(element) {
+    element.addEventListener('click', function(e) {   
+       document.getElementById('page').value = this.dataset.page;
+       console.log(this.dataset.page);
+       alert('권한이 없습니다');
+       e.preventDefault();
     });
 });
 const btn_search = document.getElementById("btn_search");

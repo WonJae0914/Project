@@ -122,8 +122,6 @@ public class QuestionService {
 			this.qbr.save(question);
 			
 		}
-
-
 	public void questionboard_delete(Question question) {
 		this.qbr.delete(question);
 	}
@@ -131,7 +129,6 @@ public class QuestionService {
 	public void questionboard_voter(Question question, SiteUser siteUser) {
 		question.getVoter().add(siteUser);
 		this.qbr.save(question);
-			
 	}
 	//questionboard questionservice end
 		
@@ -179,7 +176,7 @@ public class QuestionService {
 	//informationSharing end
 	
 			
-}
+
 			
 		
 		// qna start

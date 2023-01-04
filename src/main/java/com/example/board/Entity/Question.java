@@ -31,10 +31,10 @@ public class Question {
 	@Column(length = 200)
 	private String subject;
 	
-	@Column(columnDefinition="TEXT")
+	@Column(columnDefinition="TEXT" )
 	private String content;
-	
 	private LocalDateTime createDate;
+	
 	
 	@OneToMany(mappedBy="question", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList; 
