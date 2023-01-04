@@ -79,7 +79,7 @@
                     <ul class="drop_menu">
                         <li><a th:href="@{/notice/list}">공지사항</a></li>
                         <li><a th:href="@{/qna/list}">QnA</a></li>
-                        <li><a th:href="@{/questionboard/list}">문의게시판</a></li>
+                        <li><a th:href="@{/questionboard/list}" sec:authorize="isAuthenticated()">문의게시판</a></li>
                         <li><a th:href="@{/review/list}">의류후기</a></li>
                         <li><a th:href="@{/sharing/list}">의류정보공유</a></li>
                     </ul>
