@@ -237,7 +237,22 @@ public class QuestionController {
 		public String InfoCreate(QuestionForm questionForm){
 			return "information_create";
 		}
-		
+	
+		@PostMapping("/sharing/sharingform")
+		public String InforCreate(@Valid QuestionForm questionForm, 
+				BindingResult bindingResult, Principal principal){ 
+
+			if(bindingResult.hasErrors()) {
+				return "sharing_form";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+				
+			this.questionService.getInforCreate(
+					questionForm.getSubject(), 
+					questionForm.getContent(), 
+					siteuser);
+			return "redirect:/sharing/list";
+			}
 		
 		
 		@GetMapping("/sharing/infomodify/{id}")
