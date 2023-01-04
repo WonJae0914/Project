@@ -144,7 +144,6 @@ public class QuestionController {
    //  review Controller End!!!
    
    //questionboard start
-
       @GetMapping("/questionboard/list")
       public String questionboard_list(Model model, @RequestParam(value="page", defaultValue="0") int page,   
          @RequestParam(value="kw", defaultValue="") String kw) {
@@ -154,7 +153,7 @@ public class QuestionController {
          model.addAttribute("kw",kw);
          return "questionboard_list";  
       } 
-     
+      
       @RequestMapping(value="/questionboard/detail/{id}")   // 여기 수정됐어요
       public String questionboard_detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception {
          Question question = this.questionService.questionboard_getQuestion(id);
@@ -319,6 +318,7 @@ public class QuestionController {
          this.questionService.getInforVoter(question, siteUser);
          return String.format("redirect:/sharing/informationdetail/%s", id);
       }
+
       //InformationSharing end   
 
 		// 221230 - add notice start - updated by kd
