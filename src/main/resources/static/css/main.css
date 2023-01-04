@@ -1,0 +1,68 @@
+.container > .text-center {
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+	letter-spacing: 0.4em;
+}
+
+.input-group {
+	margin-bottom : 1.5em;
+	position : relative;
+	border-radius: 30px;
+}
+
+.btn {
+    color: #FFF;
+	background-color : #333333;
+}
+
+.btn:hover {
+	color : black;
+	background-color: orange;
+}
+
+.row > .col-5 > .input-group {
+	margin-left: 6.3em;
+}
+
+.table > thead > .text-center {
+	border-radius: 50%;
+}
+
+.table > thead > .text-center > th{
+	color : #FFF;
+	background-color : #333333;
+	letter-spacing: 0.3em;
+}
+
+.table > tbody {
+	text-align: center;
+}
+
+.table > .list > tr {
+	color : black;
+}
+
+.table > .list > tr > th {
+	color : black;
+}
+
+.table > .list > tr > td > a {
+	color : black;
+}
+
+.pagination {
+	background-color : #333333;
+}
+
+.pagination > .page-item > .page-link {
+	color : #FFF;
+	background-color : #333333;
+}
+
+.pagination > .page-item > .page-link > span {
+	background-color: orange;
+	color : black;
+	padding : 7px;
+	font-weight: bold;
+	border-radius: 5px;
+}

@@ -6,30 +6,41 @@
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${qnaquestion.content}"></div>
             <div class="d-flex justify-content-end">
-<!--             	<div th:if="${question.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3"> -->
-<!--             		<div class="mb-2"> -->
-<!--             			<span th:if="${question.author != null}" th:text="${question.author.username}"></span> -->
-<!--             		</div> -->
-<!--             		<div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div> -->
-<!--             	</div> -->
-<!--                 <div th:if="${question.modifyDate == null}" class="badge bg-light text-dark p-2 text-start"> -->
-<!--                     <div class="mb-2"> -->
-<!--                     	<span th:if="${question.author != null}" th:text="${question.author.username}"></span> -->
-<!--                     </div> -->
-<!--                     <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div> -->
-<!--                 </div> -->
+            	<div th:if="${qnaquestion.modifyDate !=null}" class="badge bg-light text-dark
+            		p-2 text-start mx-3">
+            		<div class="mb-2">수정일자</div>
+            		<div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+            	</div>
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">
+                    	<span th:if="${qnaquestion.author !=null}" th:text="${qnaquestion.author.username}"></span>
+                    </div>
+                    <div th:text="${#temporals.format(qnaquestion.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+             
+                </div>
             </div>
-<!--             <div class="my-3"> -->
-<!-- 	            	<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/question/voter/${question.id}|}">추천 -->
-<!-- 	            		<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span> -->
-<!-- 	            	</a> -->
-<!--             	<a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
-<!--             	th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="수정"> -->
+            <div class="my-3">
+            	<a href="javascript:void(0);" class="recommend btn btn-sm
+            	btn-outline-secondary" 
+            	th:data-uri="@{|/qna/voter/${qnaquestion.id}|}">
+            	추천
+            	<span class="badge rounded-pill bg-success" 
+            	th:text="${#lists.size(qnaquestion.voter)}"></span>
+            	</a>
+<!--             	<a th:href="@{|/qna/modify/${qnaquestion.id}|}"  -->
+<!--             	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!--             	th:if="${qnaquestion.author !=null  -->
+<!--             	and #authentication.getPrincipal().getUsername() == question.author.username}"  -->
+<!--             	th:text="수정"> -->
 <!--             	</a> -->
-<!--             	<a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}" class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
-<!--             	th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="삭제"> -->
+<!--             	<a href="javascript:void(0);"  -->
+<!--             	th:data-uri="@{|/qna/delete/${question.id}|}"  -->
+<!--             	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!--             	th:if="${question.author !=null  -->
+<!--             	and #authentication.getPrincipal().getUsername() == question.author.username}"  -->
+<!--             	th:text="삭제"> -->
 <!--             	</a> -->
-<!--             </div> -->
+            </div>
         </div>
     </div>
 <!--     <h5 class="border-bottom my-3 py-2"  -->
@@ -39,34 +50,45 @@
 <!--             <div class="card-body"> -->
 <!--                 <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div> -->
 <!--                 <div class="d-flex justify-content-end"> -->
-<!--                 <div th:if="${answer.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3"> -->
-<!--             		<div class="mb-2"> -->
-<!--             			<span th:if="${answer.author != null}" th:text="${answer.author.username}"></span> -->
-<!--             		</div> -->
+<!--                 <div th:if="${answer.modifyDate !=null}" class="badge bg-light text-dark -->
+<!--             		p-2 text-start mx-3"> -->
+<!--             		<div class="mb-2">수정일자</div> -->
 <!--             		<div th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></div> -->
 <!--             	</div> -->
-<!--                     <div th:if="${answer.modifyDate == null}" class="badge bg-light text-dark p-2 text-start"> -->
+<!--                     <div class="badge bg-light text-dark p-2 text-start"> -->
 <!-- 	                    <div class="mb-2"> -->
-<!-- 	                    	<span th:if="${answer.author != null}" th:text="${answer.author.username}"></span> -->
+<!-- 	                    	<span th:if="${answer.author !=null}" th:text="${answer.author.username}"></span> -->
 <!-- 	                    </div> -->
 <!--                         <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div> -->
+                        
 <!--                     </div> -->
 <!--                 </div> -->
 <!--                 <div class="my-3"> -->
-<!--                 	<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/answer/voter/${answer.id}|}">추천 -->
-<!-- 	            		<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span> -->
+<!--                 	<a href="javascript:void(0);" class="recommend btn btn-sm -->
+<!-- 	            	btn-outline-secondary"  -->
+<!-- 	            	th:data-uri="@{|/reviewanswer/voter/${answer.id}|}"> -->
+<!-- 	            	추천 -->
+<!-- 	            	<span class="badge rounded-pill bg-success"  -->
+<!-- 	            	th:text="${#lists.size(answer.voter)}"></span> -->
 <!-- 	            	</a> -->
-<!-- 	            	<a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
-<!-- 	            	th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}" th:text="수정"> -->
+<!-- 	            	<a th:href="@{|/reviewanswer/modify/${answer.id}|}"  -->
+<!-- 	            	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!-- 	            	th:if="${answer.author !=null and #authentication.getPrincipal().getUsername() == answer.author.username}"  -->
+<!-- 	            	th:text="수정"> -->
 <!-- 	            	</a> -->
-<!-- 		            <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}" class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
-<!-- 	            	th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}" th:text="삭제"> -->
+<!-- 		            <a href="javascript:void(0);"  -->
+<!-- 	            	th:data-uri="@{|/reviewanswer/delete/${answer.id}|}"  -->
+<!-- 	            	class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" -->
+<!-- 	            	th:if="${answer.author !=null  -->
+<!-- 	            	and #authentication.getPrincipal().getUsername() == answer.author.username}"  -->
+<!-- 	            	th:text="삭제"> -->
 <!-- 	            	</a> -->
 <!--             	</div> -->
 <!--             </div> -->
 <!--         </div> -->
 <!--     </div> -->
-<!-- 	<form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3"> -->
+<!-- 	<form th:action="@{|/reviewanswer/create/${question.id}|}"  -->
+<!-- 			th:object="${answerForm}" method="post" class="my-3"> -->
 <!-- 		<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}"> -->
 <!-- 			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div> -->
 <!-- 		</div> -->
@@ -96,3 +118,8 @@ Array.from(recommend_elements).forEach(function(element) {
 </script>
 
 </html>
+
+
+
+
+
