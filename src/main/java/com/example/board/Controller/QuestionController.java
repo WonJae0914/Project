@@ -236,9 +236,8 @@ public class QuestionController {
 		
 		@RequestMapping(value="/sharing/informationdetail/{id}") 
 		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception { 
-			Question question = this.questionService.getInformation(id);  
-			SiteUser siteUser = this.userService.getUser(principal.getName());
-			this.questionService.updateView(question, siteUser);
+			Question question = this.questionService.getInformation(id);
+			this.questionService.updateView(id);
 			model.addAttribute("question", question);
 			return "information_detail";
 
@@ -322,14 +321,23 @@ public class QuestionController {
 			model.addAttribute("kw", kw);
 			return "notice_list";
 		}
+		// 비로그인 조회 o 중복 o
 		@RequestMapping(value="/notice/detail/{id}")
 		public String noticeDetail(Model model, @PathVariable("id") Integer id, Principal principal) throws Exception {
 			Question question = this.questionService.getQuestion(id);
-			SiteUser siteUser = this.userService.getUser(principal.getName());
-			this.questionService.numOfView(question, siteUser);
+//			this.questionService.getQuestion(id);
 			model.addAttribute("question", question);
 			return "notice_detail";
 		}
+		// 로그인 한 사람만, 중복 x
+//		@RequestMapping(value="/notice/detail/{id}")
+//		public String noticeDetail(Model model, @PathVariable("id") Integer id, Principal principal) throws Exception {
+//			Question question = this.questionService.getQuestion(id);
+//			SiteUser siteUser = this.userService.getUser(principal.getName());
+//			this.questionService.numOfView(question, siteUser);
+//			model.addAttribute("question", question);
+//			return "notice_detail";
+//		}
 		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@GetMapping("/notice/create")
 		public String noticeCreate(QuestionForm questionForm) {
