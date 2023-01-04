@@ -237,42 +237,8 @@ public class QuestionController {
 		public String InfoCreate(QuestionForm questionForm){
 			return "information_create";
 		}
-	
-//		@PostMapping("/sharing/sharingform")
-//		public String InforCreate(@Valid QuestionForm questionForm, 
-//				BindingResult bindingResult, Principal principal){ 
-//
-//			if(bindingResult.hasErrors()) {
-//				return "sharing_form";
-//			}
-//			SiteUser siteuser = this.userService.getUser(principal.getName());
-//				
-//			this.questionService.getInforCreate(
-//					questionForm.getSubject(), 
-//					questionForm.getContent(), 
-//					siteuser);
-//			return "redirect:/sharing/list";
-//			}
 		
-		@PostMapping("/sharing/sharingform")
-		public String InforCreate(@Valid QuestionForm questionForm, @PathVariable("id") Integer id,
-				BindingResult bindingResult, Principal principal){ 
-
-			if(bindingResult.hasErrors()) {
-				return "sharing_form";
-			}
-			SiteUser siteuser = this.userService.getUser(principal.getName());
-			Question q = this.questionService.getInformation(id);
-			if(!q.getAuthor().getUsername().equals(principal.getName())) {
-	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "조회 권한이 없습니다.");
-	         }
-				
-			this.questionService.getInforCreate(
-					questionForm.getSubject(), 
-					questionForm.getContent(), 
-					siteuser);
-			return "redirect:/sharing/list";
-			}
+		
 		
 		@GetMapping("/sharing/infomodify/{id}")
 		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
