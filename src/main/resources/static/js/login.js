@@ -30,10 +30,12 @@ login_btn.addEventListener('click',function(){
     }  
     // 아이디 유지를 체크 했을 때
     else if(keep.checked){
-        alert("로그인 성공");
+    	document.login1.submit();
+    	alert("로그인 성공");
         update();
     }
     else{
+    	document.login1.submit();
         alert("로그인 성공");
     }
 })
