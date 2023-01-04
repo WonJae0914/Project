@@ -20,10 +20,10 @@
 	
     <table class="table">
         <thead class="table-dark">
-            <tr>
+            <tr class="text-center">
                 <th>번호</th>
                 <th style="width:50%">제목</th>
-                <th>글쓴이</th>
+                <th>작성자</th>
                 <th>작성일시</th>
                 <th>조회수</th>
             </tr>
@@ -32,13 +32,12 @@
             <tr th:each="question, loop : ${paging}">
                 <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>
                 <td>
-                    <a class="views" th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
+                    <a th:href="@{|/notice/detail/${question.id}|}" th:text="${question.subject}"></a>
                 </td>
                 <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-                <td href="javascript:void(0);" th:text="${#lists.size(question.numOfView)}" 
-                	th:data-uri="@{|/notice/detail/${question.id}|}"></td>
+                <td th:text="${question.view}"></td>
             </tr>
         </tbody>
     </table>
@@ -83,13 +82,13 @@ btn_search.addEventListener('click', function() {
     document.getElementById('page').value = 0; 
     document.getElementById('searchForm').submit();
 });
-
+/* 
 const views_elements = document.getElementsByClassName("views");
 Array.from(views_elements).forEach(function(element) {
     element.addEventListener('click', function() {
             location.href = this.dataset.uri;
     });
-});
+}); */
 </script>
 </div>
 </html>

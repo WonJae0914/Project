@@ -178,6 +178,7 @@ SignIn_Btn.addEventListener('click',function(){
     else if(!(agree[0].checked && agree[1].checked)){
         alert("약관 및 개인정보 동의해주세요");
     }
+    
     else{
     	document.signup1.submit();
         alert("회원가입 완료.");

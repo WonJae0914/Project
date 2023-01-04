@@ -1,8 +1,9 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content" class="container my-3">
-  <div class="text-center"> 
+<div layout:fragment="content" class="container my-3">
+ 	<div class="text-center">
+			<h2>의류정보공유</h2>
+	</div>
 	<div class="row my-3">
-	<h2>의류정보공유</h2>
 		<div class="col-6">
 			<a th:href="@{/sharing/sharingform}" class="btn btn-primary">글 작성</a>
 		</div>
@@ -12,8 +13,7 @@
 				<button class="btn btn-outline-secondary" type="button" id="btn_search">
 					검색하기
 				</button>
-			</div>
-			
+			</div>			
 		</div>
 	</div>
 	
@@ -26,11 +26,9 @@
                 <th>등록일시</th>
                 <th>조회수</th>
             </tr>
-        </thead>
-        
+        </thead>        
         <tbody class="list">
             <tr th:each="question, loop : ${paging}">
-
                	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
                 <td>
                     <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}"></a>
@@ -39,6 +37,7 @@
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
                 <td  th:text="${question.view}"></td>       
+
             </tr>
         </tbody>
     </table>

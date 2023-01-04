@@ -7,7 +7,6 @@
 
 body {
     width: 100vw;
-    color: #fff;
 }
 
 .container {
@@ -16,39 +15,22 @@ body {
     background-color: #333333;
 }
 
-/* header 작업 */
-/* 07.20 header 구성 및 디자인 수정자 박효근 */
-/* 07.21 header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 */
-/* 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근 */
-.header{
-    width: 100%;
-    height: auto;
 
-}
 .navbar {
     width: 100%;
-    height: 10%;
+    height: 63px;
     background-color: #333333;
     position : fixed;
-    z-index: 80;
-    
-    
+    z-index: 80;    
 }
-.navbar_logo {
-    width: 25%;
-    height: 100%;
-    float: left;
-}
-.navbar_logo>a>h1{
-    margin: 10px;
-    color: #FFF;
-}
+
 .navbar_logo>a>h1>span{
     display: inline-block;
     width: 73px;
     height: 50%;
     background-color: orange;
     color: black;
+    padding-bottom: 43px;
 }
 
 .navbar_menu {
@@ -188,7 +170,7 @@ body {
 
 .signIn_form {
     width: 30%;
-    height: 1200px;
+/*     height: 1200px; */
     background-color: #fff;
     color: black;
     position: absolute;
@@ -263,10 +245,17 @@ body {
 .SignIn_Btn{
     width: 300px;
     height: 60px;
-    background-color: #fff;
+    background-color: #333333;
+    color : #FFF;
     border: 1px solid lightgray;
     font-size: 1.2rem;
     cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+.SignIn_Btn:hover {
+	background-color: orange;
+	color : black;
 }
 @media screen and (max-width:1500px){
     .signIn_form{

@@ -94,9 +94,14 @@
             </ul>
         </div>
         <div class="navbar_Icons">
-            <a th:href="@{/user/login}"  class="navbar_Icons_a">
+            <a th:href="@{/user/login}" sec:authorize="isAnonymous()"  class="navbar_Icons_a">
                 <i class="uil uil-user-check"></i>
                 <p>LOGIN</p>
+            </a>
+            
+            <a  sec:authorize="isAuthenticated()" class="navbar_Icons_a" th:href="@{/user/logout}">
+             <i class="uil uil-user-check"></i>
+                <p>LOGOUT</p>
             </a>
             
             <a  th:href="@{/user/signup}" class="navbar_Icons_a">
