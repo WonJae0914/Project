@@ -20,13 +20,14 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public SiteUser create(String username, String password, String name, String phone, String birth) { 
+	public SiteUser create(String username, String password, String name, String phone, String birth, String gender) { 
 		SiteUser user = new SiteUser();
 		user.setUsername(username);
 		user.setPassword(passwordEncoder.encode(password)); 
 		user.setName(name);
 		user.setPhone(phone);
 		user.setBirth(birth);
+		user.setGender(gender);
 		
 
 																												

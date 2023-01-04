@@ -50,6 +50,10 @@
 	color : black;
 }
 
+.table > .list tr > td > span > a {
+	color : black;
+}
+
 .pagination {
 	background-color : #333333;
 }

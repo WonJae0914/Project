@@ -27,7 +27,7 @@
                 <th>답변여부</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="list">
             <tr th:each="questionboard, loop : ${paging}">
             	
                 <td th:text="${paging.getTotalElements -(paging.number*paging.size)-loop.index}"></td>
@@ -40,7 +40,7 @@
                 </td>
                 <td th:text="${#temporals.format(questionboard.createDate, 'yyyy-MM-dd HH:mm')}"></td>
                 <td>
-				<span th:if="${questionboard.answerList.size()==0}"><a th:href="@{|/questionboard/detail/${questionboard.id}|}" th:text="답변대기" class='page-secret'></a></span>
+				<span th:if="${questionboard.answerList.size()==0}"><a th:href="@{|/questionboard/detail/${questionboard.id}|}" th:text="답변대기" th:classappend="${questionboard.author !=null and #authentication.getPrincipal().getUsername() != questionboard.author.username and #authentication.getPrincipal().getUsername() !='admin'} ? 'page-secret'"></a></span>
                 <span th:if="${questionboard.answerList.size()!=0}" th:text="답변완료"></span>
                 </td>
             </tr>          
@@ -83,9 +83,8 @@ const page_secret = document.getElementsByClassName("page-secret");
 Array.from(page_secret).forEach(function(element) {
     element.addEventListener('click', function(e) {   
        document.getElementById('page').value = this.dataset.page;
-       console.log(this.dataset.page);
        alert('권한이 없습니다');
-       e.preventDefault();
+
     });
 });
 const btn_search = document.getElementById("btn_search");
