@@ -90,6 +90,11 @@ public class QuestionService {
 		question.getVoter().add(siteUser);
 		this.rq.save(question);
 	}
+	public void reviewunVoter(Question question, SiteUser siteUser) {
+		// TODO Auto-generated method stub
+		question.getUnvoter().add(siteUser);
+		this.rq.save(question);
+	}
 	// review QuestionService end!!!
 
 	//questionboard questionservice start
@@ -291,6 +296,7 @@ public class QuestionService {
 			question.getVoter().add(siteUser);
 			this.nr.save(question);
 		}
+		
 		
 		
 		// 221230 - add notice end - updated by kd
