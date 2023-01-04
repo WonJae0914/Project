@@ -3,6 +3,7 @@ package com.example.board.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.board.Entity.Answer;
@@ -111,6 +112,14 @@ public class AnswerService {
 			throw new DataNotFoundException("데이터가 없습니다");
 		}
 	}
+	public Answer InfoAnswer(Integer id, String page) {
+		Optional<Answer> answer = this.answerRepository.findById(id);
+		if(answer.isPresent()) {
+			return answer.get();
+		}else {
+			throw new DataNotFoundException("데이터가 없습니다");
+		}
+	}
 	
 	public void InfoAnswerModify(Answer answer, String content) {
 		answer.setContent(content);
@@ -127,6 +136,7 @@ public class AnswerService {
 		this.answerRepository.save(answer);
 		
 	}
+	
 
 	//information answer ent
 		

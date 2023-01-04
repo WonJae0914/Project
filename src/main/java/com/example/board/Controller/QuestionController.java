@@ -3,11 +3,15 @@ package com.example.board.Controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.codehaus.groovy.ast.stmt.TryCatchStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.board.Entity.Answer;
 import com.example.board.Entity.Question;
 import com.example.board.Entity.SiteUser;
 import com.example.board.Form.AnswerForm;
 import com.example.board.Form.QuestionForm;
+import com.example.board.Repository.AnswerRepository;
+import com.example.board.Service.AnswerService;
 import com.example.board.Service.QuestionService;
 import com.example.board.Service.UserService;
 
@@ -37,6 +44,8 @@ public class QuestionController {
 	
 	private final QuestionService questionService; 
 	private final UserService userService;
+	private final AnswerRepository answerRepository;
+	private final AnswerService answerService;
 	
 	//main start
 	@GetMapping("/home") 
@@ -225,23 +234,24 @@ public class QuestionController {
 				return "informationSharing"; 
 			}
 		
-		@RequestMapping(value="/sharing/Informationdetail/{id}") 
-		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerform) throws Exception { 
+		@RequestMapping(value="/sharing/informationdetail/{id}") 
+		public String InforDetail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception { 
 			Question question = this.questionService.getInformation(id);  
-			model.addAttribute("Information", question);
-			return "sharing_detail";
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.updateView(question, siteUser);
+			model.addAttribute("question", question);
+			return "information_detail";
 
 		}
-		
+		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/sharing/sharingform")
 		public String InfoCreate(QuestionForm questionForm){
 			return "information_create";
 		}
-	
+		@PreAuthorize("isAuthenticated()")
 		@PostMapping("/sharing/sharingform")
 		public String InforCreate(@Valid QuestionForm questionForm, 
 				BindingResult bindingResult, Principal principal){ 
-
 			if(bindingResult.hasErrors()) {
 				return "sharing_form";
 			}
@@ -253,7 +263,7 @@ public class QuestionController {
 					siteuser);
 			return "redirect:/sharing/list";
 			}
-		
+		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/sharing/infomodify/{id}")
 		public String InfoModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
 			Question question = this.questionService.getInformation(id);
@@ -264,7 +274,7 @@ public class QuestionController {
 			questionForm.setContent(question.getContent());
 			return "information_modify";
 		}
-			
+		@PreAuthorize("isAuthenticated()")
 		@PostMapping("/sharing/infomodify/{id}")
 		public String InfoModify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, 
 				BindingResult bindingResult, Principal principal){
@@ -280,7 +290,7 @@ public class QuestionController {
 			
 			return String.format("redirect:/sharing/informationdetail/%s", id);
 		}
-			
+		@PreAuthorize("isAuthenticated()")
 		@GetMapping("/sharing/infodelete/{id}")
 		public String InfoDelete(@PathVariable("id") Integer id, Principal principal) {
 			Question question = this.questionService.getInformation(id);
@@ -290,7 +300,7 @@ public class QuestionController {
 			this.questionService.getInfoDelete(question);
 			return "redirect:/sharing/list";
 		}
-			
+		@PreAuthorize("isAuthenticated()")	
 		@GetMapping("/sharing/infovoter/{id}")
 		public String InfoVoter(@PathVariable("id") Integer id, Principal principal) {
 			Question question = this.questionService.getInformation(id);
@@ -298,6 +308,7 @@ public class QuestionController {
 			this.questionService.getInforVoter(question, siteUser);
 			return String.format("redirect:/sharing/informationdetail/%s", id);
 		}
+		 
 		//InformationSharing end	
 
 		// 221230 - add notice start - updated by kd

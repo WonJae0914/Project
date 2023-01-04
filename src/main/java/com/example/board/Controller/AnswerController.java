@@ -190,13 +190,13 @@ public class AnswerController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
 		}
 		answerForm.setContent(answer.getContent());
-		return "infomationanswer_form";
+		return "informationanswer_form";
 	}
 	
 	@PostMapping("/answer/infomodify/{id}")
 	public String InfoAnswerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer id, BindingResult bindingResult, Principal principal) {
 		if(bindingResult.hasErrors()) {
-			return "infomationanswer_form";
+			return "informationanswer_form";
 			}
 			Answer answer = this.answerService.InfoAnswer(id);
 			if(!answer.getAuthor().getUsername().equals(principal.getName())) {
