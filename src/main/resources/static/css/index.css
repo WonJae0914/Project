@@ -1283,6 +1283,15 @@ border-top: 1px solid #E0E0E0;
     color:#B388FF;
 }
 
+.footer_info_nav_list>li > a{
+	color: #FFF;
+}
+
+.footer_info_nav_list>li>a:hover{
+	transition : 0.3s;
+    color:#B388FF;
+}
+
 .footer_info_intro{
     width: 50%;
     height: 100%;
