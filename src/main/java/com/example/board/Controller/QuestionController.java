@@ -461,87 +461,87 @@ public class QuestionController {
 			return String.format("redirect:/notice/detail/%s", id);
 		}	
 		// 221230 - add notice end - updated by kd
-
-
-      // qna start
-      @GetMapping("/qna/list")
-      public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page) {
-         Page<Question> qnapaging = this.questionService.qnaGetList(page);
-         model.addAttribute("qnapaging", qnapaging);
-         return "qna_list";
-      }
-            
-      @RequestMapping(value="/qna/detail/{id}") 
-      public String qna_Detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) throws Exception {
-         Question qnaquestion = this.questionService.qnaGetQuestion(id);
-         model.addAttribute("qnaquestion", qnaquestion);
-         return "qna_detail";
-      }
-            
-//      @PreAuthorize("isAuthenticated()")
-      @GetMapping(value="/qna/create")
-      public String qna_Create(QuestionForm questionForm) {
-         return "qna_create";
-      }
-         
-//      @PreAuthorize("isAuthenticated()")
-//      , Principal principal
-      @PostMapping(value="/qna/create")
-      public String qna_Create(@Valid QuestionForm questionForm, BindingResult bindingResult) {
-         if(bindingResult.hasErrors()) {
-            return "qna_list";
-         }
-//         SiteUser siteuser = this.userService.getUser(principal.getName());
-         this.questionService.qnaCreate(questionForm.getSubject(), questionForm.getContent());
-//         , siteuser
-         return "redirect:/qna/list";
-      }
-            
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/qna/modify/{id}")
-      public String qna_Modify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
-         Question gunchim = this.questionService.qnaGetQuestion(id);
-         if(!gunchim.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
-         }
-         questionForm.setSubject(gunchim.getSubject());
-         questionForm.setContent(gunchim.getContent());
-         return "qna_modify";
-      }
-            
-      @PreAuthorize("isAuthenticated()")
-      @PostMapping("/qnamodify/{id}")
-      public String qna_Modify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, BindingResult bindingResult, Principal principal) {
-         if (bindingResult.hasErrors()) {
-            return "qna_form";
-         }
-         Question question = this.questionService.qnaGetQuestion(id);
-         if (!question.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
-         }
-         this.questionService.qnaModify(question, questionForm.getSubject(), questionForm.getContent());
-         return String.format("redirect:/qna/detail/%s", id);
-      }
-            
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/qna/delete/{id}")
-      public String qna_Delete(@PathVariable("id") Integer id, Principal principal) {
-         Question question = this.questionService.qnaGetQuestion(id);
-         if (!question.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다");
-         }
-         this.questionService.qnaDelete(question);
-         return "redirect:/qna/list";
-      }
-            
-      @PreAuthorize("isAuthenticated()")
-      @GetMapping("/qna/voter/{id}")
-      public String qna_Voter(@PathVariable("id") Integer id, Principal principal) {
-         Question question = this.questionService.qnaGetQuestion(id);
-         SiteUser siteUser = this.userService.getUser(principal.getName());
-         this.questionService.qnaVoter(question, siteUser);
-         return String.format("redirect:/qna/detail/%s", id);
-      }
-         
-      // qna end
+    
+    
+		// qna start
+		@GetMapping("/qna/list")
+		public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page,
+				@RequestParam(value="kw", defaultValue="") String kw) {
+			Page<Question> qnapaging = this.questionService.qnaGetList(page, kw);
+			model.addAttribute("qnapaging", qnapaging);
+			model.addAttribute("kw", kw);
+			return "qna_list";
+		}
+				
+		@RequestMapping(value="/qna/detail/{id}") 
+		public String qna_Detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception {
+			Question qnaquestion = this.questionService.qnaGetQuestion(id);
+			model.addAttribute("qnaquestion", qnaquestion);
+			return "qna_detail";
+		}
+				
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@GetMapping(value="/qna/create")
+		public String qna_Create(QuestionForm questionForm) {
+			return "qna_create";
+		}
+			
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		@PostMapping(value="/qna/create")
+		public String qna_Create(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
+			if(bindingResult.hasErrors()) {
+				return "qna_list";
+			}
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			this.questionService.qnaCreate(questionForm.getSubject(), questionForm.getContent(), siteuser);
+			return "redirect:/qna/list";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/modify/{id}")
+		public String qna_Modify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+			Question gunchim = this.questionService.qnaGetQuestion(id);
+			if(!gunchim.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			questionForm.setSubject(gunchim.getSubject());
+			questionForm.setContent(gunchim.getContent());
+			return "qna_modify";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@PostMapping("/qnamodify/{id}")
+		public String qna_Modify(@Valid QuestionForm questionForm, @PathVariable("id") Integer id, BindingResult bindingResult, Principal principal) {
+			if (bindingResult.hasErrors()) {
+				return "qna_form";
+			}
+			Question question = this.questionService.qnaGetQuestion(id);
+			if (!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+			}
+			this.questionService.qnaModify(question, questionForm.getSubject(), questionForm.getContent());
+			return String.format("redirect:/qna/detail/%s", id);
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/delete/{id}")
+		public String qna_Delete(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.qnaGetQuestion(id);
+			if (!question.getAuthor().getUsername().equals(principal.getName())) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다");
+			}
+			this.questionService.qnaDelete(question);
+			return "redirect:/qna/list";
+		}
+				
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/qna/voter/{id}")
+		public String qna_Voter(@PathVariable("id") Integer id, Principal principal) {
+			Question question = this.questionService.qnaGetQuestion(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.questionService.qnaVoter(question, siteUser);
+			return String.format("redirect:/qna/detail/%s", id);
+		}
+			
+		// qna end
 }

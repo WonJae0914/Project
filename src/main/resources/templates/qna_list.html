@@ -1,11 +1,11 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 	<div class="text-center">
-		<h2>자주묻는질문</h2>
+			<h2>자주묻는질문</h2>
 	</div>
 	<div class="row my-3">
 		<div class="col-6">
-			<a th:href="@{/questionboard/create}" class="btn btn-primary">1:1 문의하기</a>
+			<a th:href="@{/qna/create}" class="btn btn-primary">1:1 문의하기</a>
 		</div>
 		<div class="col-5">
 			<div class="input-group">
@@ -22,8 +22,9 @@
             <tr class="text-center">
                 <th>번호</th>
                 <th style="width:50%">제목</th>
-                <th>글쓴이</th>
-                <th>작성일시</th>
+                <th>작성자</th>
+                <th>등록일시</th>
+                <th>조회수</th>
             </tr>
         </thead>
         <tbody class="list">
@@ -35,6 +36,7 @@
                 <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${question.qnaView}"></td>
             </tr>
         </tbody>
     </table>
@@ -65,19 +67,26 @@
     </form>
     
     <script layout:fragment="script" type='text/javascript'>
-const page_elements = document.getElementsByClassName("page-link");
-Array.from(page_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        document.getElementById('page').value = this.dataset.page;
-        document.getElementById('searchForm').submit();
-    });
-});
-const btn_search = document.getElementById("btn_search");
-btn_search.addEventListener('click', function() {
-    document.getElementById('kw').value = document.getElementById('search_kw').value;
-    document.getElementById('page').value = 0; 
-    document.getElementById('searchForm').submit();
-});
+    const page_elements = document.getElementsByClassName("page-link");
+	Array.from(page_elements).forEach(function(element) {
+    	element.addEventListener('click', function() {
+        	document.getElementById('page').value = this.dataset.page;
+        	document.getElementById('searchForm').submit();
+    	});
+	});
+	const page_secret = document.getElementsByClassName("page-secret");
+	Array.from(page_secret).forEach(function(element) {
+	    element.addEventListener('click', function() {   
+	       document.getElementById('page').value = this.dataset.page;
+	       alert('권한이 없습니다');
+	    });
+	});
+	const btn_search = document.getElementById("btn_search");
+	btn_search.addEventListener('click', function() {
+   	 document.getElementById('kw').value = document.getElementById('search_kw').value;
+   	 document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+  	 document.getElementById('searchForm').submit();
+	});
 </script>    
 </div>
 </html>

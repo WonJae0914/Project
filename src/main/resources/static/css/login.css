@@ -7,12 +7,10 @@
 
 body{
     width: 100vw;
-    color: #FFF;
 }
 
 .container{
     width: 100%;
-    height: auto;
     background-color: #333333;
 }
 
@@ -20,59 +18,7 @@ body{
 /* 07.20 header 구성 및 디자인 수정자 박효근 */
 /* 07.21 header로고 ,navbar dropdown  구성 및 디자인 수정자 박효근 */
 /* 07.22 header HOME 링크연결 , header 이미지 크기 및 이미지 수정  수정자 박효근 */
-.header{
-    width: 100%;
-    height: auto;
-}
-.navbar {
-    width: 100%;
-    height: 10%;
-    background-color: #333333;
-}
-.navbar_logo {
-    width: 25%;
-    height: 100%;
-    float: left;
-}
-.navbar_logo>a>h1{
-    margin: 10px;
-    color: #FFF;
-}
-.navbar_logo>a>h1>span{
-    display: inline-block;
-    width: 73px;
-    height: 50%;
-    background-color: orange;
-    color: black;
-}
 
-.navbar_menu {
-    width: 60%;
-    height: 100%;
-    float: left;
-}
-.menu1 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    line-height: 60px;
-    position: relative;
-}
-.menu1 > li:hover,
-#menu_li_a:hover {
-    color: #B388FF;
-}
-#menu_li_a{
-    text-decoration: none;
-    color: #FFF;
-}
-.menu1 > li:hover ~ .navbar_menu_drop,
-.navbar_menu_drop:hover{
-    height: 500px;
-}
 .navbar_menu .menu1>li {
     display: inline-block;
     width: 25%;
@@ -171,7 +117,7 @@ body{
 
 .main{
     width: 100%;
-    height: 1000px;
+	margin-top : 10em;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -300,95 +246,3 @@ input[type=password]::placeholder{
         width: 400px;
     }
 }
-
-/* footer 0719 19:57 수정자:김형준 */
-.footer{
-    width: 100%;
-    height: 240px;
-    color: #E0E0E0;
-    border-top: #E0E0E0 2px solid;
-}
-
-.footer_info{
-    width: 100%;
-    height: 80%;
-}
-
-.footer_info_nav{
-    width: 50%;
-    height: 100%;
-    float: left;
-    display: flex;
-    flex-direction: row;
-}
-
-.footer_info_nav_list{
-    width: 50%;
-    height: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.footer_info_nav_list>li{
-    margin: 10px 0;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: bold;
-}
-
-.footer_info_nav_list>li:hover{
-    color:#B388FF;
-}
-
-.footer_info_intro{
-    width: 50%;
-    height: 100%;
-    float: left;
-    display: flex;
-    flex-direction: row;
-}
-
-.footer_info_intro_detail{
-    width: 70%;
-    height: 100%;
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.footer_info_intro_detail>p{
-    margin:8px 0;
-}
-
-.footer_info_intro_sns{
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1.9rem;
-}
-
-.footer_info_intro_sns>i{
-    margin:11px 0;
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
-.footer_info_intro_sns>i:hover{
-    color: #B388FF;
-}
-
-.footer_copy{
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.8rem;
-}
-
