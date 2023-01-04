@@ -321,7 +321,6 @@ public class QuestionController {
       }
       //InformationSharing end   
 
-
 		// 221230 - add notice start - updated by kd
 		@GetMapping("/notice/list")
 		public String noticeList(Model model, @RequestParam(value="page", defaultValue="0") int page, 
