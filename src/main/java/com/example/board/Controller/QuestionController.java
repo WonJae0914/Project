@@ -399,35 +399,35 @@ public class QuestionController {
     
 		// qna start
 		@GetMapping("/qna/list")
-		public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page) {
-			Page<Question> qnapaging = this.questionService.qnaGetList(page);
+		public String qna_List(Model model, @RequestParam(value="page", defaultValue="0") int page,
+				@RequestParam(value="kw", defaultValue="") String kw) {
+			Page<Question> qnapaging = this.questionService.qnaGetList(page, kw);
 			model.addAttribute("qnapaging", qnapaging);
+			model.addAttribute("kw", kw);
 			return "qna_list";
 		}
 				
 		@RequestMapping(value="/qna/detail/{id}") 
-		public String qna_Detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) throws Exception {
+		public String qna_Detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception {
 			Question qnaquestion = this.questionService.qnaGetQuestion(id);
 			model.addAttribute("qnaquestion", qnaquestion);
 			return "qna_detail";
 		}
 				
-//		@PreAuthorize("isAuthenticated()")
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@GetMapping(value="/qna/create")
 		public String qna_Create(QuestionForm questionForm) {
 			return "qna_create";
 		}
 			
-//		@PreAuthorize("isAuthenticated()")
-//		, Principal principal
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@PostMapping(value="/qna/create")
-		public String qna_Create(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+		public String qna_Create(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
 			if(bindingResult.hasErrors()) {
 				return "qna_list";
 			}
-//			SiteUser siteuser = this.userService.getUser(principal.getName());
-			this.questionService.qnaCreate(questionForm.getSubject(), questionForm.getContent());
-//			, siteuser
+			SiteUser siteuser = this.userService.getUser(principal.getName());
+			this.questionService.qnaCreate(questionForm.getSubject(), questionForm.getContent(), siteuser);
 			return "redirect:/qna/list";
 		}
 				
