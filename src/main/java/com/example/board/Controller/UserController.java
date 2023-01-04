@@ -40,7 +40,7 @@ public class UserController {
 		}
 		try {
 		this.userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getName(),
-				userCreateForm.getPhone(),userCreateForm.getBirth());	
+				userCreateForm.getPhone(),userCreateForm.getBirth(), userCreateForm.getGender());	
 		} catch(DataIntegrityViolationException dive) {
 			dive.printStackTrace();
 			bindingResult.reject("회원가입 실패", "이미 등록되어 있는 사용자입니다.");

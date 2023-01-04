@@ -31,4 +31,5 @@ public class SiteUser {
 	
 	private String birth;
 	
+	private String gender;
 }
