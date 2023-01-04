@@ -144,18 +144,19 @@ public class QuestionController {
          
          model.addAttribute("paging",paging); 
          model.addAttribute("kw",kw);
-         return "questionboard_list";
-      }
+         return "questionboard_list";  
+      } 
      
       @RequestMapping(value="/questionboard/detail/{id}")   // 여기 수정됐어요
       public String questionboard_detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, Principal principal) throws Exception {
          Question question = this.questionService.questionboard_getQuestion(id);
          if(principal.getName().equals("admin") || question.getAuthor().getUsername().equals(principal.getName())) {
              model.addAttribute("question", question); 
-             return "questionboard_detail"; }
+             return "questionboard_detail";        
+             }
          else if(!question.getAuthor().getUsername().equals(principal.getName())) {
-          }
-         return "redirect:/questionboard/list";
+           }  
+         return "redirect:/questionboard/list"; 
       }
       
       @PreAuthorize("isAuthenticated()") 

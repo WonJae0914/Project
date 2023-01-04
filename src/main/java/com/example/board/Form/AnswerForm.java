@@ -9,8 +9,10 @@ import lombok.Setter;
 @Setter
 public class AnswerForm {
 	
-	@NotEmpty(message = "내용은 필수입니다.")
 
+	@NotEmpty(message = "내용은 필수입니다.")
 	private String content;
 
-}
+
+	}
+
