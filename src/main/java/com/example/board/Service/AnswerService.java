@@ -90,6 +90,10 @@ public class AnswerService {
 		answer.getVoter().add(siteUser);
 		this.qsr.save(answer);
 	}
+	public void questionboard_Unvoter(Answer answer, SiteUser siteUser) {
+		answer.getUnvoter().add(siteUser);
+		this.qsr.save(answer);
+	}
 	//questionboard answerservice end
 	
 	//information answer start

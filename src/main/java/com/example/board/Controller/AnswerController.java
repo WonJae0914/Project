@@ -161,6 +161,15 @@ public class AnswerController {
 			
 			return String.format("redirect:/questionboard/detail/%s", answer.getQuestion().getId());
 		}
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/questionboard/answer/unvoter/{id}")
+		public String questionboard_answerUnVoter(Principal principal,@PathVariable("id") Integer id ) {
+			Answer answer = this.answerService.questionboard_getAnswer(id);
+			SiteUser siteUser = this.userService.getUser(principal.getName());
+			this.answerService.questionboard_Unvoter(answer, siteUser);
+			
+			return String.format("redirect:/questionboard/detail/%s", answer.getQuestion().getId());
+		}
 	//qustionboard_answer end
 		
 		

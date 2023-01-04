@@ -8,15 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-<!--     <nav th:replace="~{navbar :: headerFragment}"></nav> -->
 	<th:block th:replace="navbar :: headerFragment"></th:block>
 </head>
 <body>
-<!-- 	<nav th:replace="~{navbar :: headerFragment}"></nav> -->
     <th:block layout:fragment="content"></th:block>
     <script th:src="@{/bootstrap.min.js}"></script>
     <th:block layout:fragment="script"></th:block>
-<!--     <div layout:fragment="main"></div> -->
 </body>
     <th:block th:replace="footer :: footerFragment"></th:block>
 </html>
