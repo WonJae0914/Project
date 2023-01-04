@@ -92,7 +92,7 @@
 <!-- navbar icon start -->
 
         <div class="navbar_Icons">
-            <a th:href="@{/user/login}" class="navbar_Icons_a">
+            <a sec:authorize="isAnonymous()" th:href="@{/user/login}" class="navbar_Icons_a">
                 <i class="uil uil-user-check"></i>
                 <p>LOGIN</p>
             </a>

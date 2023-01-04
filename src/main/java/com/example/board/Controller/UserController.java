@@ -52,7 +52,7 @@ public class UserController {
 			bindingResult.reject("회원가입 실패", e.getMessage());
 			return "sign_up";
 		}
-		return "redirect:/home";
+		return "redirect:/user/login";
 	}
 		@GetMapping("/login")
 		public String login() {
