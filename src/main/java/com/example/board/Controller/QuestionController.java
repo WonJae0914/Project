@@ -319,7 +319,7 @@ public class QuestionController {
          return String.format("redirect:/sharing/informationdetail/%s", id);
       }
 
-      //InformationSharing end   	
+      //InformationSharing end   
 
 		// 221230 - add notice start - updated by kd
 		@GetMapping("/notice/list")
