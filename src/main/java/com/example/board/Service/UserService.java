@@ -37,6 +37,7 @@ public class UserService {
 	public SiteUser getUser(String username) {
 
 		Optional<SiteUser> siteUser = this.userRepository.findByusername(username); 
+		Optional<SiteUser> siteUserIp = this.userRepository.findByusername(username); 
 
 		if(siteUser.isPresent()) {
 			return siteUser.get();
