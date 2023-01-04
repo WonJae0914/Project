@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,22 +166,36 @@ public class QuestionService {
 		question.setSubject(subject);
 		question.setContent(content);
 		question.setModifyDate(LocalDateTime.now());			
-		this.q.save(question);
+		this.informationRepository.save(question);
 	}
 
 	public void getInfoDelete(Question question) {
-		this.q.delete(question); 
+		this.informationRepository.delete(question); 
 	}
 
 	public void getInforVoter(Question question, SiteUser siteUser) {
 		question.getVoter().add(siteUser);
-		this.q.save(question);
+		this.informationRepository.save(question);
 	}
+	
+	@Transactional // @Transactional은 클래스나 메서드에 붙여줄 경우, 해당 범위 내 메서드가 트랜잭션이 되도록 보장해준다
+	public void updateView(Question question, SiteUser siteUser) {
+		question.getView().add(siteUser);
+		this.informationRepository.save(question);
+	}
+//		Optional<Question> question = this.informationRepository.findById(id);
+//		
+//		if(question.isPresent()) {
+//			Question question2 = question.get();
+//			question2.setView(question2.getView()+1);
+//			this.informationRepository.save(question2);
+//			return question2;
+//		}else {
+//			throw new DataNotFoundException("값을 찾을 수 없습니다");
+//		}	
 	//informationSharing end
 	
-			
-
-			
+		
 		
 		// qna start
 		

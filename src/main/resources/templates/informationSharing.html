@@ -1,11 +1,10 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-	<div class="text-center">
-		<h2>의류정보공유</h2>
-	</div>
+	<div layout:fragment="content" class="container my-3">
+  <div class="text-center"> 
 	<div class="row my-3">
+	<h2>의류정보공유</h2>
 		<div class="col-6">
-			<a th:href="@{/sharing/sharingform}" class="btn btn-primary">정보공유하기</a>
+			<a th:href="@{/sharing/sharingform}" class="btn btn-primary">글 작성</a>
 		</div>
 		<div class="col-5">
 			<div class="input-group">
@@ -14,6 +13,7 @@
 					검색하기
 				</button>
 			</div>
+			
 		</div>
 	</div>
 	
@@ -22,19 +22,26 @@
             <tr class="text-center">
                 <th>번호</th>
                 <th style="width:50%">제목</th>
-                <th>글쓴이</th>
-                <th>작성일시</th>
+                <th>작성자</th>
+                <th>등록일시</th>
+                <th>조회수</th>
             </tr>
         </thead>
+        
         <tbody class="list">
             <tr th:each="question, loop : ${paging}">
+
                	<td th:text="${paging.getTotalElements -(paging.number * paging.size) - loop.index}"></td>
                 <td>
-                    <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}"></a>
+                    <a th:href="@{|/sharing/informationdetail/${question.id}|}" th:text="${question.subject}" class="views"></a>
                 </td>
                 <td><span th:if="${question.author !=null}" th:text="${question.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td href="javascript:void(0);" th:text="${#lists.size(question.view)}" 
+                	th:data-uri="@{|/sharing/informationdetail/${question.id}|}">
+                
+                </td>       
             </tr>
         </tbody>
     </table>
@@ -65,19 +72,30 @@
     </form>
     
     <script layout:fragment="script" type='text/javascript'>
-const page_elements = document.getElementsByClassName("page-link");
-Array.from(page_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        document.getElementById('page').value = this.dataset.page;
-        document.getElementById('searchForm').submit();
-    });
-});
-const btn_search = document.getElementById("btn_search");
-btn_search.addEventListener('click', function() {
-    document.getElementById('kw').value = document.getElementById('search_kw').value;
-    document.getElementById('page').value = 0; 
-    document.getElementById('searchForm').submit();
-});
-</script>    
+
+	const page_elements = document.getElementsByClassName("page-link");
+	Array.from(page_elements).forEach(function(element) {
+    	element.addEventListener('click', function() {
+        	document.getElementById('page').value = this.dataset.page;
+        	document.getElementById('searchForm').submit();
+    	});
+	});
+	
+	<!-- 검색 시작 -->
+	const btn_search = document.getElementById("btn_search");
+	btn_search.addEventListener('click', function() {
+   	 document.getElementById('kw').value = document.getElementById('search_kw').value;
+   	 document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+  	 document.getElementById('searchForm').submit();
+	});
+	<!-- 검색 끝 -->
+	const views_elements = document.getElementsByClassName("views");
+	Array.from(views_elements).forEach(function(element) {
+	    element.addEventListener('click', function() {
+	            location.href = this.dataset.uri;
+	        };
+	    });
+	});
+</script>
 </div>
 </html>

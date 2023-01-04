@@ -72,6 +72,13 @@ Array.from(page_elements).forEach(function(element) {
         document.getElementById('searchForm').submit();
     });
 });
+const page_secret = document.getElementsByClassName("page-secret");
+Array.from(page_secret).forEach(function(element) {
+    element.addEventListener('click', function() {   
+       document.getElementById('page').value = this.dataset.page;
+       alert('권한이 없습니다');
+    });
+});
 const btn_search = document.getElementById("btn_search");
 btn_search.addEventListener('click', function() {
     document.getElementById('kw').value = document.getElementById('search_kw').value;
