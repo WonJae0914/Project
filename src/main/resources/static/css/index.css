@@ -116,6 +116,14 @@ body{
 .drop_menu>li:hover {
     color: #B388FF;
 }
+.drop_menu>li>a{
+	color: #333333;
+	transition: 0.5s;
+}
+.drop_menu>li>a:hover {
+    color: #B388FF;
+    text-decoration: none;
+}
 .navbar_Icons {
     width: 15%;
     height: 100%;
