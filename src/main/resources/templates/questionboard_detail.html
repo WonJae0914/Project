@@ -17,11 +17,6 @@
                 </div>
             </div>
             <div class="my-3">
-            	<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" 
-            	th:data-uri="@{|/questionboard/voter/${question.id}|}">
-            	추천
-            	<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
-            	</a>
             	<a th:href="@{|/questionboard/modify/${question.id}|}" 
             	class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" 
             	th:if="${question.author !=null and #authentication.getPrincipal().getUsername() == question.author.username}"
@@ -62,6 +57,11 @@
 	            	추천
 	            	<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
 	            	</a>
+	            	<a href="javascript:void(0);" class="Deprecated btn btn-sm btn-outline-danger" 
+	            	th:data-uri="@{|/questionboard/answer/unvoter/${answer.id}|}">
+	            	비추천
+	            	<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.unvoter)}"></span>
+	            	</a>
             		<a th:href="@{|/questionboard/answer/modify/${answer.id}|}" 
             		class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" 
             		th:if="${answer.author !=null and #authentication.getPrincipal().getUsername() == answer.author.username}"
@@ -99,6 +99,15 @@ const recommend_elements = document.getElementsByClassName("recommend");
 Array.from(recommend_elements).forEach(function(element) {
     element.addEventListener('click', function() {
         if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+const Deprecated_elements = document.getElementsByClassName("Deprecated");
+Array.from(Deprecated_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 비추천하시겠습니까?")) {
             location.href = this.dataset.uri;
         };
     });
